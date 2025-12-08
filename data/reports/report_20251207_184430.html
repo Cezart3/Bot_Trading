@@ -1,0 +1,302 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Backtest Report - ORB Strategy</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        h1 { color: #333; border-bottom: 2px solid #007bff; padding-bottom: 10px; }
+        h2 { color: #555; margin-top: 30px; }
+        .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0; }
+        .metric { background: #f8f9fa; padding: 15px; border-radius: 5px; text-align: center; }
+        .metric-value { font-size: 24px; font-weight: bold; color: #007bff; }
+        .metric-label { font-size: 12px; color: #666; margin-top: 5px; }
+        .positive { color: #28a745 !important; }
+        .negative { color: #dc3545 !important; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { padding: 10px; border: 1px solid #ddd; text-align: left; }
+        th { background: #f8f9fa; }
+        tr:nth-child(even) { background: #f8f9fa; }
+        .footer { margin-top: 30px; text-align: center; color: #666; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ORB Strategy Backtest Report</h1>
+        <p>Generated: 2025-12-07 18:44:30</p>
+
+        <h2>Performance Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <div class="metric-value">$14,257.25</div>
+                <div class="metric-label">Final Balance</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value positive">$+4,341.25</div>
+                <div class="metric-label">Net Profit/Loss</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">21</div>
+                <div class="metric-label">Total Trades</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">42.9%</div>
+                <div class="metric-label">Win Rate</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">1.59</div>
+                <div class="metric-label">Profit Factor</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value negative">32.6%</div>
+                <div class="metric-label">Max Drawdown</div>
+            </div>
+        </div>
+
+        <h2>Detailed Statistics</h2>
+        <table>
+            <tr><th>Metric</th><th>Value</th></tr>
+            <tr><td>Initial Balance</td><td>$10,000.00</td></tr>
+            <tr><td>Final Balance</td><td>$14,257.25</td></tr>
+            <tr><td>Return</td><td>+42.57%</td></tr>
+            <tr><td>Winning Trades</td><td>9</td></tr>
+            <tr><td>Losing Trades</td><td>12</td></tr>
+            <tr><td>Average Win</td><td>$1,303.58</td></tr>
+            <tr><td>Average Loss</td><td>$615.92</td></tr>
+            <tr><td>Average R-Multiple</td><td>8.91R</td></tr>
+            <tr><td>Total Commission</td><td>$84.00</td></tr>
+            <tr><td>Max Drawdown</td><td>$5,344.00</td></tr>
+            <tr><td>Sharpe Ratio</td><td>0.46</td></tr>
+        </table>
+
+        <h2>Trade History</h2>
+        <table>
+            <tr>
+                <th>#</th>
+                <th>Date</th>
+                <th>Side</th>
+                <th>Entry</th>
+                <th>Exit</th>
+                <th>PnL</th>
+                <th>Exit Reason</th>
+            </tr>
+
+            <tr>
+                <td>1</td>
+                <td>2025-11-07 09:35</td>
+                <td>LONG</td>
+                <td>5012.74</td>
+                <td>5001.38</td>
+                <td class="negative">$-568.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>2</td>
+                <td>2025-11-10 10:40</td>
+                <td>SHORT</td>
+                <td>4986.28</td>
+                <td>4952.90</td>
+                <td class="positive">$+1,669.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>3</td>
+                <td>2025-11-11 09:40</td>
+                <td>SHORT</td>
+                <td>4973.23</td>
+                <td>4985.27</td>
+                <td class="negative">$-602.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>4</td>
+                <td>2025-11-12 09:45</td>
+                <td>LONG</td>
+                <td>5017.94</td>
+                <td>5043.95</td>
+                <td class="positive">$+1,300.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>5</td>
+                <td>2025-11-13 09:35</td>
+                <td>SHORT</td>
+                <td>5033.94</td>
+                <td>5017.73</td>
+                <td class="positive">$+810.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>6</td>
+                <td>2025-11-14 09:40</td>
+                <td>SHORT</td>
+                <td>4999.26</td>
+                <td>4943.21</td>
+                <td class="positive">$+2,802.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>7</td>
+                <td>2025-11-17 09:35</td>
+                <td>SHORT</td>
+                <td>4930.90</td>
+                <td>4943.01</td>
+                <td class="negative">$-605.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>8</td>
+                <td>2025-11-18 10:00</td>
+                <td>SHORT</td>
+                <td>4914.99</td>
+                <td>4886.32</td>
+                <td class="positive">$+1,433.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>9</td>
+                <td>2025-11-19 09:35</td>
+                <td>LONG</td>
+                <td>4889.69</td>
+                <td>4872.70</td>
+                <td class="negative">$-849.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>10</td>
+                <td>2025-11-20 09:45</td>
+                <td>SHORT</td>
+                <td>4910.64</td>
+                <td>4919.06</td>
+                <td class="negative">$-421.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>11</td>
+                <td>2025-11-21 09:45</td>
+                <td>SHORT</td>
+                <td>4875.94</td>
+                <td>4888.26</td>
+                <td class="negative">$-615.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>12</td>
+                <td>2025-11-24 09:35</td>
+                <td>LONG</td>
+                <td>4933.64</td>
+                <td>4914.69</td>
+                <td class="negative">$-947.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>13</td>
+                <td>2025-11-25 09:35</td>
+                <td>SHORT</td>
+                <td>4875.51</td>
+                <td>4881.60</td>
+                <td class="negative">$-305.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>14</td>
+                <td>2025-11-26 09:40</td>
+                <td>SHORT</td>
+                <td>4876.98</td>
+                <td>4890.81</td>
+                <td class="negative">$-691.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>15</td>
+                <td>2025-11-27 10:50</td>
+                <td>LONG</td>
+                <td>4902.93</td>
+                <td>4885.07</td>
+                <td class="negative">$-892.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>16</td>
+                <td>2025-11-28 09:40</td>
+                <td>LONG</td>
+                <td>4902.19</td>
+                <td>4926.78</td>
+                <td class="positive">$+1,229.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>17</td>
+                <td>2025-12-01 09:35</td>
+                <td>LONG</td>
+                <td>4942.97</td>
+                <td>4956.08</td>
+                <td class="positive">$+655.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>18</td>
+                <td>2025-12-02 09:40</td>
+                <td>SHORT</td>
+                <td>4863.62</td>
+                <td>4859.68</td>
+                <td class="positive">$+197.25</td>
+                <td>session_end</td>
+            </tr>
+
+            <tr>
+                <td>19</td>
+                <td>2025-12-03 09:35</td>
+                <td>SHORT</td>
+                <td>4851.23</td>
+                <td>4859.94</td>
+                <td class="negative">$-435.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>20</td>
+                <td>2025-12-04 09:35</td>
+                <td>LONG</td>
+                <td>4875.44</td>
+                <td>4866.27</td>
+                <td class="negative">$-458.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>21</td>
+                <td>2025-12-05 09:40</td>
+                <td>LONG</td>
+                <td>4811.84</td>
+                <td>4844.51</td>
+                <td class="positive">$+1,633.50</td>
+                <td>tp</td>
+            </tr>
+
+        </table>
+
+        <div class="footer">
+            <p>ORB Trading Bot - Backtest Report</p>
+        </div>
+    </div>
+</body>
+</html>

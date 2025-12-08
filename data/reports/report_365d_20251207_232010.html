@@ -1,0 +1,654 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Backtest Report - ORB + VWAP Strategy (365 Days)</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+        .container { max-width: 1400px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        h1 { color: #333; border-bottom: 2px solid #007bff; padding-bottom: 10px; }
+        h2 { color: #555; margin-top: 30px; }
+        .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin: 20px 0; }
+        .metric { background: #f8f9fa; padding: 15px; border-radius: 5px; text-align: center; }
+        .metric-value { font-size: 24px; font-weight: bold; color: #007bff; }
+        .metric-label { font-size: 12px; color: #666; margin-top: 5px; }
+        .positive { color: #28a745 !important; }
+        .negative { color: #dc3545 !important; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14px; }
+        th, td { padding: 10px; border: 1px solid #ddd; text-align: left; }
+        th { background: #343a40; color: white; }
+        tr:nth-child(even) { background: #f8f9fa; }
+        tr:hover { background: #e9ecef; }
+        .monthly-table th { background: #17a2b8; }
+        .summary-row { background: #343a40 !important; color: white; font-weight: bold; }
+        .footer { margin-top: 30px; text-align: center; color: #666; font-size: 12px; }
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .chart-placeholder { background: #f0f0f0; height: 300px; display: flex; align-items: center; justify-content: center; border-radius: 8px; margin: 20px 0; }
+        .highlight { background: #fff3cd; }
+        .nav { background: #343a40; padding: 10px; border-radius: 5px; margin-bottom: 20px; }
+        .nav a { color: white; margin-right: 20px; text-decoration: none; }
+        .nav a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <a href="#summary">Summary</a>
+            <a href="#monthly">Monthly Breakdown</a>
+            <a href="#detailed">Detailed Stats</a>
+            <a href="#trades">Trade History</a>
+        </div>
+
+        <h1>ORB + VWAP Strategy - 365 Day Backtest Report</h1>
+        <p>Generated: 2025-12-07 23:20:10</p>
+        <p>Period: 2025-10 to 2025-12</p>
+
+        <h2 id="summary">Performance Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <div class="metric-value">$10,000</div>
+                <div class="metric-label">Initial Balance</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">$10,525</div>
+                <div class="metric-label">Final Balance</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value positive">$+607</div>
+                <div class="metric-label">Net Profit/Loss</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value positive">+5.2%</div>
+                <div class="metric-label">Total Return</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">41</div>
+                <div class="metric-label">Total Trades</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">36.6%</div>
+                <div class="metric-label">Win Rate</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">1.24</div>
+                <div class="metric-label">Profit Factor</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value negative">5.6%</div>
+                <div class="metric-label">Max Drawdown</div>
+            </div>
+        </div>
+
+        <h2 id="monthly">Monthly Performance Breakdown</h2>
+        <div class="metrics">
+            <div class="metric">
+                <div class="metric-value">3</div>
+                <div class="metric-label">Months Analyzed</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value positive">2</div>
+                <div class="metric-label">Profitable Months</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">67%</div>
+                <div class="metric-label">Monthly Win Rate</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">2.06%</div>
+                <div class="metric-label">Avg Monthly Return</div>
+            </div>
+        </div>
+
+        <table class="monthly-table">
+            <tr>
+                <th>Month</th>
+                <th>Trades</th>
+                <th>Wins</th>
+                <th>Win Rate</th>
+                <th>P&L</th>
+                <th>Return</th>
+                <th>Max DD</th>
+                <th>Profit Factor</th>
+                <th>Avg Win</th>
+                <th>Avg Loss</th>
+                <th>Best Trade</th>
+                <th>Worst Trade</th>
+            </tr>
+
+            <tr>
+                <td><strong>2025-10</strong></td>
+                <td>17</td>
+                <td>6</td>
+                <td>35.3%</td>
+                <td class="positive">$+60</td>
+                <td class="positive">+0.60%</td>
+                <td class="negative">2.8%</td>
+                <td>1.06</td>
+                <td>$189</td>
+                <td>$98</td>
+                <td class="positive">$+203</td>
+                <td class="negative">$-106</td>
+            </tr>
+
+            <tr>
+                <td><strong>2025-11</strong></td>
+                <td>19</td>
+                <td>8</td>
+                <td>42.1%</td>
+                <td class="positive">$+754</td>
+                <td class="positive">+7.49%</td>
+                <td class="negative">3.0%</td>
+                <td>1.78</td>
+                <td>$215</td>
+                <td>$88</td>
+                <td class="positive">$+234</td>
+                <td class="negative">$-117</td>
+            </tr>
+
+            <tr>
+                <td><strong>2025-12</strong></td>
+                <td>5</td>
+                <td>1</td>
+                <td>20.0%</td>
+                <td class="negative">$-207</td>
+                <td class="negative">-1.92%</td>
+                <td class="negative">4.0%</td>
+                <td>0.53</td>
+                <td>$230</td>
+                <td>$109</td>
+                <td class="positive">$+230</td>
+                <td class="negative">$-111</td>
+            </tr>
+
+            <tr class="summary-row">
+                <td><strong>TOTAL</strong></td>
+                <td>41</td>
+                <td>15</td>
+                <td>36.6%</td>
+                <td>$+607</td>
+                <td>+5.25%</td>
+                <td>5.6%</td>
+                <td>1.24</td>
+                <td>$206</td>
+                <td>$95</td>
+                <td>$+234</td>
+                <td>$-117</td>
+            </tr>
+        </table>
+
+        <h2 id="detailed">Detailed Statistics</h2>
+        <div class="stats-grid">
+            <table>
+                <tr><th colspan="2">Performance Metrics</th></tr>
+                <tr><td>Initial Balance</td><td>$10,000.00</td></tr>
+                <tr><td>Final Balance</td><td>$10,524.62</td></tr>
+                <tr><td>Net Profit/Loss</td><td class="positive">$+606.62</td></tr>
+                <tr><td>Total Return</td><td class="positive">+5.25%</td></tr>
+                <tr><td>Total Commission</td><td>$82.00</td></tr>
+                <tr><td>Sharpe Ratio</td><td>0.16</td></tr>
+            </table>
+            <table>
+                <tr><th colspan="2">Trade Statistics</th></tr>
+                <tr><td>Total Trades</td><td>41</td></tr>
+                <tr><td>Winning Trades</td><td class="positive">15</td></tr>
+                <tr><td>Losing Trades</td><td class="negative">26</td></tr>
+                <tr><td>Win Rate</td><td>36.6%</td></tr>
+                <tr><td>Average Win</td><td class="positive">$205.75</td></tr>
+                <tr><td>Average Loss</td><td class="negative">$95.37</td></tr>
+                <tr><td>Profit Factor</td><td>1.24</td></tr>
+                <tr><td>Average R-Multiple</td><td>13.72R</td></tr>
+            </table>
+        </div>
+
+        <h2>Risk Metrics</h2>
+        <div class="metrics">
+            <div class="metric">
+                <div class="metric-value negative">$618</div>
+                <div class="metric-label">Max Drawdown ($)</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value negative">5.6%</div>
+                <div class="metric-label">Max Drawdown (%)</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">0.16</div>
+                <div class="metric-label">Sharpe Ratio</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">1.24</div>
+                <div class="metric-label">Profit Factor</div>
+            </div>
+        </div>
+
+        <h2 id="trades">Trade History (Last 50)</h2>
+        <table>
+            <tr>
+                <th>#</th>
+                <th>Date</th>
+                <th>Side</th>
+                <th>Entry</th>
+                <th>Exit</th>
+                <th>P&L</th>
+                <th>Exit Reason</th>
+            </tr>
+
+            <tr>
+                <td>1</td>
+                <td>2025-10-09 09:35</td>
+                <td>SHORT</td>
+                <td>234.57</td>
+                <td>236.85</td>
+                <td class="negative">$-91.01</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>2</td>
+                <td>2025-10-10 09:35</td>
+                <td>SHORT</td>
+                <td>231.40</td>
+                <td>227.58</td>
+                <td class="positive">$+191.48</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>3</td>
+                <td>2025-10-13 09:45</td>
+                <td>LONG</td>
+                <td>222.52</td>
+                <td>221.17</td>
+                <td class="negative">$-94.41</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>4</td>
+                <td>2025-10-14 10:40</td>
+                <td>LONG</td>
+                <td>221.48</td>
+                <td>220.68</td>
+                <td class="negative">$-96.02</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>5</td>
+                <td>2025-10-15 09:50</td>
+                <td>LONG</td>
+                <td>230.07</td>
+                <td>238.93</td>
+                <td class="positive">$+177.19</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>6</td>
+                <td>2025-10-16 09:45</td>
+                <td>SHORT</td>
+                <td>235.25</td>
+                <td>237.51</td>
+                <td class="negative">$-90.41</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>7</td>
+                <td>2025-10-17 09:35</td>
+                <td>SHORT</td>
+                <td>231.49</td>
+                <td>233.83</td>
+                <td class="negative">$-93.61</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>8</td>
+                <td>2025-10-20 09:40</td>
+                <td>SHORT</td>
+                <td>235.06</td>
+                <td>237.91</td>
+                <td class="negative">$-85.51</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>9</td>
+                <td>2025-10-21 09:45</td>
+                <td>SHORT</td>
+                <td>238.52</td>
+                <td>235.90</td>
+                <td class="positive">$+183.53</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>10</td>
+                <td>2025-10-22 09:40</td>
+                <td>LONG</td>
+                <td>237.95</td>
+                <td>236.22</td>
+                <td class="negative">$-103.66</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>11</td>
+                <td>2025-10-23 09:35</td>
+                <td>LONG</td>
+                <td>231.01</td>
+                <td>235.78</td>
+                <td class="positive">$+190.80</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>12</td>
+                <td>2025-10-24 09:35</td>
+                <td>LONG</td>
+                <td>249.65</td>
+                <td>248.33</td>
+                <td class="negative">$-105.62</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>13</td>
+                <td>2025-10-27 10:00</td>
+                <td>SHORT</td>
+                <td>253.96</td>
+                <td>251.85</td>
+                <td class="positive">$+189.88</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>14</td>
+                <td>2025-10-28 09:40</td>
+                <td>LONG</td>
+                <td>260.83</td>
+                <td>260.02</td>
+                <td class="negative">$-104.68</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>15</td>
+                <td>2025-10-29 10:35</td>
+                <td>SHORT</td>
+                <td>263.46</td>
+                <td>260.92</td>
+                <td class="positive">$+203.17</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>16</td>
+                <td>2025-10-30 09:35</td>
+                <td>SHORT</td>
+                <td>258.15</td>
+                <td>260.25</td>
+                <td class="negative">$-105.01</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>17</td>
+                <td>2025-10-31 09:50</td>
+                <td>LONG</td>
+                <td>260.39</td>
+                <td>258.62</td>
+                <td class="negative">$-105.91</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>18</td>
+                <td>2025-11-03 09:35</td>
+                <td>SHORT</td>
+                <td>256.81</td>
+                <td>258.41</td>
+                <td class="negative">$-96.01</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>19</td>
+                <td>2025-11-04 09:35</td>
+                <td>LONG</td>
+                <td>251.83</td>
+                <td>250.58</td>
+                <td class="negative">$-37.50</td>
+                <td>session_end</td>
+            </tr>
+
+            <tr>
+                <td>20</td>
+                <td>2025-11-05 09:50</td>
+                <td>LONG</td>
+                <td>251.82</td>
+                <td>249.51</td>
+                <td class="negative">$-92.21</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>21</td>
+                <td>2025-11-06 09:35</td>
+                <td>SHORT</td>
+                <td>250.23</td>
+                <td>246.33</td>
+                <td class="positive">$+194.99</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>22</td>
+                <td>2025-11-07 09:35</td>
+                <td>SHORT</td>
+                <td>228.44</td>
+                <td>230.58</td>
+                <td class="negative">$-106.94</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>23</td>
+                <td>2025-11-10 09:40</td>
+                <td>LONG</td>
+                <td>244.72</td>
+                <td>248.18</td>
+                <td class="positive">$+207.59</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>24</td>
+                <td>2025-11-11 10:10</td>
+                <td>SHORT</td>
+                <td>240.55</td>
+                <td>237.07</td>
+                <td class="positive">$+209.39</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>25</td>
+                <td>2025-11-12 09:45</td>
+                <td>SHORT</td>
+                <td>251.12</td>
+                <td>254.80</td>
+                <td class="negative">$-110.46</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>26</td>
+                <td>2025-11-13 09:40</td>
+                <td>SHORT</td>
+                <td>249.35</td>
+                <td>253.53</td>
+                <td class="negative">$-83.60</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>27</td>
+                <td>2025-11-14 09:45</td>
+                <td>LONG</td>
+                <td>243.83</td>
+                <td>251.31</td>
+                <td class="positive">$+224.69</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>28</td>
+                <td>2025-11-17 09:35</td>
+                <td>LONG</td>
+                <td>246.09</td>
+                <td>243.44</td>
+                <td class="negative">$-105.81</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>29</td>
+                <td>2025-11-18 09:40</td>
+                <td>SHORT</td>
+                <td>230.77</td>
+                <td>230.85</td>
+                <td class="negative">$-1.68</td>
+                <td>session_end</td>
+            </tr>
+
+            <tr>
+                <td>30</td>
+                <td>2025-11-19 09:50</td>
+                <td>LONG</td>
+                <td>230.73</td>
+                <td>235.19</td>
+                <td class="positive">$+222.99</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>31</td>
+                <td>2025-11-20 09:40</td>
+                <td>SHORT</td>
+                <td>230.32</td>
+                <td>226.66</td>
+                <td class="positive">$+220.19</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>32</td>
+                <td>2025-11-21 09:35</td>
+                <td>SHORT</td>
+                <td>203.17</td>
+                <td>197.32</td>
+                <td class="positive">$+234.39</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>33</td>
+                <td>2025-11-24 09:35</td>
+                <td>LONG</td>
+                <td>210.51</td>
+                <td>213.09</td>
+                <td class="positive">$+206.38</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>34</td>
+                <td>2025-11-25 09:45</td>
+                <td>SHORT</td>
+                <td>194.75</td>
+                <td>198.14</td>
+                <td class="negative">$-101.71</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>35</td>
+                <td>2025-11-26 09:35</td>
+                <td>SHORT</td>
+                <td>208.99</td>
+                <td>212.87</td>
+                <td class="negative">$-116.53</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>36</td>
+                <td>2025-11-28 09:45</td>
+                <td>LONG</td>
+                <td>217.73</td>
+                <td>215.44</td>
+                <td class="negative">$-114.26</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>37</td>
+                <td>2025-12-01 09:40</td>
+                <td>LONG</td>
+                <td>216.50</td>
+                <td>219.78</td>
+                <td class="positive">$+229.57</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>38</td>
+                <td>2025-12-02 09:35</td>
+                <td>LONG</td>
+                <td>224.31</td>
+                <td>223.22</td>
+                <td class="negative">$-109.01</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>39</td>
+                <td>2025-12-03 09:35</td>
+                <td>SHORT</td>
+                <td>212.13</td>
+                <td>214.88</td>
+                <td class="negative">$-109.61</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>40</td>
+                <td>2025-12-04 09:50</td>
+                <td>SHORT</td>
+                <td>215.36</td>
+                <td>216.70</td>
+                <td class="negative">$-107.45</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>41</td>
+                <td>2025-12-05 10:05</td>
+                <td>LONG</td>
+                <td>222.42</td>
+                <td>221.50</td>
+                <td class="negative">$-111.00</td>
+                <td>sl</td>
+            </tr>
+
+        </table>
+        <p><em>Showing last 50 of 41 trades. Full trade list available in CSV export.</em></p>
+
+        <div class="footer">
+            <p>ORB + VWAP Trading Bot - Prop Trading Backtest Report</p>
+            <p>Risk Parameters: 4% Daily DD | 10% Account DD | 1% Risk per Trade</p>
+        </div>
+    </div>
+</body>
+</html>
