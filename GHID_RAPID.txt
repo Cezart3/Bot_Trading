@@ -1,0 +1,105 @@
+================================================================================
+                    ORB TRADING BOT - GHID RAPID
+================================================================================
+
+CE FACE ACEST BOT?
+------------------
+- Tranzactioneaza automat actiuni AMD folosind strategia ORB (Opening Range Breakout)
+- Risc conservator: 0.5% per trade, max 2% pierdere zilnica
+- Functioneaza doar in timpul sesiunii NYSE (16:30 - 23:00 ora Romaniei)
+
+
+FISIERE IMPORTANTE:
+-------------------
+START_DEMO.bat      - Porneste botul pe cont DEMO (pentru testare)
+START_PAPER.bat     - Mod simulare (fara ordine reale)
+CHECK_READINESS.bat - Verifica daca esti pregatit pentru trading live
+VIEW_ANALYSIS.bat   - Arata de ce tranzactionam doar AMD
+RUN_BACKTEST.bat    - Ruleaza backtest pentru a vedea performanta istorica
+INSTALL.bat         - Instaleaza dependentele (ruleaza o singura data)
+
+
+CUM SA INCEPI:
+--------------
+1. Asigura-te ca ai Python instalat (https://www.python.org/downloads/)
+
+2. Ruleaza INSTALL.bat (o singura data, la inceput)
+
+3. Instaleaza MetaTrader 5 (https://www.metatrader5.com/)
+
+4. Creaza cont demo in MetaTrader 5:
+   - Deschide MetaTrader 5
+   - File > Open an Account
+   - Selecteaza "MetaQuotes-Demo"
+   - Creaza cont demo
+
+5. Editeaza fisierul .env cu datele tale:
+   - MT5_LOGIN=numarul_tau_de_cont
+   - MT5_PASSWORD=parola_ta
+   - MT5_SERVER=MetaQuotes-Demo
+
+6. IMPORTANT: Lasa MetaTrader 5 deschis si logat!
+
+7. Dublu-click pe START_DEMO.bat pentru a porni botul
+
+
+REGULI DE TRADING:
+------------------
+- Tranzactioneaza DOAR AMD (bazat pe backtesting)
+- Max 2 tranzactii pe zi
+- Max 0.5% risc per trade
+- Max 2% pierdere zilnica
+- Se opreste dupa 2 pierderi consecutive
+- Nu tranzactioneaza in zilele cu stiri importante
+- Nu tranzactioneaza dupa 15:30 (ora NY)
+
+
+PENTRU CONT LIVE (REAL):
+------------------------
+1. Testeaza minim 10 zile pe demo
+2. Fa minim 15 tranzactii
+3. Obtine win rate minim 35%
+4. Obtine profit factor minim 1.2
+5. Ruleaza CHECK_READINESS.bat pentru a verifica
+
+
+PROBLEME FRECVENTE:
+-------------------
+Q: "MetaTrader 5 is not running"
+A: Deschide MetaTrader 5 si logheaza-te inainte de a porni botul
+
+Q: "Authorization failed"
+A: Verifica login/parola in fisierul .env
+
+Q: "Symbol AMD not found"
+A: In MetaTrader 5, click dreapta pe Market Watch > Show All
+
+
+PERFORMANTA ISTORICA (Backtest 60 zile cu date reale):
+-------------------------------------------------------
+AMD (recomandat):
+  - Return: +13%
+  - Win Rate: 44.7%
+  - Profit Factor: 1.66
+  - Max Drawdown: 8.6%
+
+NVDA (exclus):
+  - Return: -9.7%
+  - Win Rate: 24.3%
+  - Profit Factor: 0.64 (pierde bani)
+
+TSLA (exclus):
+  - Return: +1.6%
+  - Profit Factor: 1.06 (marginal)
+
+Ruleaza RUN_BACKTEST.bat pentru a vedea rezultatele actualizate!
+
+
+CONTACT & SUPORT:
+-----------------
+Pentru probleme tehnice, contacteaza dezvoltatorul.
+
+
+================================================================================
+                         TRADING FERICIT!
+================================================================================

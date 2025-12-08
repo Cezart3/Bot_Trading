@@ -1,0 +1,2692 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Backtest Report - ORB Strategy</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        h1 { color: #333; border-bottom: 2px solid #007bff; padding-bottom: 10px; }
+        h2 { color: #555; margin-top: 30px; }
+        .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0; }
+        .metric { background: #f8f9fa; padding: 15px; border-radius: 5px; text-align: center; }
+        .metric-value { font-size: 24px; font-weight: bold; color: #007bff; }
+        .metric-label { font-size: 12px; color: #666; margin-top: 5px; }
+        .positive { color: #28a745 !important; }
+        .negative { color: #dc3545 !important; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { padding: 10px; border: 1px solid #ddd; text-align: left; }
+        th { background: #f8f9fa; }
+        tr:nth-child(even) { background: #f8f9fa; }
+        .footer { margin-top: 30px; text-align: center; color: #666; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ORB Strategy Backtest Report</h1>
+        <p>Generated: 2025-12-07 18:53:43</p>
+
+        <h2>Performance Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <div class="metric-value">$-2,248.75</div>
+                <div class="metric-label">Final Balance</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value negative">$-11,208.75</div>
+                <div class="metric-label">Net Profit/Loss</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">260</div>
+                <div class="metric-label">Total Trades</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">35.8%</div>
+                <div class="metric-label">Win Rate</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">0.90</div>
+                <div class="metric-label">Profit Factor</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value negative">171.1%</div>
+                <div class="metric-label">Max Drawdown</div>
+            </div>
+        </div>
+
+        <h2>Detailed Statistics</h2>
+        <table>
+            <tr><th>Metric</th><th>Value</th></tr>
+            <tr><td>Initial Balance</td><td>$10,000.00</td></tr>
+            <tr><td>Final Balance</td><td>$-2,248.75</td></tr>
+            <tr><td>Return</td><td>-122.49%</td></tr>
+            <tr><td>Winning Trades</td><td>93</td></tr>
+            <tr><td>Losing Trades</td><td>167</td></tr>
+            <tr><td>Average Win</td><td>$1,037.70</td></tr>
+            <tr><td>Average Loss</td><td>$645.00</td></tr>
+            <tr><td>Average R-Multiple</td><td>-2.17R</td></tr>
+            <tr><td>Total Commission</td><td>$1,040.00</td></tr>
+            <tr><td>Max Drawdown</td><td>$28,005.25</td></tr>
+            <tr><td>Sharpe Ratio</td><td>0.08</td></tr>
+        </table>
+
+        <h2>Trade History</h2>
+        <table>
+            <tr>
+                <th>#</th>
+                <th>Date</th>
+                <th>Side</th>
+                <th>Entry</th>
+                <th>Exit</th>
+                <th>PnL</th>
+                <th>Exit Reason</th>
+            </tr>
+
+            <tr>
+                <td>1</td>
+                <td>2024-12-09 09:35</td>
+                <td>LONG</td>
+                <td>5012.74</td>
+                <td>5001.38</td>
+                <td class="negative">$-568.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>2</td>
+                <td>2024-12-10 10:40</td>
+                <td>SHORT</td>
+                <td>4986.28</td>
+                <td>4952.90</td>
+                <td class="positive">$+1,669.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>3</td>
+                <td>2024-12-11 09:40</td>
+                <td>SHORT</td>
+                <td>4973.23</td>
+                <td>4985.27</td>
+                <td class="negative">$-602.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>4</td>
+                <td>2024-12-12 09:45</td>
+                <td>LONG</td>
+                <td>5017.94</td>
+                <td>5043.95</td>
+                <td class="positive">$+1,300.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>5</td>
+                <td>2024-12-13 09:35</td>
+                <td>SHORT</td>
+                <td>5033.94</td>
+                <td>5017.73</td>
+                <td class="positive">$+810.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>6</td>
+                <td>2024-12-16 09:40</td>
+                <td>SHORT</td>
+                <td>4999.26</td>
+                <td>4943.21</td>
+                <td class="positive">$+2,802.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>7</td>
+                <td>2024-12-17 09:35</td>
+                <td>SHORT</td>
+                <td>4930.90</td>
+                <td>4943.01</td>
+                <td class="negative">$-605.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>8</td>
+                <td>2024-12-18 10:00</td>
+                <td>SHORT</td>
+                <td>4914.99</td>
+                <td>4886.32</td>
+                <td class="positive">$+1,433.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>9</td>
+                <td>2024-12-19 09:35</td>
+                <td>LONG</td>
+                <td>4889.69</td>
+                <td>4872.70</td>
+                <td class="negative">$-849.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>10</td>
+                <td>2024-12-20 09:45</td>
+                <td>SHORT</td>
+                <td>4910.64</td>
+                <td>4919.06</td>
+                <td class="negative">$-421.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>11</td>
+                <td>2024-12-23 09:45</td>
+                <td>SHORT</td>
+                <td>4875.94</td>
+                <td>4888.26</td>
+                <td class="negative">$-615.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>12</td>
+                <td>2024-12-24 09:35</td>
+                <td>LONG</td>
+                <td>4933.64</td>
+                <td>4914.69</td>
+                <td class="negative">$-947.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>13</td>
+                <td>2024-12-25 09:35</td>
+                <td>SHORT</td>
+                <td>4875.51</td>
+                <td>4881.60</td>
+                <td class="negative">$-305.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>14</td>
+                <td>2024-12-26 09:40</td>
+                <td>SHORT</td>
+                <td>4876.98</td>
+                <td>4890.81</td>
+                <td class="negative">$-691.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>15</td>
+                <td>2024-12-27 10:50</td>
+                <td>LONG</td>
+                <td>4902.93</td>
+                <td>4885.07</td>
+                <td class="negative">$-892.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>16</td>
+                <td>2024-12-30 09:40</td>
+                <td>LONG</td>
+                <td>4902.19</td>
+                <td>4926.78</td>
+                <td class="positive">$+1,229.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>17</td>
+                <td>2024-12-31 09:35</td>
+                <td>LONG</td>
+                <td>4942.97</td>
+                <td>4956.08</td>
+                <td class="positive">$+655.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>18</td>
+                <td>2025-01-01 09:40</td>
+                <td>SHORT</td>
+                <td>4863.62</td>
+                <td>4859.68</td>
+                <td class="positive">$+197.25</td>
+                <td>session_end</td>
+            </tr>
+
+            <tr>
+                <td>19</td>
+                <td>2025-01-02 09:35</td>
+                <td>SHORT</td>
+                <td>4851.23</td>
+                <td>4859.94</td>
+                <td class="negative">$-435.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>20</td>
+                <td>2025-01-03 09:35</td>
+                <td>LONG</td>
+                <td>4875.44</td>
+                <td>4866.27</td>
+                <td class="negative">$-458.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>21</td>
+                <td>2025-01-06 09:40</td>
+                <td>LONG</td>
+                <td>4811.84</td>
+                <td>4844.51</td>
+                <td class="positive">$+1,633.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>22</td>
+                <td>2025-01-07 09:40</td>
+                <td>SHORT</td>
+                <td>4816.80</td>
+                <td>4832.31</td>
+                <td class="negative">$-776.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>23</td>
+                <td>2025-01-08 09:40</td>
+                <td>LONG</td>
+                <td>4806.64</td>
+                <td>4790.69</td>
+                <td class="negative">$-797.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>24</td>
+                <td>2025-01-09 11:05</td>
+                <td>LONG</td>
+                <td>4814.82</td>
+                <td>4829.08</td>
+                <td class="positive">$+712.75</td>
+                <td>session_end</td>
+            </tr>
+
+            <tr>
+                <td>25</td>
+                <td>2025-01-10 09:50</td>
+                <td>LONG</td>
+                <td>4831.19</td>
+                <td>4820.28</td>
+                <td class="negative">$-545.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>26</td>
+                <td>2025-01-13 10:00</td>
+                <td>SHORT</td>
+                <td>4786.44</td>
+                <td>4783.69</td>
+                <td class="positive">$+137.75</td>
+                <td>session_end</td>
+            </tr>
+
+            <tr>
+                <td>27</td>
+                <td>2025-01-14 09:40</td>
+                <td>SHORT</td>
+                <td>4773.55</td>
+                <td>4789.56</td>
+                <td class="negative">$-801.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>28</td>
+                <td>2025-01-15 09:40</td>
+                <td>SHORT</td>
+                <td>4799.27</td>
+                <td>4811.98</td>
+                <td class="negative">$-635.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>29</td>
+                <td>2025-01-16 09:35</td>
+                <td>LONG</td>
+                <td>4815.35</td>
+                <td>4842.12</td>
+                <td class="positive">$+1,338.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>30</td>
+                <td>2025-01-17 09:40</td>
+                <td>SHORT</td>
+                <td>4784.44</td>
+                <td>4760.59</td>
+                <td class="positive">$+1,192.25</td>
+                <td>session_end</td>
+            </tr>
+
+            <tr>
+                <td>31</td>
+                <td>2025-01-20 09:50</td>
+                <td>SHORT</td>
+                <td>4747.11</td>
+                <td>4757.62</td>
+                <td class="negative">$-525.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>32</td>
+                <td>2025-01-21 09:35</td>
+                <td>SHORT</td>
+                <td>4747.93</td>
+                <td>4725.91</td>
+                <td class="positive">$+1,100.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>33</td>
+                <td>2025-01-22 09:45</td>
+                <td>LONG</td>
+                <td>4730.05</td>
+                <td>4715.90</td>
+                <td class="negative">$-707.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>34</td>
+                <td>2025-01-23 10:05</td>
+                <td>LONG</td>
+                <td>4724.36</td>
+                <td>4709.47</td>
+                <td class="negative">$-745.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>35</td>
+                <td>2025-01-24 09:55</td>
+                <td>LONG</td>
+                <td>4709.19</td>
+                <td>4698.93</td>
+                <td class="negative">$-513.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>36</td>
+                <td>2025-01-27 09:40</td>
+                <td>SHORT</td>
+                <td>4736.02</td>
+                <td>4751.09</td>
+                <td class="negative">$-753.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>37</td>
+                <td>2025-01-28 09:40</td>
+                <td>LONG</td>
+                <td>4788.23</td>
+                <td>4774.51</td>
+                <td class="negative">$-686.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>38</td>
+                <td>2025-01-29 09:40</td>
+                <td>SHORT</td>
+                <td>4809.66</td>
+                <td>4824.40</td>
+                <td class="negative">$-736.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>39</td>
+                <td>2025-01-30 09:35</td>
+                <td>SHORT</td>
+                <td>4806.72</td>
+                <td>4776.91</td>
+                <td class="positive">$+1,490.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>40</td>
+                <td>2025-01-31 09:40</td>
+                <td>SHORT</td>
+                <td>4764.52</td>
+                <td>4750.37</td>
+                <td class="positive">$+707.25</td>
+                <td>session_end</td>
+            </tr>
+
+            <tr>
+                <td>41</td>
+                <td>2025-02-03 09:40</td>
+                <td>SHORT</td>
+                <td>4741.27</td>
+                <td>4750.89</td>
+                <td class="negative">$-480.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>42</td>
+                <td>2025-02-04 09:35</td>
+                <td>LONG</td>
+                <td>4817.78</td>
+                <td>4799.10</td>
+                <td class="negative">$-934.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>43</td>
+                <td>2025-02-05 09:45</td>
+                <td>LONG</td>
+                <td>4833.02</td>
+                <td>4827.30</td>
+                <td class="negative">$-286.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>44</td>
+                <td>2025-02-06 09:40</td>
+                <td>LONG</td>
+                <td>4856.65</td>
+                <td>4882.18</td>
+                <td class="positive">$+1,276.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>45</td>
+                <td>2025-02-07 09:40</td>
+                <td>LONG</td>
+                <td>4895.41</td>
+                <td>4904.48</td>
+                <td class="positive">$+453.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>46</td>
+                <td>2025-02-10 09:50</td>
+                <td>SHORT</td>
+                <td>4879.12</td>
+                <td>4900.19</td>
+                <td class="negative">$-1,053.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>47</td>
+                <td>2025-02-11 09:40</td>
+                <td>LONG</td>
+                <td>4921.36</td>
+                <td>4910.77</td>
+                <td class="negative">$-530.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>48</td>
+                <td>2025-02-12 09:40</td>
+                <td>SHORT</td>
+                <td>4914.53</td>
+                <td>4883.84</td>
+                <td class="positive">$+1,534.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>49</td>
+                <td>2025-02-13 10:20</td>
+                <td>LONG</td>
+                <td>4888.85</td>
+                <td>4920.36</td>
+                <td class="positive">$+1,575.25</td>
+                <td>session_end</td>
+            </tr>
+
+            <tr>
+                <td>50</td>
+                <td>2025-02-14 09:40</td>
+                <td>LONG</td>
+                <td>4918.52</td>
+                <td>4910.78</td>
+                <td class="negative">$-386.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>51</td>
+                <td>2025-02-17 09:35</td>
+                <td>SHORT</td>
+                <td>4959.94</td>
+                <td>4964.36</td>
+                <td class="negative">$-221.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>52</td>
+                <td>2025-02-18 09:35</td>
+                <td>SHORT</td>
+                <td>4918.70</td>
+                <td>4928.78</td>
+                <td class="negative">$-504.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>53</td>
+                <td>2025-02-19 09:40</td>
+                <td>LONG</td>
+                <td>5013.35</td>
+                <td>4993.64</td>
+                <td class="negative">$-986.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>54</td>
+                <td>2025-02-20 09:45</td>
+                <td>SHORT</td>
+                <td>4977.76</td>
+                <td>4991.90</td>
+                <td class="negative">$-707.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>55</td>
+                <td>2025-02-21 09:55</td>
+                <td>LONG</td>
+                <td>5052.02</td>
+                <td>5037.94</td>
+                <td class="negative">$-704.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>56</td>
+                <td>2025-02-24 09:55</td>
+                <td>SHORT</td>
+                <td>5008.32</td>
+                <td>5022.82</td>
+                <td class="negative">$-725.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>57</td>
+                <td>2025-02-25 09:55</td>
+                <td>LONG</td>
+                <td>5052.31</td>
+                <td>5033.48</td>
+                <td class="negative">$-941.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>58</td>
+                <td>2025-02-26 09:40</td>
+                <td>SHORT</td>
+                <td>5056.18</td>
+                <td>5069.81</td>
+                <td class="negative">$-682.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>59</td>
+                <td>2025-02-27 09:45</td>
+                <td>LONG</td>
+                <td>5038.48</td>
+                <td>5020.39</td>
+                <td class="negative">$-905.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>60</td>
+                <td>2025-02-28 09:40</td>
+                <td>SHORT</td>
+                <td>5012.49</td>
+                <td>5034.12</td>
+                <td class="negative">$-1,081.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>61</td>
+                <td>2025-03-03 09:55</td>
+                <td>SHORT</td>
+                <td>5033.80</td>
+                <td>5015.93</td>
+                <td class="positive">$+893.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>62</td>
+                <td>2025-03-04 09:35</td>
+                <td>LONG</td>
+                <td>5070.77</td>
+                <td>5082.62</td>
+                <td class="positive">$+592.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>63</td>
+                <td>2025-03-05 09:40</td>
+                <td>LONG</td>
+                <td>5046.01</td>
+                <td>5026.36</td>
+                <td class="negative">$-982.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>64</td>
+                <td>2025-03-06 09:45</td>
+                <td>SHORT</td>
+                <td>5025.43</td>
+                <td>5037.90</td>
+                <td class="negative">$-623.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>65</td>
+                <td>2025-03-07 10:10</td>
+                <td>SHORT</td>
+                <td>5041.07</td>
+                <td>5074.27</td>
+                <td class="negative">$-1,659.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>66</td>
+                <td>2025-03-10 09:45</td>
+                <td>SHORT</td>
+                <td>5064.02</td>
+                <td>5042.25</td>
+                <td class="positive">$+1,088.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>67</td>
+                <td>2025-03-11 09:40</td>
+                <td>SHORT</td>
+                <td>5079.26</td>
+                <td>5068.59</td>
+                <td class="positive">$+533.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>68</td>
+                <td>2025-03-12 09:40</td>
+                <td>LONG</td>
+                <td>5086.19</td>
+                <td>5073.60</td>
+                <td class="negative">$-629.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>69</td>
+                <td>2025-03-13 09:45</td>
+                <td>LONG</td>
+                <td>5077.40</td>
+                <td>5059.19</td>
+                <td class="negative">$-911.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>70</td>
+                <td>2025-03-14 10:00</td>
+                <td>LONG</td>
+                <td>4987.81</td>
+                <td>4975.06</td>
+                <td class="negative">$-637.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>71</td>
+                <td>2025-03-17 09:35</td>
+                <td>LONG</td>
+                <td>4980.35</td>
+                <td>4992.10</td>
+                <td class="positive">$+587.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>72</td>
+                <td>2025-03-18 09:40</td>
+                <td>SHORT</td>
+                <td>5012.23</td>
+                <td>5031.09</td>
+                <td class="negative">$-942.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>73</td>
+                <td>2025-03-19 09:35</td>
+                <td>SHORT</td>
+                <td>5032.47</td>
+                <td>4993.76</td>
+                <td class="positive">$+1,935.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>74</td>
+                <td>2025-03-20 09:40</td>
+                <td>LONG</td>
+                <td>4954.15</td>
+                <td>4944.43</td>
+                <td class="negative">$-486.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>75</td>
+                <td>2025-03-21 09:55</td>
+                <td>LONG</td>
+                <td>4925.89</td>
+                <td>4938.11</td>
+                <td class="positive">$+611.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>76</td>
+                <td>2025-03-24 12:20</td>
+                <td>LONG</td>
+                <td>4959.01</td>
+                <td>4979.28</td>
+                <td class="positive">$+1,013.75</td>
+                <td>session_end</td>
+            </tr>
+
+            <tr>
+                <td>77</td>
+                <td>2025-03-25 09:35</td>
+                <td>LONG</td>
+                <td>4949.55</td>
+                <td>4937.90</td>
+                <td class="negative">$-582.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>78</td>
+                <td>2025-03-26 09:40</td>
+                <td>LONG</td>
+                <td>4942.52</td>
+                <td>4934.27</td>
+                <td class="negative">$-412.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>79</td>
+                <td>2025-03-27 09:35</td>
+                <td>SHORT</td>
+                <td>4927.19</td>
+                <td>4907.44</td>
+                <td class="positive">$+987.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>80</td>
+                <td>2025-03-28 09:40</td>
+                <td>SHORT</td>
+                <td>4948.09</td>
+                <td>4958.99</td>
+                <td class="negative">$-545.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>81</td>
+                <td>2025-03-31 09:35</td>
+                <td>SHORT</td>
+                <td>4936.26</td>
+                <td>4942.60</td>
+                <td class="negative">$-317.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>82</td>
+                <td>2025-04-01 09:35</td>
+                <td>LONG</td>
+                <td>4971.19</td>
+                <td>4951.77</td>
+                <td class="negative">$-971.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>83</td>
+                <td>2025-04-02 09:35</td>
+                <td>SHORT</td>
+                <td>4978.65</td>
+                <td>4964.54</td>
+                <td class="positive">$+705.25</td>
+                <td>session_end</td>
+            </tr>
+
+            <tr>
+                <td>84</td>
+                <td>2025-04-03 09:45</td>
+                <td>SHORT</td>
+                <td>4939.28</td>
+                <td>4944.24</td>
+                <td class="negative">$-248.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>85</td>
+                <td>2025-04-04 09:40</td>
+                <td>LONG</td>
+                <td>4892.40</td>
+                <td>4906.13</td>
+                <td class="positive">$+686.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>86</td>
+                <td>2025-04-07 09:55</td>
+                <td>SHORT</td>
+                <td>4914.35</td>
+                <td>4935.15</td>
+                <td class="negative">$-1,040.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>87</td>
+                <td>2025-04-08 09:45</td>
+                <td>LONG</td>
+                <td>4919.30</td>
+                <td>4906.44</td>
+                <td class="negative">$-642.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>88</td>
+                <td>2025-04-09 10:00</td>
+                <td>LONG</td>
+                <td>4877.60</td>
+                <td>4859.35</td>
+                <td class="negative">$-912.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>89</td>
+                <td>2025-04-10 09:55</td>
+                <td>SHORT</td>
+                <td>4834.69</td>
+                <td>4804.24</td>
+                <td class="positive">$+1,522.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>90</td>
+                <td>2025-04-11 09:35</td>
+                <td>SHORT</td>
+                <td>4723.07</td>
+                <td>4693.09</td>
+                <td class="positive">$+1,499.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>91</td>
+                <td>2025-04-14 09:35</td>
+                <td>LONG</td>
+                <td>4681.95</td>
+                <td>4671.22</td>
+                <td class="negative">$-537.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>92</td>
+                <td>2025-04-15 09:35</td>
+                <td>LONG</td>
+                <td>4668.59</td>
+                <td>4657.97</td>
+                <td class="negative">$-531.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>93</td>
+                <td>2025-04-16 09:40</td>
+                <td>LONG</td>
+                <td>4667.94</td>
+                <td>4658.10</td>
+                <td class="negative">$-491.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>94</td>
+                <td>2025-04-17 09:40</td>
+                <td>LONG</td>
+                <td>4661.85</td>
+                <td>4653.81</td>
+                <td class="negative">$-401.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>95</td>
+                <td>2025-04-18 09:45</td>
+                <td>LONG</td>
+                <td>4683.35</td>
+                <td>4670.56</td>
+                <td class="negative">$-639.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>96</td>
+                <td>2025-04-21 10:25</td>
+                <td>LONG</td>
+                <td>4712.49</td>
+                <td>4690.05</td>
+                <td class="negative">$-1,122.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>97</td>
+                <td>2025-04-22 09:40</td>
+                <td>LONG</td>
+                <td>4756.95</td>
+                <td>4751.31</td>
+                <td class="negative">$-282.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>98</td>
+                <td>2025-04-23 09:35</td>
+                <td>LONG</td>
+                <td>4786.06</td>
+                <td>4770.91</td>
+                <td class="negative">$-757.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>99</td>
+                <td>2025-04-24 09:35</td>
+                <td>LONG</td>
+                <td>4696.62</td>
+                <td>4685.65</td>
+                <td class="negative">$-548.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>100</td>
+                <td>2025-04-25 10:30</td>
+                <td>SHORT</td>
+                <td>4681.78</td>
+                <td>4697.81</td>
+                <td class="negative">$-801.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>101</td>
+                <td>2025-04-28 09:35</td>
+                <td>SHORT</td>
+                <td>4660.77</td>
+                <td>4666.35</td>
+                <td class="negative">$-278.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>102</td>
+                <td>2025-04-29 09:40</td>
+                <td>SHORT</td>
+                <td>4663.98</td>
+                <td>4675.61</td>
+                <td class="negative">$-581.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>103</td>
+                <td>2025-04-30 09:35</td>
+                <td>SHORT</td>
+                <td>4706.35</td>
+                <td>4682.42</td>
+                <td class="positive">$+1,196.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>104</td>
+                <td>2025-05-01 09:45</td>
+                <td>LONG</td>
+                <td>4697.23</td>
+                <td>4686.59</td>
+                <td class="negative">$-532.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>105</td>
+                <td>2025-05-02 11:15</td>
+                <td>SHORT</td>
+                <td>4679.27</td>
+                <td>4654.29</td>
+                <td class="positive">$+1,248.75</td>
+                <td>session_end</td>
+            </tr>
+
+            <tr>
+                <td>106</td>
+                <td>2025-05-05 09:35</td>
+                <td>LONG</td>
+                <td>4653.44</td>
+                <td>4643.40</td>
+                <td class="negative">$-502.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>107</td>
+                <td>2025-05-06 09:35</td>
+                <td>SHORT</td>
+                <td>4613.35</td>
+                <td>4630.44</td>
+                <td class="negative">$-855.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>108</td>
+                <td>2025-05-07 09:40</td>
+                <td>SHORT</td>
+                <td>4628.85</td>
+                <td>4616.05</td>
+                <td class="positive">$+640.25</td>
+                <td>session_end</td>
+            </tr>
+
+            <tr>
+                <td>109</td>
+                <td>2025-05-08 09:40</td>
+                <td>SHORT</td>
+                <td>4606.39</td>
+                <td>4616.76</td>
+                <td class="negative">$-518.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>110</td>
+                <td>2025-05-09 09:35</td>
+                <td>SHORT</td>
+                <td>4564.98</td>
+                <td>4549.77</td>
+                <td class="positive">$+760.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>111</td>
+                <td>2025-05-12 10:15</td>
+                <td>SHORT</td>
+                <td>4546.89</td>
+                <td>4562.61</td>
+                <td class="negative">$-786.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>112</td>
+                <td>2025-05-13 10:05</td>
+                <td>SHORT</td>
+                <td>4534.69</td>
+                <td>4535.15</td>
+                <td class="negative">$-22.75</td>
+                <td>session_end</td>
+            </tr>
+
+            <tr>
+                <td>113</td>
+                <td>2025-05-14 09:35</td>
+                <td>LONG</td>
+                <td>4533.56</td>
+                <td>4525.52</td>
+                <td class="negative">$-402.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>114</td>
+                <td>2025-05-15 09:50</td>
+                <td>LONG</td>
+                <td>4570.18</td>
+                <td>4559.18</td>
+                <td class="negative">$-550.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>115</td>
+                <td>2025-05-16 09:35</td>
+                <td>LONG</td>
+                <td>4584.73</td>
+                <td>4611.68</td>
+                <td class="positive">$+1,347.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>116</td>
+                <td>2025-05-19 09:40</td>
+                <td>LONG</td>
+                <td>4611.70</td>
+                <td>4606.40</td>
+                <td class="negative">$-265.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>117</td>
+                <td>2025-05-20 09:45</td>
+                <td>LONG</td>
+                <td>4597.11</td>
+                <td>4584.41</td>
+                <td class="negative">$-635.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>118</td>
+                <td>2025-05-21 10:15</td>
+                <td>SHORT</td>
+                <td>4550.80</td>
+                <td>4526.26</td>
+                <td class="positive">$+1,226.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>119</td>
+                <td>2025-05-22 09:45</td>
+                <td>SHORT</td>
+                <td>4491.98</td>
+                <td>4501.59</td>
+                <td class="negative">$-480.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>120</td>
+                <td>2025-05-23 09:35</td>
+                <td>LONG</td>
+                <td>4496.82</td>
+                <td>4486.11</td>
+                <td class="negative">$-535.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>121</td>
+                <td>2025-05-26 09:40</td>
+                <td>LONG</td>
+                <td>4559.93</td>
+                <td>4572.76</td>
+                <td class="positive">$+641.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>122</td>
+                <td>2025-05-27 09:35</td>
+                <td>LONG</td>
+                <td>4589.59</td>
+                <td>4577.27</td>
+                <td class="negative">$-615.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>123</td>
+                <td>2025-05-28 09:40</td>
+                <td>LONG</td>
+                <td>4529.41</td>
+                <td>4523.09</td>
+                <td class="negative">$-316.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>124</td>
+                <td>2025-05-29 11:00</td>
+                <td>LONG</td>
+                <td>4615.82</td>
+                <td>4616.12</td>
+                <td class="positive">$+14.75</td>
+                <td>session_end</td>
+            </tr>
+
+            <tr>
+                <td>125</td>
+                <td>2025-05-30 09:35</td>
+                <td>LONG</td>
+                <td>4634.99</td>
+                <td>4614.95</td>
+                <td class="negative">$-1,002.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>126</td>
+                <td>2025-06-02 10:00</td>
+                <td>SHORT</td>
+                <td>4624.55</td>
+                <td>4634.91</td>
+                <td class="negative">$-518.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>127</td>
+                <td>2025-06-03 09:40</td>
+                <td>LONG</td>
+                <td>4659.06</td>
+                <td>4669.99</td>
+                <td class="positive">$+546.25</td>
+                <td>session_end</td>
+            </tr>
+
+            <tr>
+                <td>128</td>
+                <td>2025-06-04 09:35</td>
+                <td>SHORT</td>
+                <td>4670.09</td>
+                <td>4676.36</td>
+                <td class="negative">$-314.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>129</td>
+                <td>2025-06-05 09:40</td>
+                <td>SHORT</td>
+                <td>4634.64</td>
+                <td>4623.03</td>
+                <td class="positive">$+580.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>130</td>
+                <td>2025-06-06 09:35</td>
+                <td>SHORT</td>
+                <td>4633.03</td>
+                <td>4620.34</td>
+                <td class="positive">$+634.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>131</td>
+                <td>2025-06-09 10:25</td>
+                <td>SHORT</td>
+                <td>4644.53</td>
+                <td>4663.31</td>
+                <td class="negative">$-938.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>132</td>
+                <td>2025-06-10 10:55</td>
+                <td>SHORT</td>
+                <td>4686.85</td>
+                <td>4687.48</td>
+                <td class="negative">$-31.25</td>
+                <td>session_end</td>
+            </tr>
+
+            <tr>
+                <td>133</td>
+                <td>2025-06-11 09:40</td>
+                <td>SHORT</td>
+                <td>4677.88</td>
+                <td>4680.97</td>
+                <td class="negative">$-154.75</td>
+                <td>session_end</td>
+            </tr>
+
+            <tr>
+                <td>134</td>
+                <td>2025-06-12 09:35</td>
+                <td>LONG</td>
+                <td>4674.52</td>
+                <td>4662.05</td>
+                <td class="negative">$-623.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>135</td>
+                <td>2025-06-13 09:50</td>
+                <td>LONG</td>
+                <td>4685.16</td>
+                <td>4680.30</td>
+                <td class="negative">$-243.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>136</td>
+                <td>2025-06-16 09:55</td>
+                <td>LONG</td>
+                <td>4675.07</td>
+                <td>4662.39</td>
+                <td class="negative">$-634.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>137</td>
+                <td>2025-06-17 09:40</td>
+                <td>LONG</td>
+                <td>4659.30</td>
+                <td>4642.60</td>
+                <td class="negative">$-834.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>138</td>
+                <td>2025-06-18 09:35</td>
+                <td>LONG</td>
+                <td>4673.44</td>
+                <td>4665.78</td>
+                <td class="negative">$-382.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>139</td>
+                <td>2025-06-19 09:50</td>
+                <td>SHORT</td>
+                <td>4658.56</td>
+                <td>4648.97</td>
+                <td class="positive">$+479.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>140</td>
+                <td>2025-06-20 09:35</td>
+                <td>LONG</td>
+                <td>4718.15</td>
+                <td>4694.17</td>
+                <td class="negative">$-1,199.25</td>
+                <td>session_end</td>
+            </tr>
+
+            <tr>
+                <td>141</td>
+                <td>2025-06-23 09:40</td>
+                <td>LONG</td>
+                <td>4690.02</td>
+                <td>4697.77</td>
+                <td class="positive">$+387.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>142</td>
+                <td>2025-06-24 10:00</td>
+                <td>LONG</td>
+                <td>4655.76</td>
+                <td>4680.77</td>
+                <td class="positive">$+1,250.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>143</td>
+                <td>2025-06-25 09:40</td>
+                <td>LONG</td>
+                <td>4656.69</td>
+                <td>4674.92</td>
+                <td class="positive">$+911.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>144</td>
+                <td>2025-06-26 09:35</td>
+                <td>LONG</td>
+                <td>4666.68</td>
+                <td>4652.12</td>
+                <td class="negative">$-727.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>145</td>
+                <td>2025-06-27 10:00</td>
+                <td>SHORT</td>
+                <td>4643.40</td>
+                <td>4636.71</td>
+                <td class="positive">$+334.75</td>
+                <td>session_end</td>
+            </tr>
+
+            <tr>
+                <td>146</td>
+                <td>2025-06-30 10:05</td>
+                <td>LONG</td>
+                <td>4652.72</td>
+                <td>4636.36</td>
+                <td class="negative">$-817.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>147</td>
+                <td>2025-07-01 09:40</td>
+                <td>LONG</td>
+                <td>4576.38</td>
+                <td>4560.43</td>
+                <td class="negative">$-797.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>148</td>
+                <td>2025-07-02 09:35</td>
+                <td>SHORT</td>
+                <td>4592.76</td>
+                <td>4607.69</td>
+                <td class="negative">$-747.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>149</td>
+                <td>2025-07-03 09:35</td>
+                <td>SHORT</td>
+                <td>4549.72</td>
+                <td>4566.57</td>
+                <td class="negative">$-843.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>150</td>
+                <td>2025-07-04 10:00</td>
+                <td>LONG</td>
+                <td>4563.56</td>
+                <td>4543.52</td>
+                <td class="negative">$-1,002.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>151</td>
+                <td>2025-07-07 09:35</td>
+                <td>SHORT</td>
+                <td>4597.73</td>
+                <td>4607.31</td>
+                <td class="negative">$-479.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>152</td>
+                <td>2025-07-08 09:35</td>
+                <td>LONG</td>
+                <td>4643.97</td>
+                <td>4665.61</td>
+                <td class="positive">$+1,082.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>153</td>
+                <td>2025-07-09 09:35</td>
+                <td>SHORT</td>
+                <td>4672.49</td>
+                <td>4676.63</td>
+                <td class="negative">$-206.75</td>
+                <td>session_end</td>
+            </tr>
+
+            <tr>
+                <td>154</td>
+                <td>2025-07-10 09:35</td>
+                <td>LONG</td>
+                <td>4672.80</td>
+                <td>4659.31</td>
+                <td class="negative">$-674.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>155</td>
+                <td>2025-07-11 09:50</td>
+                <td>LONG</td>
+                <td>4658.77</td>
+                <td>4649.32</td>
+                <td class="negative">$-472.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>156</td>
+                <td>2025-07-14 10:40</td>
+                <td>SHORT</td>
+                <td>4679.40</td>
+                <td>4644.79</td>
+                <td class="positive">$+1,730.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>157</td>
+                <td>2025-07-15 09:35</td>
+                <td>LONG</td>
+                <td>4640.01</td>
+                <td>4650.23</td>
+                <td class="positive">$+511.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>158</td>
+                <td>2025-07-16 09:40</td>
+                <td>SHORT</td>
+                <td>4681.59</td>
+                <td>4655.46</td>
+                <td class="positive">$+1,306.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>159</td>
+                <td>2025-07-17 09:35</td>
+                <td>LONG</td>
+                <td>4669.74</td>
+                <td>4657.99</td>
+                <td class="negative">$-587.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>160</td>
+                <td>2025-07-18 09:45</td>
+                <td>SHORT</td>
+                <td>4662.12</td>
+                <td>4639.77</td>
+                <td class="positive">$+1,117.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>161</td>
+                <td>2025-07-21 09:40</td>
+                <td>SHORT</td>
+                <td>4617.74</td>
+                <td>4632.57</td>
+                <td class="negative">$-741.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>162</td>
+                <td>2025-07-22 10:10</td>
+                <td>LONG</td>
+                <td>4584.77</td>
+                <td>4565.40</td>
+                <td class="negative">$-968.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>163</td>
+                <td>2025-07-23 09:45</td>
+                <td>SHORT</td>
+                <td>4551.61</td>
+                <td>4576.27</td>
+                <td class="negative">$-1,232.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>164</td>
+                <td>2025-07-24 09:35</td>
+                <td>LONG</td>
+                <td>4547.14</td>
+                <td>4535.74</td>
+                <td class="negative">$-569.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>165</td>
+                <td>2025-07-25 09:35</td>
+                <td>SHORT</td>
+                <td>4557.78</td>
+                <td>4574.16</td>
+                <td class="negative">$-819.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>166</td>
+                <td>2025-07-28 09:45</td>
+                <td>SHORT</td>
+                <td>4534.97</td>
+                <td>4548.61</td>
+                <td class="negative">$-682.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>167</td>
+                <td>2025-07-29 10:10</td>
+                <td>LONG</td>
+                <td>4569.56</td>
+                <td>4593.69</td>
+                <td class="positive">$+1,206.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>168</td>
+                <td>2025-07-30 10:00</td>
+                <td>SHORT</td>
+                <td>4605.72</td>
+                <td>4614.98</td>
+                <td class="negative">$-463.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>169</td>
+                <td>2025-07-31 09:40</td>
+                <td>SHORT</td>
+                <td>4628.14</td>
+                <td>4640.47</td>
+                <td class="negative">$-616.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>170</td>
+                <td>2025-08-01 09:40</td>
+                <td>LONG</td>
+                <td>4700.56</td>
+                <td>4675.24</td>
+                <td class="negative">$-1,265.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>171</td>
+                <td>2025-08-04 09:35</td>
+                <td>LONG</td>
+                <td>4636.31</td>
+                <td>4648.04</td>
+                <td class="positive">$+586.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>172</td>
+                <td>2025-08-05 09:35</td>
+                <td>LONG</td>
+                <td>4657.78</td>
+                <td>4652.60</td>
+                <td class="negative">$-259.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>173</td>
+                <td>2025-08-06 11:15</td>
+                <td>LONG</td>
+                <td>4683.51</td>
+                <td>4720.68</td>
+                <td class="positive">$+1,858.75</td>
+                <td>session_end</td>
+            </tr>
+
+            <tr>
+                <td>174</td>
+                <td>2025-08-07 09:35</td>
+                <td>SHORT</td>
+                <td>4742.52</td>
+                <td>4746.80</td>
+                <td class="negative">$-214.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>175</td>
+                <td>2025-08-08 10:20</td>
+                <td>LONG</td>
+                <td>4749.72</td>
+                <td>4730.60</td>
+                <td class="negative">$-955.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>176</td>
+                <td>2025-08-11 09:35</td>
+                <td>LONG</td>
+                <td>4762.15</td>
+                <td>4741.65</td>
+                <td class="negative">$-1,025.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>177</td>
+                <td>2025-08-12 09:40</td>
+                <td>SHORT</td>
+                <td>4679.15</td>
+                <td>4689.70</td>
+                <td class="negative">$-528.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>178</td>
+                <td>2025-08-13 09:50</td>
+                <td>SHORT</td>
+                <td>4669.65</td>
+                <td>4644.12</td>
+                <td class="positive">$+1,276.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>179</td>
+                <td>2025-08-14 09:40</td>
+                <td>SHORT</td>
+                <td>4647.81</td>
+                <td>4655.60</td>
+                <td class="negative">$-389.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>180</td>
+                <td>2025-08-15 10:00</td>
+                <td>SHORT</td>
+                <td>4644.73</td>
+                <td>4661.77</td>
+                <td class="negative">$-852.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>181</td>
+                <td>2025-08-18 09:35</td>
+                <td>SHORT</td>
+                <td>4670.48</td>
+                <td>4677.15</td>
+                <td class="negative">$-333.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>182</td>
+                <td>2025-08-19 10:00</td>
+                <td>LONG</td>
+                <td>4675.60</td>
+                <td>4693.81</td>
+                <td class="positive">$+910.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>183</td>
+                <td>2025-08-20 10:20</td>
+                <td>LONG</td>
+                <td>4657.74</td>
+                <td>4693.03</td>
+                <td class="positive">$+1,764.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>184</td>
+                <td>2025-08-21 09:50</td>
+                <td>LONG</td>
+                <td>4725.90</td>
+                <td>4727.88</td>
+                <td class="positive">$+99.25</td>
+                <td>session_end</td>
+            </tr>
+
+            <tr>
+                <td>185</td>
+                <td>2025-08-22 09:35</td>
+                <td>LONG</td>
+                <td>4730.27</td>
+                <td>4723.65</td>
+                <td class="negative">$-330.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>186</td>
+                <td>2025-08-25 09:45</td>
+                <td>SHORT</td>
+                <td>4784.35</td>
+                <td>4768.32</td>
+                <td class="positive">$+801.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>187</td>
+                <td>2025-08-26 09:40</td>
+                <td>SHORT</td>
+                <td>4817.19</td>
+                <td>4783.76</td>
+                <td class="positive">$+1,671.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>188</td>
+                <td>2025-08-27 10:20</td>
+                <td>LONG</td>
+                <td>4772.27</td>
+                <td>4789.83</td>
+                <td class="positive">$+877.75</td>
+                <td>session_end</td>
+            </tr>
+
+            <tr>
+                <td>189</td>
+                <td>2025-08-28 09:35</td>
+                <td>LONG</td>
+                <td>4805.05</td>
+                <td>4792.99</td>
+                <td class="negative">$-602.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>190</td>
+                <td>2025-08-29 09:35</td>
+                <td>SHORT</td>
+                <td>4776.82</td>
+                <td>4788.84</td>
+                <td class="negative">$-600.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>191</td>
+                <td>2025-09-01 09:35</td>
+                <td>SHORT</td>
+                <td>4776.10</td>
+                <td>4786.15</td>
+                <td class="negative">$-503.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>192</td>
+                <td>2025-09-02 09:35</td>
+                <td>LONG</td>
+                <td>4772.26</td>
+                <td>4781.93</td>
+                <td class="positive">$+483.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>193</td>
+                <td>2025-09-03 09:35</td>
+                <td>LONG</td>
+                <td>4839.69</td>
+                <td>4862.16</td>
+                <td class="positive">$+1,123.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>194</td>
+                <td>2025-09-04 09:40</td>
+                <td>SHORT</td>
+                <td>4847.85</td>
+                <td>4832.53</td>
+                <td class="positive">$+765.75</td>
+                <td>session_end</td>
+            </tr>
+
+            <tr>
+                <td>195</td>
+                <td>2025-09-05 09:40</td>
+                <td>LONG</td>
+                <td>4855.12</td>
+                <td>4885.92</td>
+                <td class="positive">$+1,539.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>196</td>
+                <td>2025-09-08 09:35</td>
+                <td>SHORT</td>
+                <td>4863.38</td>
+                <td>4881.43</td>
+                <td class="negative">$-902.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>197</td>
+                <td>2025-09-09 09:50</td>
+                <td>LONG</td>
+                <td>4910.97</td>
+                <td>4895.82</td>
+                <td class="negative">$-757.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>198</td>
+                <td>2025-09-10 09:50</td>
+                <td>LONG</td>
+                <td>4942.65</td>
+                <td>4947.19</td>
+                <td class="positive">$+226.75</td>
+                <td>session_end</td>
+            </tr>
+
+            <tr>
+                <td>199</td>
+                <td>2025-09-11 09:35</td>
+                <td>SHORT</td>
+                <td>4934.10</td>
+                <td>4949.52</td>
+                <td class="negative">$-771.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>200</td>
+                <td>2025-09-12 09:35</td>
+                <td>LONG</td>
+                <td>4891.45</td>
+                <td>4882.80</td>
+                <td class="negative">$-433.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>201</td>
+                <td>2025-09-15 09:35</td>
+                <td>LONG</td>
+                <td>4957.01</td>
+                <td>4977.13</td>
+                <td class="positive">$+1,006.25</td>
+                <td>session_end</td>
+            </tr>
+
+            <tr>
+                <td>202</td>
+                <td>2025-09-16 09:35</td>
+                <td>SHORT</td>
+                <td>4967.31</td>
+                <td>4982.77</td>
+                <td class="negative">$-773.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>203</td>
+                <td>2025-09-17 09:40</td>
+                <td>LONG</td>
+                <td>4886.93</td>
+                <td>4925.76</td>
+                <td class="positive">$+1,941.75</td>
+                <td>session_end</td>
+            </tr>
+
+            <tr>
+                <td>204</td>
+                <td>2025-09-18 09:35</td>
+                <td>LONG</td>
+                <td>4926.10</td>
+                <td>4917.47</td>
+                <td class="negative">$-432.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>205</td>
+                <td>2025-09-19 09:35</td>
+                <td>LONG</td>
+                <td>4995.38</td>
+                <td>5004.26</td>
+                <td class="positive">$+444.25</td>
+                <td>session_end</td>
+            </tr>
+
+            <tr>
+                <td>206</td>
+                <td>2025-09-22 09:45</td>
+                <td>LONG</td>
+                <td>5003.40</td>
+                <td>5016.19</td>
+                <td class="positive">$+639.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>207</td>
+                <td>2025-09-23 09:45</td>
+                <td>SHORT</td>
+                <td>5003.07</td>
+                <td>4978.02</td>
+                <td class="positive">$+1,252.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>208</td>
+                <td>2025-09-24 09:35</td>
+                <td>LONG</td>
+                <td>4972.56</td>
+                <td>4981.31</td>
+                <td class="positive">$+437.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>209</td>
+                <td>2025-09-25 10:35</td>
+                <td>SHORT</td>
+                <td>4988.86</td>
+                <td>5007.32</td>
+                <td class="negative">$-923.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>210</td>
+                <td>2025-09-26 09:35</td>
+                <td>SHORT</td>
+                <td>4979.60</td>
+                <td>4943.07</td>
+                <td class="positive">$+1,826.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>211</td>
+                <td>2025-09-29 09:55</td>
+                <td>SHORT</td>
+                <td>4899.02</td>
+                <td>4871.41</td>
+                <td class="positive">$+1,380.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>212</td>
+                <td>2025-09-30 10:05</td>
+                <td>SHORT</td>
+                <td>4892.26</td>
+                <td>4913.28</td>
+                <td class="negative">$-1,051.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>213</td>
+                <td>2025-10-01 09:35</td>
+                <td>SHORT</td>
+                <td>4904.18</td>
+                <td>4912.70</td>
+                <td class="negative">$-426.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>214</td>
+                <td>2025-10-02 10:25</td>
+                <td>LONG</td>
+                <td>4930.48</td>
+                <td>4911.84</td>
+                <td class="negative">$-932.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>215</td>
+                <td>2025-10-03 09:35</td>
+                <td>LONG</td>
+                <td>4927.06</td>
+                <td>4900.35</td>
+                <td class="negative">$-1,335.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>216</td>
+                <td>2025-10-06 09:55</td>
+                <td>SHORT</td>
+                <td>4909.11</td>
+                <td>4882.20</td>
+                <td class="positive">$+1,345.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>217</td>
+                <td>2025-10-07 11:05</td>
+                <td>SHORT</td>
+                <td>4831.39</td>
+                <td>4821.73</td>
+                <td class="positive">$+482.75</td>
+                <td>session_end</td>
+            </tr>
+
+            <tr>
+                <td>218</td>
+                <td>2025-10-08 10:00</td>
+                <td>LONG</td>
+                <td>4832.19</td>
+                <td>4864.89</td>
+                <td class="positive">$+1,635.25</td>
+                <td>session_end</td>
+            </tr>
+
+            <tr>
+                <td>219</td>
+                <td>2025-10-09 09:55</td>
+                <td>SHORT</td>
+                <td>4868.94</td>
+                <td>4842.79</td>
+                <td class="positive">$+1,307.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>220</td>
+                <td>2025-10-10 09:45</td>
+                <td>SHORT</td>
+                <td>4849.11</td>
+                <td>4822.22</td>
+                <td class="positive">$+1,344.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>221</td>
+                <td>2025-10-13 09:35</td>
+                <td>LONG</td>
+                <td>4836.99</td>
+                <td>4822.60</td>
+                <td class="negative">$-720.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>222</td>
+                <td>2025-10-14 09:35</td>
+                <td>LONG</td>
+                <td>4847.77</td>
+                <td>4835.48</td>
+                <td class="negative">$-614.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>223</td>
+                <td>2025-10-15 09:45</td>
+                <td>LONG</td>
+                <td>4876.57</td>
+                <td>4865.60</td>
+                <td class="negative">$-549.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>224</td>
+                <td>2025-10-16 09:45</td>
+                <td>LONG</td>
+                <td>4864.95</td>
+                <td>4846.22</td>
+                <td class="negative">$-937.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>225</td>
+                <td>2025-10-17 09:40</td>
+                <td>SHORT</td>
+                <td>4856.93</td>
+                <td>4864.34</td>
+                <td class="negative">$-370.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>226</td>
+                <td>2025-10-20 10:00</td>
+                <td>SHORT</td>
+                <td>4867.10</td>
+                <td>4880.69</td>
+                <td class="negative">$-679.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>227</td>
+                <td>2025-10-21 09:35</td>
+                <td>LONG</td>
+                <td>4869.34</td>
+                <td>4857.56</td>
+                <td class="negative">$-588.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>228</td>
+                <td>2025-10-22 09:40</td>
+                <td>SHORT</td>
+                <td>4835.97</td>
+                <td>4799.27</td>
+                <td class="positive">$+1,834.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>229</td>
+                <td>2025-10-23 09:50</td>
+                <td>LONG</td>
+                <td>4806.51</td>
+                <td>4791.06</td>
+                <td class="negative">$-772.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>230</td>
+                <td>2025-10-24 10:20</td>
+                <td>LONG</td>
+                <td>4776.62</td>
+                <td>4754.76</td>
+                <td class="negative">$-1,093.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>231</td>
+                <td>2025-10-27 09:35</td>
+                <td>SHORT</td>
+                <td>4721.12</td>
+                <td>4745.77</td>
+                <td class="negative">$-1,232.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>232</td>
+                <td>2025-10-28 09:40</td>
+                <td>SHORT</td>
+                <td>4742.84</td>
+                <td>4754.43</td>
+                <td class="negative">$-579.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>233</td>
+                <td>2025-10-29 09:35</td>
+                <td>LONG</td>
+                <td>4741.15</td>
+                <td>4734.26</td>
+                <td class="negative">$-344.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>234</td>
+                <td>2025-10-30 11:40</td>
+                <td>LONG</td>
+                <td>4703.55</td>
+                <td>4701.44</td>
+                <td class="negative">$-105.25</td>
+                <td>session_end</td>
+            </tr>
+
+            <tr>
+                <td>235</td>
+                <td>2025-10-31 09:40</td>
+                <td>LONG</td>
+                <td>4706.81</td>
+                <td>4700.16</td>
+                <td class="negative">$-332.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>236</td>
+                <td>2025-11-03 09:35</td>
+                <td>SHORT</td>
+                <td>4742.23</td>
+                <td>4753.81</td>
+                <td class="negative">$-578.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>237</td>
+                <td>2025-11-04 09:40</td>
+                <td>LONG</td>
+                <td>4769.59</td>
+                <td>4751.77</td>
+                <td class="negative">$-891.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>238</td>
+                <td>2025-11-05 09:35</td>
+                <td>LONG</td>
+                <td>4724.23</td>
+                <td>4749.42</td>
+                <td class="positive">$+1,259.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>239</td>
+                <td>2025-11-06 09:55</td>
+                <td>SHORT</td>
+                <td>4730.93</td>
+                <td>4738.16</td>
+                <td class="negative">$-362.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>240</td>
+                <td>2025-11-07 09:40</td>
+                <td>LONG</td>
+                <td>4758.65</td>
+                <td>4793.30</td>
+                <td class="positive">$+1,732.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>241</td>
+                <td>2025-11-10 09:35</td>
+                <td>SHORT</td>
+                <td>4732.69</td>
+                <td>4744.19</td>
+                <td class="negative">$-575.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>242</td>
+                <td>2025-11-11 09:55</td>
+                <td>SHORT</td>
+                <td>4736.19</td>
+                <td>4712.28</td>
+                <td class="positive">$+1,195.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>243</td>
+                <td>2025-11-12 10:55</td>
+                <td>SHORT</td>
+                <td>4711.41</td>
+                <td>4730.52</td>
+                <td class="negative">$-955.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>244</td>
+                <td>2025-11-13 09:40</td>
+                <td>LONG</td>
+                <td>4774.38</td>
+                <td>4766.20</td>
+                <td class="negative">$-408.75</td>
+                <td>session_end</td>
+            </tr>
+
+            <tr>
+                <td>245</td>
+                <td>2025-11-14 09:35</td>
+                <td>LONG</td>
+                <td>4759.90</td>
+                <td>4754.73</td>
+                <td class="negative">$-258.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>246</td>
+                <td>2025-11-17 09:45</td>
+                <td>LONG</td>
+                <td>4756.03</td>
+                <td>4774.44</td>
+                <td class="positive">$+920.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>247</td>
+                <td>2025-11-18 09:45</td>
+                <td>LONG</td>
+                <td>4750.22</td>
+                <td>4774.12</td>
+                <td class="positive">$+1,195.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>248</td>
+                <td>2025-11-19 09:35</td>
+                <td>LONG</td>
+                <td>4811.55</td>
+                <td>4824.59</td>
+                <td class="positive">$+652.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>249</td>
+                <td>2025-11-20 09:35</td>
+                <td>SHORT</td>
+                <td>4726.59</td>
+                <td>4729.14</td>
+                <td class="negative">$-127.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>250</td>
+                <td>2025-11-21 09:35</td>
+                <td>SHORT</td>
+                <td>4746.16</td>
+                <td>4754.94</td>
+                <td class="negative">$-439.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>251</td>
+                <td>2025-11-24 10:05</td>
+                <td>LONG</td>
+                <td>4760.60</td>
+                <td>4747.41</td>
+                <td class="negative">$-659.00</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>252</td>
+                <td>2025-11-25 10:05</td>
+                <td>SHORT</td>
+                <td>4716.85</td>
+                <td>4734.49</td>
+                <td class="negative">$-882.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>253</td>
+                <td>2025-11-26 09:35</td>
+                <td>SHORT</td>
+                <td>4748.28</td>
+                <td>4760.64</td>
+                <td class="negative">$-617.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>254</td>
+                <td>2025-11-27 09:45</td>
+                <td>SHORT</td>
+                <td>4751.41</td>
+                <td>4715.46</td>
+                <td class="positive">$+1,797.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>255</td>
+                <td>2025-11-28 09:50</td>
+                <td>LONG</td>
+                <td>4735.32</td>
+                <td>4725.88</td>
+                <td class="negative">$-472.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>256</td>
+                <td>2025-12-01 10:55</td>
+                <td>SHORT</td>
+                <td>4705.85</td>
+                <td>4693.38</td>
+                <td class="positive">$+623.75</td>
+                <td>session_end</td>
+            </tr>
+
+            <tr>
+                <td>257</td>
+                <td>2025-12-02 09:40</td>
+                <td>LONG</td>
+                <td>4709.38</td>
+                <td>4695.43</td>
+                <td class="negative">$-697.50</td>
+                <td>sl</td>
+            </tr>
+
+            <tr>
+                <td>258</td>
+                <td>2025-12-03 09:40</td>
+                <td>SHORT</td>
+                <td>4691.98</td>
+                <td>4678.80</td>
+                <td class="positive">$+658.75</td>
+                <td>session_end</td>
+            </tr>
+
+            <tr>
+                <td>259</td>
+                <td>2025-12-04 09:50</td>
+                <td>SHORT</td>
+                <td>4671.99</td>
+                <td>4661.19</td>
+                <td class="positive">$+540.50</td>
+                <td>tp</td>
+            </tr>
+
+            <tr>
+                <td>260</td>
+                <td>2025-12-05 09:40</td>
+                <td>LONG</td>
+                <td>4680.94</td>
+                <td>4667.40</td>
+                <td class="negative">$-676.75</td>
+                <td>session_end</td>
+            </tr>
+
+        </table>
+
+        <div class="footer">
+            <p>ORB Trading Bot - Backtest Report</p>
+        </div>
+    </div>
+</body>
+</html>
