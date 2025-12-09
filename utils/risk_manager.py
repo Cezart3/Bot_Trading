@@ -61,11 +61,12 @@ class DailyStats:
 class PropAccountLimits:
     """Prop trading account limits."""
 
-    max_daily_drawdown: float = 4.0  # 4% max daily loss
-    max_account_drawdown: float = 10.0  # 10% max account drawdown
-    warning_drawdown: float = 5.0  # 5% - reduce risk when approaching
+    max_daily_drawdown: float = 4.0  # 4% max daily loss - STOP trading
+    max_account_drawdown: float = 10.0  # 10% max account drawdown - STOP trading
+    warning_drawdown: float = 2.0  # 2% daily DD - reduce risk to 0.5%
+    account_warning_drawdown: float = 5.0  # 5% account DD - reduce risk to 0.5%
     normal_risk_per_trade: float = 1.0  # 1% risk normally
-    reduced_risk_per_trade: float = 0.5  # 0.5% when near drawdown limit
+    reduced_risk_per_trade: float = 0.5  # 0.5% when in drawdown
     max_positions: int = 1  # Only 1 position at a time for this strategy
 
 
@@ -159,22 +160,24 @@ class RiskManager:
         """
         Get current risk percentage based on drawdown proximity.
 
-        Returns reduced risk when approaching drawdown limits.
+        Returns reduced risk when:
+        - Daily drawdown >= warning_drawdown (default 2%)
+        - Account drawdown >= account_warning_drawdown (default 5%)
         """
         if self._daily_stats is None:
             return self.limits.normal_risk_per_trade
 
-        # Check if approaching warning level
         daily_loss = self._daily_stats.daily_loss_percent
         account_dd = max(0, self._current_account_drawdown)
 
-        # Reduce risk if approaching limits
-        if daily_loss >= self.limits.warning_drawdown * 0.75:  # 75% of warning
-            logger.warning(f"Approaching daily warning level ({daily_loss:.1f}%), reducing risk")
+        # Reduce risk if daily drawdown >= warning level (2%)
+        if daily_loss >= self.limits.warning_drawdown:
+            logger.warning(f"Daily DD {daily_loss:.1f}% >= {self.limits.warning_drawdown}% -> Risk reduced to {self.limits.reduced_risk_per_trade}%")
             return self.limits.reduced_risk_per_trade
 
-        if account_dd >= self.limits.warning_drawdown:
-            logger.warning(f"Account drawdown at {account_dd:.1f}%, reducing risk to {self.limits.reduced_risk_per_trade}%")
+        # Reduce risk if account drawdown >= account warning level (5%)
+        if account_dd >= self.limits.account_warning_drawdown:
+            logger.warning(f"Account DD {account_dd:.1f}% >= {self.limits.account_warning_drawdown}% -> Risk reduced to {self.limits.reduced_risk_per_trade}%")
             return self.limits.reduced_risk_per_trade
 
         return self.limits.normal_risk_per_trade

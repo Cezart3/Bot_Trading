@@ -1,0 +1,47 @@
+{
+  "timestamp": "2025-12-08T10:26:12.408941",
+  "symbols": [
+    "NVDA",
+    "AMD",
+    "TSLA"
+  ],
+  "days": 90,
+  "news_filter": true,
+  "aggregate": {
+    "total_trades": 109,
+    "winning_trades": 37,
+    "total_pnl": 661.6282070836746,
+    "total_commission": 218.0,
+    "symbols_profitable": 2,
+    "overall_win_rate": 33.94495412844037
+  },
+  "per_symbol": {
+    "NVDA": {
+      "total_trades": 37,
+      "winning_trades": 9,
+      "win_rate": 24.324324324324326,
+      "total_pnl": -2345.789166412891,
+      "profit_factor": 0.6389105659701103,
+      "max_drawdown": 10.476445829308489,
+      "final_balance": 22580.21083358712
+    },
+    "AMD": {
+      "total_trades": 36,
+      "winning_trades": 14,
+      "win_rate": 38.88888888888889,
+      "total_pnl": 2539.952194306892,
+      "profit_factor": 1.4597981237010536,
+      "max_drawdown": 7.402048983090315,
+      "final_balance": 27467.952194306883
+    },
+    "TSLA": {
+      "total_trades": 36,
+      "winning_trades": 14,
+      "win_rate": 38.88888888888889,
+      "total_pnl": 467.46517918967356,
+      "profit_factor": 1.061566648706667,
+      "max_drawdown": 8.78611194504953,
+      "final_balance": 25395.46517918965
+    }
+  }
+}

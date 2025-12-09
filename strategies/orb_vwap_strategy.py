@@ -19,6 +19,7 @@ from dataclasses import dataclass, field
 from datetime import datetime, time, timedelta
 from enum import Enum
 from typing import Optional
+import pytz
 
 from models.candle import Candle
 from models.order import OrderSide
@@ -193,12 +194,38 @@ class ORBVWAPStrategy(BaseStrategy):
 
     def _is_session_open(self, timestamp: datetime) -> bool:
         """Check if market session is open."""
-        current_time = timestamp.time()
+        # Convert timestamp to NY timezone
+        # Teletrade server uses UTC+4 timezone (not EET!)
+        ny_tz = pytz.timezone('America/New_York')
+        server_tz = pytz.timezone('Etc/GMT-4')  # UTC+4 (note: Etc/GMT sign is inverted)
+
+        if timestamp.tzinfo is None:
+            timestamp_dt = server_tz.localize(timestamp)
+        else:
+            timestamp_dt = timestamp
+
+        timestamp_ny = timestamp_dt.astimezone(ny_tz)
+        current_time = timestamp_ny.time()
+
         return self.config.session_start <= current_time <= self.config.session_end
 
     def _is_opening_candle(self, candle: Candle) -> bool:
         """Check if this is the first candle of the session."""
-        candle_time = candle.timestamp.time()
+        # Convert candle timestamp to NY timezone
+        # Teletrade server uses UTC+4 timezone (not EET!)
+        ny_tz = pytz.timezone('America/New_York')
+        server_tz = pytz.timezone('Etc/GMT-4')  # UTC+4 (note: Etc/GMT sign is inverted)
+
+        # If timestamp has no timezone, assume it's server time (UTC+4)
+        if candle.timestamp.tzinfo is None:
+            candle_dt = server_tz.localize(candle.timestamp)
+        else:
+            candle_dt = candle.timestamp
+
+        # Convert to NY time
+        candle_ny = candle_dt.astimezone(ny_tz)
+        candle_time = candle_ny.time()
+
         session_start = self.config.session_start
 
         # Allow 5 minutes window for first candle
@@ -470,7 +497,18 @@ class ORBVWAPStrategy(BaseStrategy):
         if not self.config.use_time_filter:
             return True
 
-        current_time = timestamp.time()
+        # Convert timestamp to NY timezone
+        # Teletrade server uses UTC+4 timezone
+        ny_tz = pytz.timezone('America/New_York')
+        server_tz = pytz.timezone('Etc/GMT-4')  # UTC+4
+
+        if timestamp.tzinfo is None:
+            timestamp_dt = server_tz.localize(timestamp)
+        else:
+            timestamp_dt = timestamp
+
+        timestamp_ny = timestamp_dt.astimezone(ny_tz)
+        current_time = timestamp_ny.time()
 
         # Morning window
         in_morning = (
@@ -484,7 +522,7 @@ class ORBVWAPStrategy(BaseStrategy):
 
         if not (in_morning or in_afternoon):
             self._trades_filtered_by_time += 1
-            logger.debug(f"Time filter rejected: {current_time} not in optimal windows")
+            logger.debug(f"Time filter rejected: {current_time} (NY) not in optimal windows")
             return False
 
         return True

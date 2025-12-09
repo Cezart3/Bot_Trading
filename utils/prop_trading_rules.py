@@ -288,10 +288,22 @@ class PropTradingTracker:
         if daily_loss_pct <= -self.config.max_daily_loss:
             return False, f"Daily loss limit {self.config.max_daily_loss}% reached"
 
-        # Rule: Time restriction
+        # Rule: Time restriction (in NY timezone)
+        import pytz
+        ny_tz = pytz.timezone('America/New_York')
+
+        # Convert current time to NY timezone
+        if current_time.tzinfo is None:
+            # Assume local time (Europe/Bucharest), convert to NY
+            local_tz = pytz.timezone('Europe/Bucharest')
+            current_time_local = local_tz.localize(current_time)
+            current_time_ny = current_time_local.astimezone(ny_tz)
+        else:
+            current_time_ny = current_time.astimezone(ny_tz)
+
         stop_time = datetime.strptime(self.config.stop_trading_after_time, "%H:%M").time()
-        if current_time.time() > stop_time:
-            return False, f"No new trades after {self.config.stop_trading_after_time}"
+        if current_time_ny.time() > stop_time:
+            return False, f"No new trades after {self.config.stop_trading_after_time} NY time"
 
         return True, "OK"
 

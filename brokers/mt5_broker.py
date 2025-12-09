@@ -107,19 +107,31 @@ class MT5Broker(BaseBroker):
         """Establish connection to MT5."""
         mt5 = self._get_mt5()
 
-        # Initialize MT5
-        init_kwargs = {"timeout": self.timeout}
+        # First, try to initialize without credentials to check if already connected
+        if mt5.initialize():
+            account = mt5.account_info()
+            if account and account.login == self.login:
+                # Already connected to the correct account
+                self._connected = True
+                logger.info(f"Already connected to MT5 account {self.login} on {account.server}")
+                return True
+            else:
+                # Connected to different account, need to reconnect
+                logger.info(f"Connected to different account ({account.login if account else 'unknown'}), reconnecting...")
+                mt5.shutdown()
+
+        # Initialize MT5 with credentials
+        init_kwargs = {
+            "login": self.login,
+            "password": self.password,
+            "server": self.server,
+            "timeout": self.timeout,
+        }
         if self.path:
             init_kwargs["path"] = self.path
 
         if not mt5.initialize(**init_kwargs):
             logger.error(f"MT5 initialization failed: {mt5.last_error()}")
-            return False
-
-        # Login to account
-        if not mt5.login(self.login, password=self.password, server=self.server):
-            logger.error(f"MT5 login failed: {mt5.last_error()}")
-            mt5.shutdown()
             return False
 
         self._connected = True
@@ -270,6 +282,23 @@ class MT5Broker(BaseBroker):
         mt5 = self._get_mt5()
         symbols = mt5.symbols_get()
         return [s.name for s in symbols] if symbols else []
+
+    def select_symbol(self, symbol: str) -> bool:
+        """
+        Select symbol in Market Watch for trading.
+
+        Args:
+            symbol: Symbol name to select.
+
+        Returns:
+            True if symbol selected successfully.
+        """
+        mt5 = self._get_mt5()
+        if not mt5.symbol_select(symbol, True):
+            logger.error(f"Failed to select symbol {symbol}: {mt5.last_error()}")
+            return False
+        logger.info(f"Symbol {symbol} selected in Market Watch")
+        return True
 
     # ==================== Order Methods ====================
 
