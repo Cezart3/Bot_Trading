@@ -19,15 +19,13 @@ Usage:
     python run_trading.py --analysis         # Show stock analysis
 """
 
-import sys
-import os
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
 import argparse
 import signal
+import sys
 import time
 from datetime import datetime, date, timedelta
 from typing import Optional
+
 
 from config.settings import get_settings
 from brokers.mt5_broker import MT5Broker
