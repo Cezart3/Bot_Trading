@@ -1,0 +1,2087 @@
+{
+  "summary": {
+    "initial_balance": 25000.0,
+    "final_balance": 27467.952194306883,
+    "total_pnl": 2539.952194306892,
+    "total_trades": 36,
+    "winning_trades": 14,
+    "losing_trades": 22,
+    "win_rate": 38.88888888888889,
+    "profit_factor": 1.4597981237010536,
+    "max_drawdown": 1908.0159541405737,
+    "max_drawdown_percent": 7.402048983090315,
+    "sharpe_ratio": 0.2729519454220028
+  },
+  "trades": [
+    {
+      "trade_id": "607c4666-06ca-4efd-a60a-23d07333ab25",
+      "symbol": "AMD",
+      "side": "long",
+      "quantity": 2.0,
+      "entry_price": 222.52849365234374,
+      "exit_price": 220.95486987154942,
+      "entry_time": "2025-10-13T09:45:00-04:00",
+      "exit_time": "2025-10-13T10:15:00-04:00",
+      "pnl": -314.72475615886424,
+      "pnl_percent": 0.0,
+      "net_pnl": -316.72475615886424,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 220.9648698715494,
+      "take_profit": 226.4025531043296,
+      "result": "loss",
+      "exit_reason": "sl",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 30.0,
+      "r_multiple": -100.6395400302054,
+      "notes": ""
+    },
+    {
+      "trade_id": "f542c1b0-7420-4018-b47b-d5eacb016395",
+      "symbol": "AMD",
+      "side": "long",
+      "quantity": 2.0,
+      "entry_price": 221.48999572753905,
+      "exit_price": 220.46487963717442,
+      "entry_time": "2025-10-14T10:40:00-04:00",
+      "exit_time": "2025-10-14T10:45:00-04:00",
+      "pnl": -205.02321807292674,
+      "pnl_percent": 0.0,
+      "net_pnl": -207.02321807292674,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 220.4748796371744,
+      "take_profit": 223.9927859534507,
+      "result": "loss",
+      "exit_reason": "sl",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 5.0,
+      "r_multiple": -100.9851090032864,
+      "notes": ""
+    },
+    {
+      "trade_id": "8bad38fe-9fdf-4125-b5fa-b2a92c1b1458",
+      "symbol": "AMD",
+      "side": "long",
+      "quantity": 1.0,
+      "entry_price": 230.08000732421874,
+      "exit_price": 237.24000549316406,
+      "entry_time": "2025-10-15T09:50:00-04:00",
+      "exit_time": "2025-10-15T15:50:00-04:00",
+      "pnl": 715.9998168945322,
+      "pnl_percent": 0.0,
+      "net_pnl": 713.9998168945322,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 225.43497790377597,
+      "take_profit": 241.6575808753257,
+      "result": "win",
+      "exit_reason": "session_end",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 360.0,
+      "r_multiple": 154.1432253891478,
+      "notes": ""
+    },
+    {
+      "trade_id": "d43899f9-741f-4c4e-9aef-6ada4020acff",
+      "symbol": "AMD",
+      "side": "long",
+      "quantity": 2.0,
+      "entry_price": 240.23500610351562,
+      "exit_price": 238.7848717026041,
+      "entry_time": "2025-10-16T10:15:00-04:00",
+      "exit_time": "2025-10-16T10:25:00-04:00",
+      "pnl": -290.02688018230174,
+      "pnl_percent": 0.0,
+      "net_pnl": -292.02688018230174,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 238.7948717026041,
+      "take_profit": 243.80034210579444,
+      "result": "loss",
+      "exit_reason": "sl",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 10.0,
+      "r_multiple": -100.69437963523832,
+      "notes": ""
+    },
+    {
+      "trade_id": "173800e2-0d39-4d14-acd1-7e06b1bc3532",
+      "symbol": "AMD",
+      "side": "short",
+      "quantity": 1.0,
+      "entry_price": 231.48000549316407,
+      "exit_price": 234.04513012845058,
+      "entry_time": "2025-10-17T09:35:00-04:00",
+      "exit_time": "2025-10-17T10:10:00-04:00",
+      "pnl": -256.51246352865087,
+      "pnl_percent": 0.0,
+      "net_pnl": -258.51246352865087,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 234.0351301284506,
+      "take_profit": 225.12719390494775,
+      "result": "loss",
+      "exit_reason": "sl",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 35.0,
+      "r_multiple": -100.39137034107416,
+      "notes": ""
+    },
+    {
+      "trade_id": "37c56b28-354f-4bff-83aa-3d84bbc47a40",
+      "symbol": "AMD",
+      "side": "long",
+      "quantity": 1.0,
+      "entry_price": 239.24500061035155,
+      "exit_price": 241.19000244140625,
+      "entry_time": "2025-10-20T09:55:00-04:00",
+      "exit_time": "2025-10-20T15:50:00-04:00",
+      "pnl": 194.50018310546966,
+      "pnl_percent": 0.0,
+      "net_pnl": 192.50018310546966,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 236.44486559908847,
+      "take_profit": 246.2103381385093,
+      "result": "win",
+      "exit_reason": "session_end",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 355.0,
+      "r_multiple": 69.46100181709983,
+      "notes": ""
+    },
+    {
+      "trade_id": "aa2398ef-c350-4648-9a51-b98147634341",
+      "symbol": "AMD",
+      "side": "short",
+      "quantity": 1.0,
+      "entry_price": 232.90000366210938,
+      "exit_price": 229.85130310058594,
+      "entry_time": "2025-10-22T10:25:00-04:00",
+      "exit_time": "2025-10-22T15:50:00-04:00",
+      "pnl": 304.87005615234466,
+      "pnl_percent": 0.0,
+      "net_pnl": 302.87005615234466,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 236.63512097317715,
+      "take_profit": 223.59721038443993,
+      "result": "win",
+      "exit_reason": "session_end",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 325.0,
+      "r_multiple": 81.62261871908667,
+      "notes": ""
+    },
+    {
+      "trade_id": "b87a6f04-770c-46f6-a69b-d9e841c67cfb",
+      "symbol": "AMD",
+      "side": "long",
+      "quantity": 6.0,
+      "entry_price": 234.53870178222655,
+      "exit_price": 235.52800537483742,
+      "entry_time": "2025-10-23T14:05:00-04:00",
+      "exit_time": "2025-10-23T14:55:00-04:00",
+      "pnl": 593.58215556652,
+      "pnl_percent": 0.0,
+      "net_pnl": 591.58215556652,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 234.12498034518222,
+      "take_profit": 235.5380053748374,
+      "result": "win",
+      "exit_reason": "tp",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 50.0,
+      "r_multiple": 239.12311619106714,
+      "notes": ""
+    },
+    {
+      "trade_id": "a1654f31-800e-4dad-b63c-591b7711af53",
+      "symbol": "AMD",
+      "side": "long",
+      "quantity": 2.0,
+      "entry_price": 249.65999389648437,
+      "exit_price": 248.1148735336588,
+      "entry_time": "2025-10-24T09:35:00-04:00",
+      "exit_time": "2025-10-24T09:45:00-04:00",
+      "pnl": -309.02407256511424,
+      "pnl_percent": 0.0,
+      "net_pnl": -311.02407256511424,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 248.12487353365879,
+      "take_profit": 253.46279480354835,
+      "result": "loss",
+      "exit_reason": "sl",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 10.0,
+      "r_multiple": -100.65141471914194,
+      "notes": ""
+    },
+    {
+      "trade_id": "b664b39a-9cea-4061-9abd-8e888db8e3c8",
+      "symbol": "AMD",
+      "side": "long",
+      "quantity": 2.0,
+      "entry_price": 260.83501220703124,
+      "exit_price": 259.804860716276,
+      "entry_time": "2025-10-28T09:40:00-04:00",
+      "exit_time": "2025-10-28T09:45:00-04:00",
+      "pnl": -206.03029815105174,
+      "pnl_percent": 0.0,
+      "net_pnl": -208.03029815105174,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 259.814860716276,
+      "take_profit": 263.35039093391947,
+      "result": "loss",
+      "exit_reason": "sl",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 5.0,
+      "r_multiple": -100.98024657029981,
+      "notes": ""
+    },
+    {
+      "trade_id": "008276f3-912f-4532-8430-16e3a328d6a4",
+      "symbol": "AMD",
+      "side": "short",
+      "quantity": 1.0,
+      "entry_price": 258.44999145507813,
+      "exit_price": 262.5429176040365,
+      "entry_time": "2025-10-29T14:35:00-04:00",
+      "exit_time": "2025-10-29T14:55:00-04:00",
+      "pnl": -409.29261489583837,
+      "pnl_percent": 0.0,
+      "net_pnl": -411.29261489583837,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 262.5329176040365,
+      "take_profit": 248.27767608268212,
+      "result": "loss",
+      "exit_reason": "sl",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 20.0,
+      "r_multiple": -100.24492238250603,
+      "notes": ""
+    },
+    {
+      "trade_id": "adc11fb2-039d-4fe4-8b93-7f717f825021",
+      "symbol": "AMD",
+      "side": "long",
+      "quantity": 2.0,
+      "entry_price": 262.2400109863281,
+      "exit_price": 260.82497180026036,
+      "entry_time": "2025-10-30T09:50:00-04:00",
+      "exit_time": "2025-10-30T10:00:00-04:00",
+      "pnl": -283.00783721355174,
+      "pnl_percent": 0.0,
+      "net_pnl": -285.00783721355174,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 260.83497180026035,
+      "take_profit": 265.7176089514976,
+      "result": "loss",
+      "exit_reason": "sl",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 10.0,
+      "r_multiple": -100.71172392194822,
+      "notes": ""
+    },
+    {
+      "trade_id": "e6f7056c-2faf-4ef6-8803-fd711b6999f5",
+      "symbol": "AMD",
+      "side": "long",
+      "quantity": 2.0,
+      "entry_price": 261.70149780273437,
+      "exit_price": 260.6648765854166,
+      "entry_time": "2025-10-31T10:15:00-04:00",
+      "exit_time": "2025-10-31T10:20:00-04:00",
+      "pnl": -207.32424346355174,
+      "pnl_percent": 0.0,
+      "net_pnl": -209.32424346355174,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 260.6748765854166,
+      "take_profit": 264.23305084602885,
+      "result": "loss",
+      "exit_reason": "sl",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 5.0,
+      "r_multiple": -100.97406909494016,
+      "notes": ""
+    },
+    {
+      "trade_id": "0701a071-5fc5-4cab-a4f9-47d1d0a743c4",
+      "symbol": "AMD",
+      "side": "short",
+      "quantity": 1.0,
+      "entry_price": 255.51000427246095,
+      "exit_price": 257.675119752474,
+      "entry_time": "2025-11-03T09:45:00-05:00",
+      "exit_time": "2025-11-03T12:35:00-05:00",
+      "pnl": -216.51154800130712,
+      "pnl_percent": 0.0,
+      "net_pnl": -218.51154800130712,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 257.665119752474,
+      "take_profit": 250.1572155724282,
+      "result": "loss",
+      "exit_reason": "sl",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 170.0,
+      "r_multiple": -100.4640122579385,
+      "notes": ""
+    },
+    {
+      "trade_id": "c8da566f-ae0a-4029-b83f-8db55aba26ce",
+      "symbol": "AMD",
+      "side": "long",
+      "quantity": 2.0,
+      "entry_price": 258.14800048828124,
+      "exit_price": 257.08485949557286,
+      "entry_time": "2025-11-05T14:00:00-05:00",
+      "exit_time": "2025-11-05T15:05:00-05:00",
+      "pnl": -212.62819854167674,
+      "pnl_percent": 0.0,
+      "net_pnl": -214.62819854167674,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 257.09485949557285,
+      "take_profit": 260.7458529700523,
+      "result": "loss",
+      "exit_reason": "sl",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 65.0,
+      "r_multiple": -100.94954047646304,
+      "notes": ""
+    },
+    {
+      "trade_id": "f8ae62c1-38eb-40eb-bcbb-1327e582e257",
+      "symbol": "AMD",
+      "side": "short",
+      "quantity": 1.0,
+      "entry_price": 248.05500244140626,
+      "exit_price": 242.25643371207664,
+      "entry_time": "2025-11-06T09:45:00-05:00",
+      "exit_time": "2025-11-06T10:00:00-05:00",
+      "pnl": 579.8568729329617,
+      "pnl_percent": 0.0,
+      "net_pnl": 577.8568729329617,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 250.3924299331381,
+      "take_profit": 242.24643371207665,
+      "result": "win",
+      "exit_reason": "tp",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 15.0,
+      "r_multiple": 248.0748065914713,
+      "notes": ""
+    },
+    {
+      "trade_id": "e38b6225-89d7-4d3d-9cb8-cc06f3123971",
+      "symbol": "AMD",
+      "side": "short",
+      "quantity": 1.0,
+      "entry_price": 228.43149780273438,
+      "exit_price": 230.79513012845058,
+      "entry_time": "2025-11-07T09:35:00-05:00",
+      "exit_time": "2025-11-07T09:40:00-05:00",
+      "pnl": -236.36323257161962,
+      "pnl_percent": 0.0,
+      "net_pnl": -238.36323257161962,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 230.7851301284506,
+      "take_profit": 222.58241698844384,
+      "result": "loss",
+      "exit_reason": "sl",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 5.0,
+      "r_multiple": -100.42487519782632,
+      "notes": ""
+    },
+    {
+      "trade_id": "856e7726-6704-4589-9943-dc4025ed722b",
+      "symbol": "AMD",
+      "side": "long",
+      "quantity": 1.0,
+      "entry_price": 244.73000122070312,
+      "exit_price": 242.77487719576817,
+      "entry_time": "2025-11-10T09:40:00-05:00",
+      "exit_time": "2025-11-10T11:40:00-05:00",
+      "pnl": -195.51240249349462,
+      "pnl_percent": 0.0,
+      "net_pnl": -197.51240249349462,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 242.78487719576816,
+      "take_profit": 249.55781128304054,
+      "result": "loss",
+      "exit_reason": "sl",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 120.0,
+      "r_multiple": -100.51410603497766,
+      "notes": ""
+    },
+    {
+      "trade_id": "9871d580-0836-4819-bf75-9e8ef110b39e",
+      "symbol": "AMD",
+      "side": "short",
+      "quantity": 3.0,
+      "entry_price": 240.04000305175782,
+      "exit_price": 238.2721960411782,
+      "entry_time": "2025-11-11T10:20:00-05:00",
+      "exit_time": "2025-11-11T10:30:00-05:00",
+      "pnl": 530.342103173885,
+      "pnl_percent": 0.0,
+      "net_pnl": 528.342103173885,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 240.76512585598965,
+      "take_profit": 238.2621960411782,
+      "result": "win",
+      "exit_reason": "tp",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 10.0,
+      "r_multiple": 243.79415462631457,
+      "notes": ""
+    },
+    {
+      "trade_id": "6e713de9-fecc-4f3a-bd13-64cbdd9906a3",
+      "symbol": "AMD",
+      "side": "long",
+      "quantity": 1.0,
+      "entry_price": 260.03499389648437,
+      "exit_price": 257.4148765854166,
+      "entry_time": "2025-11-12T10:10:00-05:00",
+      "exit_time": "2025-11-12T11:10:00-05:00",
+      "pnl": -262.01173110677587,
+      "pnl_percent": 0.0,
+      "net_pnl": -264.01173110677587,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 257.4248765854166,
+      "take_profit": 266.52528717415385,
+      "result": "loss",
+      "exit_reason": "sl",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 60.0,
+      "r_multiple": -100.38312454224136,
+      "notes": ""
+    },
+    {
+      "trade_id": "fadb87a6-9257-4683-a33c-588300c5d5cc",
+      "symbol": "AMD",
+      "side": "long",
+      "quantity": 1.0,
+      "entry_price": 254.96829772949218,
+      "exit_price": 252.9649711899088,
+      "entry_time": "2025-11-13T09:55:00-05:00",
+      "exit_time": "2025-11-13T11:40:00-05:00",
+      "pnl": -200.33265395833837,
+      "pnl_percent": 0.0,
+      "net_pnl": -202.33265395833837,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 252.97497118990879,
+      "take_profit": 259.9166140784507,
+      "result": "loss",
+      "exit_reason": "sl",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 105.0,
+      "r_multiple": -100.50167395062532,
+      "notes": ""
+    },
+    {
+      "trade_id": "5cd9deec-d636-43d4-9691-e3e870564230",
+      "symbol": "AMD",
+      "side": "long",
+      "quantity": 3.0,
+      "entry_price": 250.91499877929687,
+      "exit_price": 252.97657562630226,
+      "entry_time": "2025-11-14T11:30:00-05:00",
+      "exit_time": "2025-11-14T12:10:00-05:00",
+      "pnl": 618.4730541016194,
+      "pnl_percent": 0.0,
+      "net_pnl": 616.4730541016194,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 250.07236804049472,
+      "take_profit": 252.98657562630225,
+      "result": "win",
+      "exit_reason": "tp",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 40.0,
+      "r_multiple": 244.65958243299673,
+      "notes": ""
+    },
+    {
+      "trade_id": "2fcf6c0a-82c4-45c9-bdfb-6b608d9accc3",
+      "symbol": "AMD",
+      "side": "short",
+      "quantity": 2.0,
+      "entry_price": 240.04999755859376,
+      "exit_price": 237.5071585045571,
+      "entry_time": "2025-11-17T14:00:00-05:00",
+      "exit_time": "2025-11-17T15:35:00-05:00",
+      "pnl": 508.5678108073296,
+      "pnl_percent": 0.0,
+      "net_pnl": 506.5678108073296,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 241.0851331802084,
+      "take_profit": 237.49715850455712,
+      "result": "win",
+      "exit_reason": "tp",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 95.0,
+      "r_multiple": 245.652743557432,
+      "notes": ""
+    },
+    {
+      "trade_id": "4db10db2-dc64-482e-8dc0-4978c88a4037",
+      "symbol": "AMD",
+      "side": "short",
+      "quantity": 1.0,
+      "entry_price": 230.75589965820313,
+      "exit_price": 230.85000610351562,
+      "entry_time": "2025-11-18T09:40:00-05:00",
+      "exit_time": "2025-11-18T15:50:00-05:00",
+      "pnl": -9.41064453124909,
+      "pnl_percent": 0.0,
+      "net_pnl": -11.41064453124909,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 235.22513256985684,
+      "take_profit": 219.61781737906884,
+      "result": "loss",
+      "exit_reason": "session_end",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 370.0,
+      "r_multiple": -2.1056509511308876,
+      "notes": ""
+    },
+    {
+      "trade_id": "3526f3af-498f-424a-8b53-1de71c1d235f",
+      "symbol": "AMD",
+      "side": "short",
+      "quantity": 1.0,
+      "entry_price": 227.64159606933595,
+      "exit_price": 222.20275329215477,
+      "entry_time": "2025-11-19T11:20:00-05:00",
+      "exit_time": "2025-11-19T12:30:00-05:00",
+      "pnl": 543.8842777181179,
+      "pnl_percent": 0.0,
+      "net_pnl": 541.8842777181179,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 229.8351331802084,
+      "take_profit": 222.19275329215478,
+      "result": "win",
+      "exit_reason": "tp",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 70.0,
+      "r_multiple": 247.94851886585766,
+      "notes": ""
+    },
+    {
+      "trade_id": "92e1f1ea-7f47-454d-8957-26b22928b54c",
+      "symbol": "AMD",
+      "side": "short",
+      "quantity": 1.0,
+      "entry_price": 221.95099853515626,
+      "exit_price": 216.76068328483055,
+      "entry_time": "2025-11-20T11:20:00-05:00",
+      "exit_time": "2025-11-20T11:50:00-05:00",
+      "pnl": 519.031525032571,
+      "pnl_percent": 0.0,
+      "net_pnl": 517.031525032571,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 224.04512463528653,
+      "take_profit": 216.75068328483056,
+      "result": "win",
+      "exit_reason": "tp",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 30.0,
+      "r_multiple": 247.85113226958205,
+      "notes": ""
+    },
+    {
+      "trade_id": "f4c472d9-9256-44f7-897a-7bfc22ca91a3",
+      "symbol": "AMD",
+      "side": "short",
+      "quantity": 1.0,
+      "entry_price": 203.16500305175782,
+      "exit_price": 195.34720061881492,
+      "entry_time": "2025-11-21T09:35:00-05:00",
+      "exit_time": "2025-11-21T10:40:00-05:00",
+      "pnl": 781.7802432942898,
+      "pnl_percent": 0.0,
+      "net_pnl": 779.7802432942898,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 206.31012402493496,
+      "take_profit": 195.33720061881493,
+      "result": "win",
+      "exit_reason": "tp",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 65.0,
+      "r_multiple": 248.56921242827423,
+      "notes": ""
+    },
+    {
+      "trade_id": "9766c059-ec5a-481f-8b8e-5c4a213dfb2c",
+      "symbol": "AMD",
+      "side": "long",
+      "quantity": 2.0,
+      "entry_price": 210.51999450683593,
+      "exit_price": 214.23779846565773,
+      "entry_time": "2025-11-24T09:35:00-05:00",
+      "exit_time": "2025-11-24T11:40:00-05:00",
+      "pnl": 743.5607917643608,
+      "pnl_percent": 0.0,
+      "net_pnl": 741.5607917643608,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 209.01487292330722,
+      "take_profit": 214.24779846565772,
+      "result": "win",
+      "exit_reason": "tp",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 125.0,
+      "r_multiple": 247.01020831191204,
+      "notes": ""
+    },
+    {
+      "trade_id": "cbfe8dd0-a2d6-4140-8dd2-cf38189ef25c",
+      "symbol": "AMD",
+      "side": "short",
+      "quantity": 1.0,
+      "entry_price": 194.74,
+      "exit_price": 198.35512768704433,
+      "entry_time": "2025-11-25T09:45:00-05:00",
+      "exit_time": "2025-11-25T09:55:00-05:00",
+      "pnl": -361.5127687044321,
+      "pnl_percent": 0.0,
+      "net_pnl": -363.5127687044321,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 198.34512768704434,
+      "take_profit": 185.76218078238915,
+      "result": "loss",
+      "exit_reason": "sl",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 10.0,
+      "r_multiple": -100.27738268566542,
+      "notes": ""
+    },
+    {
+      "trade_id": "827f4c8e-3403-4d1f-8ad8-44a0bd70245f",
+      "symbol": "AMD",
+      "side": "long",
+      "quantity": 2.0,
+      "entry_price": 211.26,
+      "exit_price": 214.87782074348976,
+      "entry_time": "2025-11-26T10:15:00-05:00",
+      "exit_time": "2025-11-26T14:15:00-05:00",
+      "pnl": 723.5641486979546,
+      "pnl_percent": 0.0,
+      "net_pnl": 721.5641486979546,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 209.7948717026041,
+      "take_profit": 214.88782074348975,
+      "result": "win",
+      "exit_reason": "tp",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 240.0,
+      "r_multiple": 246.9285966232485,
+      "notes": ""
+    },
+    {
+      "trade_id": "bf43773f-7745-4cd3-b62e-24b4cb9d90da",
+      "symbol": "AMD",
+      "side": "long",
+      "quantity": 1.0,
+      "entry_price": 217.73999572753905,
+      "exit_price": 215.22987902682286,
+      "entry_time": "2025-11-28T09:45:00-05:00",
+      "exit_time": "2025-12-01T09:30:00-05:00",
+      "pnl": -251.01167007161962,
+      "pnl_percent": 0.0,
+      "net_pnl": -253.01167007161962,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 215.23987902682285,
+      "take_profit": 223.9552874793296,
+      "result": "loss",
+      "exit_reason": "sl",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 4305.0,
+      "r_multiple": -100.39998132875662,
+      "notes": ""
+    },
+    {
+      "trade_id": "dd1d9610-c935-4137-8eed-354c0eaf72d5",
+      "symbol": "AMD",
+      "side": "long",
+      "quantity": 2.0,
+      "entry_price": 216.51,
+      "exit_price": 220.0399932861328,
+      "entry_time": "2025-12-01T09:40:00-05:00",
+      "exit_time": "2025-12-01T15:50:00-05:00",
+      "pnl": 705.9986572265643,
+      "pnl_percent": 0.0,
+      "net_pnl": 703.9986572265643,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 214.6549791244791,
+      "take_profit": 221.11255218880225,
+      "result": "win",
+      "exit_reason": "session_end",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 370.0,
+      "r_multiple": 190.2939925213291,
+      "notes": ""
+    },
+    {
+      "trade_id": "4106aae8-6ba5-45ed-b4e2-47fd38cdb053",
+      "symbol": "AMD",
+      "side": "long",
+      "quantity": 2.0,
+      "entry_price": 224.31999755859374,
+      "exit_price": 223.00497973483067,
+      "entry_time": "2025-12-02T09:35:00-05:00",
+      "exit_time": "2025-12-02T10:10:00-05:00",
+      "pnl": -263.00356475261424,
+      "pnl_percent": 0.0,
+      "net_pnl": -265.00356475261424,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 223.01497973483066,
+      "take_profit": 227.54754211800147,
+      "result": "loss",
+      "exit_reason": "sl",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 35.0,
+      "r_multiple": -100.76627305910317,
+      "notes": ""
+    },
+    {
+      "trade_id": "40dbf401-3dfe-4c4f-b825-cbc0ae8ee2a0",
+      "symbol": "AMD",
+      "side": "short",
+      "quantity": 1.0,
+      "entry_price": 212.12499450683595,
+      "exit_price": 215.0901282973959,
+      "entry_time": "2025-12-03T09:35:00-05:00",
+      "exit_time": "2025-12-03T10:00:00-05:00",
+      "pnl": -296.5133790559946,
+      "pnl_percent": 0.0,
+      "net_pnl": -298.5133790559946,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 215.0801282973959,
+      "take_profit": 204.77216003043603,
+      "result": "loss",
+      "exit_reason": "sl",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 25.0,
+      "r_multiple": -100.33839415433357,
+      "notes": ""
+    },
+    {
+      "trade_id": "1583d6da-9596-4b39-91a7-823f3248dc2e",
+      "symbol": "AMD",
+      "side": "short",
+      "quantity": 4.0,
+      "entry_price": 215.29439758300782,
+      "exit_price": 216.06513440091152,
+      "entry_time": "2025-12-04T10:10:00-05:00",
+      "exit_time": "2025-12-04T10:20:00-05:00",
+      "pnl": -308.2947271614785,
+      "pnl_percent": 0.0,
+      "net_pnl": -310.2947271614785,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 216.05513440091153,
+      "take_profit": 213.42755553824853,
+      "result": "loss",
+      "exit_reason": "sl",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 10.0,
+      "r_multiple": -101.31451505496302,
+      "notes": ""
+    },
+    {
+      "trade_id": "bbfba6a3-8c25-44e4-9fc2-d7c61825ec2a",
+      "symbol": "AMD",
+      "side": "long",
+      "quantity": 2.0,
+      "entry_price": 222.4348046875,
+      "exit_price": 221.2848717026041,
+      "entry_time": "2025-12-05T10:05:00-05:00",
+      "exit_time": "2025-12-05T10:25:00-05:00",
+      "pnl": -229.98659697917674,
+      "pnl_percent": 0.0,
+      "net_pnl": -231.98659697917674,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 221.2948717026041,
+      "take_profit": 225.24963714973975,
+      "result": "loss",
+      "exit_reason": "sl",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 20.0,
+      "r_multiple": -100.87724455143336,
+      "notes": ""
+    }
+  ],
+  "equity_curve": [
+    {
+      "timestamp": "2025-10-13T09:30:00-04:00",
+      "equity": 25000.0
+    },
+    {
+      "timestamp": "2025-10-13T10:20:00-04:00",
+      "equity": 24683.275243841137
+    },
+    {
+      "timestamp": "2025-10-13T11:10:00-04:00",
+      "equity": 24683.275243841137
+    },
+    {
+      "timestamp": "2025-10-13T12:00:00-04:00",
+      "equity": 24683.275243841137
+    },
+    {
+      "timestamp": "2025-10-13T12:50:00-04:00",
+      "equity": 24683.275243841137
+    },
+    {
+      "timestamp": "2025-10-13T13:40:00-04:00",
+      "equity": 24683.275243841137
+    },
+    {
+      "timestamp": "2025-10-13T14:30:00-04:00",
+      "equity": 24683.275243841137
+    },
+    {
+      "timestamp": "2025-10-13T15:20:00-04:00",
+      "equity": 24683.275243841137
+    },
+    {
+      "timestamp": "2025-10-14T09:40:00-04:00",
+      "equity": 24683.275243841137
+    },
+    {
+      "timestamp": "2025-10-14T10:30:00-04:00",
+      "equity": 24683.275243841137
+    },
+    {
+      "timestamp": "2025-10-14T11:20:00-04:00",
+      "equity": 24476.25202576821
+    },
+    {
+      "timestamp": "2025-10-14T12:10:00-04:00",
+      "equity": 24476.25202576821
+    },
+    {
+      "timestamp": "2025-10-14T13:00:00-04:00",
+      "equity": 24476.25202576821
+    },
+    {
+      "timestamp": "2025-10-14T13:50:00-04:00",
+      "equity": 24476.25202576821
+    },
+    {
+      "timestamp": "2025-10-14T14:40:00-04:00",
+      "equity": 24476.25202576821
+    },
+    {
+      "timestamp": "2025-10-14T15:30:00-04:00",
+      "equity": 24476.25202576821
+    },
+    {
+      "timestamp": "2025-10-15T09:50:00-04:00",
+      "equity": 24476.25202576821
+    },
+    {
+      "timestamp": "2025-10-15T10:40:00-04:00",
+      "equity": 24803.251354381493
+    },
+    {
+      "timestamp": "2025-10-15T11:30:00-04:00",
+      "equity": 25079.491893932274
+    },
+    {
+      "timestamp": "2025-10-15T12:20:00-04:00",
+      "equity": 24975.620739147118
+    },
+    {
+      "timestamp": "2025-10-15T13:10:00-04:00",
+      "equity": 24582.351391002587
+    },
+    {
+      "timestamp": "2025-10-15T14:00:00-04:00",
+      "equity": 24953.251354381493
+    },
+    {
+      "timestamp": "2025-10-15T14:50:00-04:00",
+      "equity": 25252.2519036979
+    },
+    {
+      "timestamp": "2025-10-15T15:40:00-04:00",
+      "equity": 25289.05152527993
+    },
+    {
+      "timestamp": "2025-10-16T10:00:00-04:00",
+      "equity": 25190.251842662743
+    },
+    {
+      "timestamp": "2025-10-16T10:50:00-04:00",
+      "equity": 24898.224962480443
+    },
+    {
+      "timestamp": "2025-10-16T11:40:00-04:00",
+      "equity": 24898.224962480443
+    },
+    {
+      "timestamp": "2025-10-16T12:30:00-04:00",
+      "equity": 24898.224962480443
+    },
+    {
+      "timestamp": "2025-10-16T13:20:00-04:00",
+      "equity": 24898.224962480443
+    },
+    {
+      "timestamp": "2025-10-16T14:10:00-04:00",
+      "equity": 24898.224962480443
+    },
+    {
+      "timestamp": "2025-10-16T15:00:00-04:00",
+      "equity": 24898.224962480443
+    },
+    {
+      "timestamp": "2025-10-16T15:50:00-04:00",
+      "equity": 24898.224962480443
+    },
+    {
+      "timestamp": "2025-10-17T10:10:00-04:00",
+      "equity": 24541.72514558591
+    },
+    {
+      "timestamp": "2025-10-17T11:00:00-04:00",
+      "equity": 24639.71249895179
+    },
+    {
+      "timestamp": "2025-10-17T11:50:00-04:00",
+      "equity": 24639.71249895179
+    },
+    {
+      "timestamp": "2025-10-17T12:40:00-04:00",
+      "equity": 24639.71249895179
+    },
+    {
+      "timestamp": "2025-10-17T13:30:00-04:00",
+      "equity": 24639.71249895179
+    },
+    {
+      "timestamp": "2025-10-17T14:20:00-04:00",
+      "equity": 24639.71249895179
+    },
+    {
+      "timestamp": "2025-10-17T15:10:00-04:00",
+      "equity": 24639.71249895179
+    },
+    {
+      "timestamp": "2025-10-20T09:30:00-04:00",
+      "equity": 24639.71249895179
+    },
+    {
+      "timestamp": "2025-10-20T10:20:00-04:00",
+      "equity": 24586.412450123666
+    },
+    {
+      "timestamp": "2025-10-20T11:10:00-04:00",
+      "equity": 24844.212743092416
+    },
+    {
+      "timestamp": "2025-10-20T12:00:00-04:00",
+      "equity": 24891.212865162728
+    },
+    {
+      "timestamp": "2025-10-20T12:50:00-04:00",
+      "equity": 24968.812962818978
+    },
+    {
+      "timestamp": "2025-10-20T13:40:00-04:00",
+      "equity": 24901.211949635384
+    },
+    {
+      "timestamp": "2025-10-20T14:30:00-04:00",
+      "equity": 24787.222691822884
+    },
+    {
+      "timestamp": "2025-10-20T15:20:00-04:00",
+      "equity": 24811.221715260384
+    },
+    {
+      "timestamp": "2025-10-21T09:40:00-04:00",
+      "equity": 24832.21268205726
+    },
+    {
+      "timestamp": "2025-10-21T10:30:00-04:00",
+      "equity": 24832.21268205726
+    },
+    {
+      "timestamp": "2025-10-21T11:20:00-04:00",
+      "equity": 24832.21268205726
+    },
+    {
+      "timestamp": "2025-10-21T12:10:00-04:00",
+      "equity": 24832.21268205726
+    },
+    {
+      "timestamp": "2025-10-21T13:00:00-04:00",
+      "equity": 24832.21268205726
+    },
+    {
+      "timestamp": "2025-10-21T13:50:00-04:00",
+      "equity": 24832.21268205726
+    },
+    {
+      "timestamp": "2025-10-21T14:40:00-04:00",
+      "equity": 24832.21268205726
+    },
+    {
+      "timestamp": "2025-10-21T15:30:00-04:00",
+      "equity": 24832.21268205726
+    },
+    {
+      "timestamp": "2025-10-22T09:50:00-04:00",
+      "equity": 24832.21268205726
+    },
+    {
+      "timestamp": "2025-10-22T10:40:00-04:00",
+      "equity": 25107.213109303353
+    },
+    {
+      "timestamp": "2025-10-22T11:30:00-04:00",
+      "equity": 25264.212315846322
+    },
+    {
+      "timestamp": "2025-10-22T12:20:00-04:00",
+      "equity": 25196.77304582679
+    },
+    {
+      "timestamp": "2025-10-22T13:10:00-04:00",
+      "equity": 25394.212621022103
+    },
+    {
+      "timestamp": "2025-10-22T14:00:00-04:00",
+      "equity": 25511.212437916634
+    },
+    {
+      "timestamp": "2025-10-22T14:50:00-04:00",
+      "equity": 25385.71347551429
+    },
+    {
+      "timestamp": "2025-10-22T15:40:00-04:00",
+      "equity": 25166.513341236947
+    },
+    {
+      "timestamp": "2025-10-23T10:00:00-04:00",
+      "equity": 25135.082738209603
+    },
+    {
+      "timestamp": "2025-10-23T10:50:00-04:00",
+      "equity": 25135.082738209603
+    },
+    {
+      "timestamp": "2025-10-23T11:40:00-04:00",
+      "equity": 25135.082738209603
+    },
+    {
+      "timestamp": "2025-10-23T12:30:00-04:00",
+      "equity": 25135.082738209603
+    },
+    {
+      "timestamp": "2025-10-23T13:20:00-04:00",
+      "equity": 25135.082738209603
+    },
+    {
+      "timestamp": "2025-10-23T14:10:00-04:00",
+      "equity": 25314.859471608048
+    },
+    {
+      "timestamp": "2025-10-23T15:00:00-04:00",
+      "equity": 25726.664893776124
+    },
+    {
+      "timestamp": "2025-10-23T15:50:00-04:00",
+      "equity": 25726.664893776124
+    },
+    {
+      "timestamp": "2025-10-24T10:10:00-04:00",
+      "equity": 25415.64082121101
+    },
+    {
+      "timestamp": "2025-10-24T11:00:00-04:00",
+      "equity": 25415.64082121101
+    },
+    {
+      "timestamp": "2025-10-24T11:50:00-04:00",
+      "equity": 25415.64082121101
+    },
+    {
+      "timestamp": "2025-10-24T12:40:00-04:00",
+      "equity": 25415.64082121101
+    },
+    {
+      "timestamp": "2025-10-24T13:30:00-04:00",
+      "equity": 25415.64082121101
+    },
+    {
+      "timestamp": "2025-10-24T14:20:00-04:00",
+      "equity": 25415.64082121101
+    },
+    {
+      "timestamp": "2025-10-24T15:10:00-04:00",
+      "equity": 25415.64082121101
+    },
+    {
+      "timestamp": "2025-10-27T09:30:00-04:00",
+      "equity": 25415.64082121101
+    },
+    {
+      "timestamp": "2025-10-27T10:20:00-04:00",
+      "equity": 25415.64082121101
+    },
+    {
+      "timestamp": "2025-10-27T11:10:00-04:00",
+      "equity": 25415.64082121101
+    },
+    {
+      "timestamp": "2025-10-27T12:00:00-04:00",
+      "equity": 25415.64082121101
+    },
+    {
+      "timestamp": "2025-10-27T12:50:00-04:00",
+      "equity": 25415.64082121101
+    },
+    {
+      "timestamp": "2025-10-27T13:40:00-04:00",
+      "equity": 25415.64082121101
+    },
+    {
+      "timestamp": "2025-10-27T14:30:00-04:00",
+      "equity": 25415.64082121101
+    },
+    {
+      "timestamp": "2025-10-27T15:20:00-04:00",
+      "equity": 25415.64082121101
+    },
+    {
+      "timestamp": "2025-10-28T09:40:00-04:00",
+      "equity": 25415.64082121101
+    },
+    {
+      "timestamp": "2025-10-28T10:30:00-04:00",
+      "equity": 25207.61052305996
+    },
+    {
+      "timestamp": "2025-10-28T11:20:00-04:00",
+      "equity": 25207.61052305996
+    },
+    {
+      "timestamp": "2025-10-28T12:10:00-04:00",
+      "equity": 25207.61052305996
+    },
+    {
+      "timestamp": "2025-10-28T13:00:00-04:00",
+      "equity": 25207.61052305996
+    },
+    {
+      "timestamp": "2025-10-28T13:50:00-04:00",
+      "equity": 25207.61052305996
+    },
+    {
+      "timestamp": "2025-10-28T14:40:00-04:00",
+      "equity": 25207.61052305996
+    },
+    {
+      "timestamp": "2025-10-28T15:30:00-04:00",
+      "equity": 25207.61052305996
+    },
+    {
+      "timestamp": "2025-10-29T09:50:00-04:00",
+      "equity": 25207.61052305996
+    },
+    {
+      "timestamp": "2025-10-29T10:40:00-04:00",
+      "equity": 25207.61052305996
+    },
+    {
+      "timestamp": "2025-10-29T11:30:00-04:00",
+      "equity": 25207.61052305996
+    },
+    {
+      "timestamp": "2025-10-29T12:20:00-04:00",
+      "equity": 25207.61052305996
+    },
+    {
+      "timestamp": "2025-10-29T13:10:00-04:00",
+      "equity": 25207.61052305996
+    },
+    {
+      "timestamp": "2025-10-29T14:00:00-04:00",
+      "equity": 25207.61052305996
+    },
+    {
+      "timestamp": "2025-10-29T14:50:00-04:00",
+      "equity": 24854.209766224023
+    },
+    {
+      "timestamp": "2025-10-29T15:40:00-04:00",
+      "equity": 24796.31790816412
+    },
+    {
+      "timestamp": "2025-10-30T10:00:00-04:00",
+      "equity": 24505.31741988287
+    },
+    {
+      "timestamp": "2025-10-30T10:50:00-04:00",
+      "equity": 24511.31007095057
+    },
+    {
+      "timestamp": "2025-10-30T11:40:00-04:00",
+      "equity": 24511.31007095057
+    },
+    {
+      "timestamp": "2025-10-30T12:30:00-04:00",
+      "equity": 24511.31007095057
+    },
+    {
+      "timestamp": "2025-10-30T13:20:00-04:00",
+      "equity": 24511.31007095057
+    },
+    {
+      "timestamp": "2025-10-30T14:10:00-04:00",
+      "equity": 24511.31007095057
+    },
+    {
+      "timestamp": "2025-10-30T15:00:00-04:00",
+      "equity": 24511.31007095057
+    },
+    {
+      "timestamp": "2025-10-30T15:50:00-04:00",
+      "equity": 24511.31007095057
+    },
+    {
+      "timestamp": "2025-10-31T10:10:00-04:00",
+      "equity": 24511.31007095057
+    },
+    {
+      "timestamp": "2025-10-31T11:00:00-04:00",
+      "equity": 24301.98582748702
+    },
+    {
+      "timestamp": "2025-10-31T11:50:00-04:00",
+      "equity": 24301.98582748702
+    },
+    {
+      "timestamp": "2025-10-31T12:40:00-04:00",
+      "equity": 24301.98582748702
+    },
+    {
+      "timestamp": "2025-10-31T13:30:00-04:00",
+      "equity": 24301.98582748702
+    },
+    {
+      "timestamp": "2025-10-31T14:20:00-04:00",
+      "equity": 24301.98582748702
+    },
+    {
+      "timestamp": "2025-10-31T15:10:00-04:00",
+      "equity": 24301.98582748702
+    },
+    {
+      "timestamp": "2025-11-03T09:30:00-05:00",
+      "equity": 24301.98582748702
+    },
+    {
+      "timestamp": "2025-11-03T10:20:00-05:00",
+      "equity": 24258.98698715499
+    },
+    {
+      "timestamp": "2025-11-03T11:10:00-05:00",
+      "equity": 24167.98662094405
+    },
+    {
+      "timestamp": "2025-11-03T12:00:00-05:00",
+      "equity": 24189.18718246749
+    },
+    {
+      "timestamp": "2025-11-03T12:50:00-05:00",
+      "equity": 24083.474279485712
+    },
+    {
+      "timestamp": "2025-11-03T13:40:00-05:00",
+      "equity": 24083.474279485712
+    },
+    {
+      "timestamp": "2025-11-03T14:30:00-05:00",
+      "equity": 24083.474279485712
+    },
+    {
+      "timestamp": "2025-11-03T15:20:00-05:00",
+      "equity": 24083.474279485712
+    },
+    {
+      "timestamp": "2025-11-04T09:40:00-05:00",
+      "equity": 24083.474279485712
+    },
+    {
+      "timestamp": "2025-11-04T10:30:00-05:00",
+      "equity": 24083.474279485712
+    },
+    {
+      "timestamp": "2025-11-04T11:20:00-05:00",
+      "equity": 24083.474279485712
+    },
+    {
+      "timestamp": "2025-11-04T12:10:00-05:00",
+      "equity": 24083.474279485712
+    },
+    {
+      "timestamp": "2025-11-04T13:00:00-05:00",
+      "equity": 24083.474279485712
+    },
+    {
+      "timestamp": "2025-11-04T13:50:00-05:00",
+      "equity": 24083.474279485712
+    },
+    {
+      "timestamp": "2025-11-04T14:40:00-05:00",
+      "equity": 24083.474279485712
+    },
+    {
+      "timestamp": "2025-11-04T15:30:00-05:00",
+      "equity": 24083.474279485712
+    },
+    {
+      "timestamp": "2025-11-05T09:50:00-05:00",
+      "equity": 24083.474279485712
+    },
+    {
+      "timestamp": "2025-11-05T10:40:00-05:00",
+      "equity": 24083.474279485712
+    },
+    {
+      "timestamp": "2025-11-05T11:30:00-05:00",
+      "equity": 24083.474279485712
+    },
+    {
+      "timestamp": "2025-11-05T12:20:00-05:00",
+      "equity": 24083.474279485712
+    },
+    {
+      "timestamp": "2025-11-05T13:10:00-05:00",
+      "equity": 24083.474279485712
+    },
+    {
+      "timestamp": "2025-11-05T14:00:00-05:00",
+      "equity": 24083.474279485712
+    },
+    {
+      "timestamp": "2025-11-05T14:50:00-05:00",
+      "equity": 24144.87247284509
+    },
+    {
+      "timestamp": "2025-11-05T15:40:00-05:00",
+      "equity": 23868.846080944037
+    },
+    {
+      "timestamp": "2025-11-06T10:00:00-05:00",
+      "equity": 24527.345653697943
+    },
+    {
+      "timestamp": "2025-11-06T10:50:00-05:00",
+      "equity": 24446.702953876997
+    },
+    {
+      "timestamp": "2025-11-06T11:40:00-05:00",
+      "equity": 24446.702953876997
+    },
+    {
+      "timestamp": "2025-11-06T12:30:00-05:00",
+      "equity": 24446.702953876997
+    },
+    {
+      "timestamp": "2025-11-06T13:20:00-05:00",
+      "equity": 24446.702953876997
+    },
+    {
+      "timestamp": "2025-11-06T14:10:00-05:00",
+      "equity": 24446.702953876997
+    },
+    {
+      "timestamp": "2025-11-06T15:00:00-05:00",
+      "equity": 24446.702953876997
+    },
+    {
+      "timestamp": "2025-11-06T15:50:00-05:00",
+      "equity": 24446.702953876997
+    },
+    {
+      "timestamp": "2025-11-07T10:10:00-05:00",
+      "equity": 24208.339721305376
+    },
+    {
+      "timestamp": "2025-11-07T11:00:00-05:00",
+      "equity": 24208.339721305376
+    },
+    {
+      "timestamp": "2025-11-07T11:50:00-05:00",
+      "equity": 24208.339721305376
+    },
+    {
+      "timestamp": "2025-11-07T12:40:00-05:00",
+      "equity": 24208.339721305376
+    },
+    {
+      "timestamp": "2025-11-07T13:30:00-05:00",
+      "equity": 24208.339721305376
+    },
+    {
+      "timestamp": "2025-11-07T14:20:00-05:00",
+      "equity": 24208.339721305376
+    },
+    {
+      "timestamp": "2025-11-07T15:10:00-05:00",
+      "equity": 24208.339721305376
+    },
+    {
+      "timestamp": "2025-11-10T09:30:00-05:00",
+      "equity": 24208.339721305376
+    },
+    {
+      "timestamp": "2025-11-10T10:20:00-05:00",
+      "equity": 24468.339233024126
+    },
+    {
+      "timestamp": "2025-11-10T11:10:00-05:00",
+      "equity": 24179.339294059282
+    },
+    {
+      "timestamp": "2025-11-10T12:00:00-05:00",
+      "equity": 24010.82731881188
+    },
+    {
+      "timestamp": "2025-11-10T12:50:00-05:00",
+      "equity": 24010.82731881188
+    },
+    {
+      "timestamp": "2025-11-10T13:40:00-05:00",
+      "equity": 24010.82731881188
+    },
+    {
+      "timestamp": "2025-11-10T14:30:00-05:00",
+      "equity": 24010.82731881188
+    },
+    {
+      "timestamp": "2025-11-10T15:20:00-05:00",
+      "equity": 24010.82731881188
+    },
+    {
+      "timestamp": "2025-11-11T09:40:00-05:00",
+      "equity": 24010.82731881188
+    },
+    {
+      "timestamp": "2025-11-11T10:30:00-05:00",
+      "equity": 24638.98979439782
+    },
+    {
+      "timestamp": "2025-11-11T11:20:00-05:00",
+      "equity": 24539.169421985764
+    },
+    {
+      "timestamp": "2025-11-11T12:10:00-05:00",
+      "equity": 24539.169421985764
+    },
+    {
+      "timestamp": "2025-11-11T13:00:00-05:00",
+      "equity": 24539.169421985764
+    },
+    {
+      "timestamp": "2025-11-11T13:50:00-05:00",
+      "equity": 24539.169421985764
+    },
+    {
+      "timestamp": "2025-11-11T14:40:00-05:00",
+      "equity": 24539.169421985764
+    },
+    {
+      "timestamp": "2025-11-11T15:30:00-05:00",
+      "equity": 24539.169421985764
+    },
+    {
+      "timestamp": "2025-11-12T09:50:00-05:00",
+      "equity": 24539.169421985764
+    },
+    {
+      "timestamp": "2025-11-12T10:40:00-05:00",
+      "equity": 24872.670520618576
+    },
+    {
+      "timestamp": "2025-11-12T11:30:00-05:00",
+      "equity": 24275.157690878987
+    },
+    {
+      "timestamp": "2025-11-12T12:20:00-05:00",
+      "equity": 24275.157690878987
+    },
+    {
+      "timestamp": "2025-11-12T13:10:00-05:00",
+      "equity": 24275.157690878987
+    },
+    {
+      "timestamp": "2025-11-12T14:00:00-05:00",
+      "equity": 24275.157690878987
+    },
+    {
+      "timestamp": "2025-11-12T14:50:00-05:00",
+      "equity": 24275.157690878987
+    },
+    {
+      "timestamp": "2025-11-12T15:40:00-05:00",
+      "equity": 24275.157690878987
+    },
+    {
+      "timestamp": "2025-11-13T10:00:00-05:00",
+      "equity": 24219.82822310555
+    },
+    {
+      "timestamp": "2025-11-13T10:50:00-05:00",
+      "equity": 24199.82852828133
+    },
+    {
+      "timestamp": "2025-11-13T11:40:00-05:00",
+      "equity": 24093.328284140705
+    },
+    {
+      "timestamp": "2025-11-13T12:30:00-05:00",
+      "equity": 24072.825036920647
+    },
+    {
+      "timestamp": "2025-11-13T13:20:00-05:00",
+      "equity": 24072.825036920647
+    },
+    {
+      "timestamp": "2025-11-13T14:10:00-05:00",
+      "equity": 24072.825036920647
+    },
+    {
+      "timestamp": "2025-11-13T15:00:00-05:00",
+      "equity": 24072.825036920647
+    },
+    {
+      "timestamp": "2025-11-13T15:50:00-05:00",
+      "equity": 24072.825036920647
+    },
+    {
+      "timestamp": "2025-11-14T10:10:00-05:00",
+      "equity": 24072.825036920647
+    },
+    {
+      "timestamp": "2025-11-14T11:00:00-05:00",
+      "equity": 24072.825036920647
+    },
+    {
+      "timestamp": "2025-11-14T11:50:00-05:00",
+      "equity": 24239.827234186276
+    },
+    {
+      "timestamp": "2025-11-14T12:40:00-05:00",
+      "equity": 24689.298091022265
+    },
+    {
+      "timestamp": "2025-11-14T13:30:00-05:00",
+      "equity": 24689.298091022265
+    },
+    {
+      "timestamp": "2025-11-14T14:20:00-05:00",
+      "equity": 24689.298091022265
+    },
+    {
+      "timestamp": "2025-11-14T15:10:00-05:00",
+      "equity": 24689.298091022265
+    },
+    {
+      "timestamp": "2025-11-17T09:30:00-05:00",
+      "equity": 24689.298091022265
+    },
+    {
+      "timestamp": "2025-11-17T10:20:00-05:00",
+      "equity": 24689.298091022265
+    },
+    {
+      "timestamp": "2025-11-17T11:10:00-05:00",
+      "equity": 24689.298091022265
+    },
+    {
+      "timestamp": "2025-11-17T12:00:00-05:00",
+      "equity": 24689.298091022265
+    },
+    {
+      "timestamp": "2025-11-17T12:50:00-05:00",
+      "equity": 24689.298091022265
+    },
+    {
+      "timestamp": "2025-11-17T13:40:00-05:00",
+      "equity": 24689.298091022265
+    },
+    {
+      "timestamp": "2025-11-17T14:30:00-05:00",
+      "equity": 24925.296504108206
+    },
+    {
+      "timestamp": "2025-11-17T15:20:00-05:00",
+      "equity": 24952.298457233206
+    },
+    {
+      "timestamp": "2025-11-18T09:40:00-05:00",
+      "equity": 25195.865901829595
+    },
+    {
+      "timestamp": "2025-11-18T10:30:00-05:00",
+      "equity": 25486.456233860845
+    },
+    {
+      "timestamp": "2025-11-18T11:20:00-05:00",
+      "equity": 25294.456416966314
+    },
+    {
+      "timestamp": "2025-11-18T12:10:00-05:00",
+      "equity": 25228.456050755376
+    },
+    {
+      "timestamp": "2025-11-18T13:00:00-05:00",
+      "equity": 24895.956355931157
+    },
+    {
+      "timestamp": "2025-11-18T13:50:00-05:00",
+      "equity": 24890.956050755376
+    },
+    {
+      "timestamp": "2025-11-18T14:40:00-05:00",
+      "equity": 25050.45617282569
+    },
+    {
+      "timestamp": "2025-11-18T15:30:00-05:00",
+      "equity": 25129.45550143897
+    },
+    {
+      "timestamp": "2025-11-19T09:50:00-05:00",
+      "equity": 25184.455257298345
+    },
+    {
+      "timestamp": "2025-11-19T10:40:00-05:00",
+      "equity": 25184.455257298345
+    },
+    {
+      "timestamp": "2025-11-19T11:30:00-05:00",
+      "equity": 25233.614925267095
+    },
+    {
+      "timestamp": "2025-11-19T12:20:00-05:00",
+      "equity": 25543.115047337407
+    },
+    {
+      "timestamp": "2025-11-19T13:10:00-05:00",
+      "equity": 25726.33953501646
+    },
+    {
+      "timestamp": "2025-11-19T14:00:00-05:00",
+      "equity": 25726.33953501646
+    },
+    {
+      "timestamp": "2025-11-19T14:50:00-05:00",
+      "equity": 25726.33953501646
+    },
+    {
+      "timestamp": "2025-11-19T15:40:00-05:00",
+      "equity": 25726.33953501646
+    },
+    {
+      "timestamp": "2025-11-20T10:00:00-05:00",
+      "equity": 25726.33953501646
+    },
+    {
+      "timestamp": "2025-11-20T10:50:00-05:00",
+      "equity": 25726.33953501646
+    },
+    {
+      "timestamp": "2025-11-20T11:40:00-05:00",
+      "equity": 26095.439388532086
+    },
+    {
+      "timestamp": "2025-11-20T12:30:00-05:00",
+      "equity": 26243.37106004903
+    },
+    {
+      "timestamp": "2025-11-20T13:20:00-05:00",
+      "equity": 26243.37106004903
+    },
+    {
+      "timestamp": "2025-11-20T14:10:00-05:00",
+      "equity": 26243.37106004903
+    },
+    {
+      "timestamp": "2025-11-20T15:00:00-05:00",
+      "equity": 26243.37106004903
+    },
+    {
+      "timestamp": "2025-11-20T15:50:00-05:00",
+      "equity": 26243.37106004903
+    },
+    {
+      "timestamp": "2025-11-21T10:10:00-05:00",
+      "equity": 26551.870632802937
+    },
+    {
+      "timestamp": "2025-11-21T11:00:00-05:00",
+      "equity": 27023.15130334332
+    },
+    {
+      "timestamp": "2025-11-21T11:50:00-05:00",
+      "equity": 27023.15130334332
+    },
+    {
+      "timestamp": "2025-11-21T12:40:00-05:00",
+      "equity": 27023.15130334332
+    },
+    {
+      "timestamp": "2025-11-21T13:30:00-05:00",
+      "equity": 27023.15130334332
+    },
+    {
+      "timestamp": "2025-11-21T14:20:00-05:00",
+      "equity": 27023.15130334332
+    },
+    {
+      "timestamp": "2025-11-21T15:10:00-05:00",
+      "equity": 27023.15130334332
+    },
+    {
+      "timestamp": "2025-11-24T09:30:00-05:00",
+      "equity": 27023.15130334332
+    },
+    {
+      "timestamp": "2025-11-24T10:20:00-05:00",
+      "equity": 27174.15215783551
+    },
+    {
+      "timestamp": "2025-11-24T11:10:00-05:00",
+      "equity": 27548.15118127301
+    },
+    {
+      "timestamp": "2025-11-24T12:00:00-05:00",
+      "equity": 27764.71209510768
+    },
+    {
+      "timestamp": "2025-11-24T12:50:00-05:00",
+      "equity": 27764.71209510768
+    },
+    {
+      "timestamp": "2025-11-24T13:40:00-05:00",
+      "equity": 27764.71209510768
+    },
+    {
+      "timestamp": "2025-11-24T14:30:00-05:00",
+      "equity": 27764.71209510768
+    },
+    {
+      "timestamp": "2025-11-24T15:20:00-05:00",
+      "equity": 27764.71209510768
+    },
+    {
+      "timestamp": "2025-11-25T09:40:00-05:00",
+      "equity": 27764.71209510768
+    },
+    {
+      "timestamp": "2025-11-25T10:30:00-05:00",
+      "equity": 27401.199326403246
+    },
+    {
+      "timestamp": "2025-11-25T11:20:00-05:00",
+      "equity": 27401.199326403246
+    },
+    {
+      "timestamp": "2025-11-25T12:10:00-05:00",
+      "equity": 27401.199326403246
+    },
+    {
+      "timestamp": "2025-11-25T13:00:00-05:00",
+      "equity": 27401.199326403246
+    },
+    {
+      "timestamp": "2025-11-25T13:50:00-05:00",
+      "equity": 27401.199326403246
+    },
+    {
+      "timestamp": "2025-11-25T14:40:00-05:00",
+      "equity": 27401.199326403246
+    },
+    {
+      "timestamp": "2025-11-25T15:30:00-05:00",
+      "equity": 27401.199326403246
+    },
+    {
+      "timestamp": "2025-11-26T09:50:00-05:00",
+      "equity": 27401.199326403246
+    },
+    {
+      "timestamp": "2025-11-26T10:40:00-05:00",
+      "equity": 27494.619614489187
+    },
+    {
+      "timestamp": "2025-11-26T11:30:00-05:00",
+      "equity": 27903.198105700125
+    },
+    {
+      "timestamp": "2025-11-26T12:20:00-05:00",
+      "equity": 27721.200425036062
+    },
+    {
+      "timestamp": "2025-11-26T13:10:00-05:00",
+      "equity": 27881.197983629812
+    },
+    {
+      "timestamp": "2025-11-26T14:00:00-05:00",
+      "equity": 27816.198593981375
+    },
+    {
+      "timestamp": "2025-11-26T14:50:00-05:00",
+      "equity": 28122.7634751012
+    },
+    {
+      "timestamp": "2025-11-26T15:40:00-05:00",
+      "equity": 28122.7634751012
+    },
+    {
+      "timestamp": "2025-11-28T10:00:00-05:00",
+      "equity": 28066.123277347295
+    },
+    {
+      "timestamp": "2025-11-28T10:50:00-05:00",
+      "equity": 28023.87321631214
+    },
+    {
+      "timestamp": "2025-11-28T11:40:00-05:00",
+      "equity": 27964.763719241826
+    },
+    {
+      "timestamp": "2025-11-28T12:30:00-05:00",
+      "equity": 28000.763780276982
+    },
+    {
+      "timestamp": "2025-12-01T09:50:00-05:00",
+      "equity": 28416.132298193646
+    },
+    {
+      "timestamp": "2025-12-01T10:40:00-05:00",
+      "equity": 28024.750462256146
+    },
+    {
+      "timestamp": "2025-12-01T11:30:00-05:00",
+      "equity": 28250.751438818646
+    },
+    {
+      "timestamp": "2025-12-01T12:20:00-05:00",
+      "equity": 28266.751805029584
+    },
+    {
+      "timestamp": "2025-12-01T13:10:00-05:00",
+      "equity": 28536.45090170927
+    },
+    {
+      "timestamp": "2025-12-01T14:00:00-05:00",
+      "equity": 28606.75119467802
+    },
+    {
+      "timestamp": "2025-12-01T14:50:00-05:00",
+      "equity": 28445.75265952177
+    },
+    {
+      "timestamp": "2025-12-01T15:40:00-05:00",
+      "equity": 28610.75204917021
+    },
+    {
+      "timestamp": "2025-12-02T10:00:00-05:00",
+      "equity": 28627.31174155302
+    },
+    {
+      "timestamp": "2025-12-02T10:50:00-05:00",
+      "equity": 28308.746897503534
+    },
+    {
+      "timestamp": "2025-12-02T11:40:00-05:00",
+      "equity": 28308.746897503534
+    },
+    {
+      "timestamp": "2025-12-02T12:30:00-05:00",
+      "equity": 28308.746897503534
+    },
+    {
+      "timestamp": "2025-12-02T13:20:00-05:00",
+      "equity": 28308.746897503534
+    },
+    {
+      "timestamp": "2025-12-02T14:10:00-05:00",
+      "equity": 28308.746897503534
+    },
+    {
+      "timestamp": "2025-12-02T15:00:00-05:00",
+      "equity": 28308.746897503534
+    },
+    {
+      "timestamp": "2025-12-02T15:50:00-05:00",
+      "equity": 28308.746897503534
+    },
+    {
+      "timestamp": "2025-12-03T10:10:00-05:00",
+      "equity": 28010.233518447538
+    },
+    {
+      "timestamp": "2025-12-03T11:00:00-05:00",
+      "equity": 28010.233518447538
+    },
+    {
+      "timestamp": "2025-12-03T11:50:00-05:00",
+      "equity": 28010.233518447538
+    },
+    {
+      "timestamp": "2025-12-03T12:40:00-05:00",
+      "equity": 28010.233518447538
+    },
+    {
+      "timestamp": "2025-12-03T13:30:00-05:00",
+      "equity": 28010.233518447538
+    },
+    {
+      "timestamp": "2025-12-03T14:20:00-05:00",
+      "equity": 28010.233518447538
+    },
+    {
+      "timestamp": "2025-12-03T15:10:00-05:00",
+      "equity": 28010.233518447538
+    },
+    {
+      "timestamp": "2025-12-04T09:30:00-05:00",
+      "equity": 28010.233518447538
+    },
+    {
+      "timestamp": "2025-12-04T10:20:00-05:00",
+      "equity": 27482.99230751004
+    },
+    {
+      "timestamp": "2025-12-04T11:10:00-05:00",
+      "equity": 27699.93879128606
+    },
+    {
+      "timestamp": "2025-12-04T12:00:00-05:00",
+      "equity": 27699.93879128606
+    },
+    {
+      "timestamp": "2025-12-04T12:50:00-05:00",
+      "equity": 27699.93879128606
+    },
+    {
+      "timestamp": "2025-12-04T13:40:00-05:00",
+      "equity": 27699.93879128606
+    },
+    {
+      "timestamp": "2025-12-04T14:30:00-05:00",
+      "equity": 27699.93879128606
+    },
+    {
+      "timestamp": "2025-12-04T15:20:00-05:00",
+      "equity": 27699.93879128606
+    },
+    {
+      "timestamp": "2025-12-05T09:40:00-05:00",
+      "equity": 27699.93879128606
+    },
+    {
+      "timestamp": "2025-12-05T10:30:00-05:00",
+      "equity": 27467.952194306883
+    },
+    {
+      "timestamp": "2025-12-05T11:20:00-05:00",
+      "equity": 27467.952194306883
+    },
+    {
+      "timestamp": "2025-12-05T12:10:00-05:00",
+      "equity": 27467.952194306883
+    },
+    {
+      "timestamp": "2025-12-05T13:00:00-05:00",
+      "equity": 27467.952194306883
+    },
+    {
+      "timestamp": "2025-12-05T13:50:00-05:00",
+      "equity": 27467.952194306883
+    },
+    {
+      "timestamp": "2025-12-05T14:40:00-05:00",
+      "equity": 27467.952194306883
+    },
+    {
+      "timestamp": "2025-12-05T15:30:00-05:00",
+      "equity": 27467.952194306883
+    }
+  ]
+}

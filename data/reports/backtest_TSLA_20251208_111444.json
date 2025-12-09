@@ -1,0 +1,2087 @@
+{
+  "summary": {
+    "initial_balance": 25000.0,
+    "final_balance": 25395.46517918965,
+    "total_pnl": 467.46517918967356,
+    "total_trades": 36,
+    "winning_trades": 14,
+    "losing_trades": 22,
+    "win_rate": 38.88888888888889,
+    "profit_factor": 1.061566648706667,
+    "max_drawdown": 2396.4913209022925,
+    "max_drawdown_percent": 8.78611194504953,
+    "sharpe_ratio": 0.054818221292690344
+  },
+  "trades": [
+    {
+      "trade_id": "dc178ba1-4a86-4cc9-a560-46498b125cc4",
+      "symbol": "TSLA",
+      "side": "long",
+      "quantity": 1.0,
+      "entry_price": 428.6198937988281,
+      "exit_price": 424.9355127255763,
+      "entry_time": "2025-10-13T10:35:00-04:00",
+      "exit_time": "2025-10-13T10:40:00-04:00",
+      "pnl": -368.43810732518136,
+      "pnl_percent": 0.0,
+      "net_pnl": -370.43810732518136,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 424.9455127255763,
+      "take_profit": 437.77084648195773,
+      "result": "loss",
+      "exit_reason": "sl",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 5.0,
+      "r_multiple": -100.27215467858757,
+      "notes": ""
+    },
+    {
+      "trade_id": "17cebbac-0b40-4c24-9baa-2209dfadcf41",
+      "symbol": "TSLA",
+      "side": "short",
+      "quantity": 1.0,
+      "entry_price": 419.57499145507813,
+      "exit_price": 421.3837011416112,
+      "entry_time": "2025-10-14T09:45:00-04:00",
+      "exit_time": "2025-10-14T09:50:00-04:00",
+      "pnl": -180.87096865330636,
+      "pnl_percent": 0.0,
+      "net_pnl": -182.87096865330636,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 421.3737011416112,
+      "take_profit": 415.1132172387454,
+      "result": "loss",
+      "exit_reason": "sl",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 5.0,
+      "r_multiple": -100.55595408613523,
+      "notes": ""
+    },
+    {
+      "trade_id": "bf557ca0-cff2-44b5-a025-a66646b3ec58",
+      "symbol": "TSLA",
+      "side": "long",
+      "quantity": 1.0,
+      "entry_price": 439.45000244140624,
+      "exit_price": 437.0362207333888,
+      "entry_time": "2025-10-15T10:25:00-04:00",
+      "exit_time": "2025-10-15T10:50:00-04:00",
+      "pnl": -241.37817080174386,
+      "pnl_percent": 0.0,
+      "net_pnl": -243.37817080174386,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 437.0462207333888,
+      "take_profit": 445.4244567114499,
+      "result": "loss",
+      "exit_reason": "sl",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 25.0,
+      "r_multiple": -100.41601115303597,
+      "notes": ""
+    },
+    {
+      "trade_id": "643ea2ca-ee1c-4799-a376-8466b2028b32",
+      "symbol": "TSLA",
+      "side": "long",
+      "quantity": 2.0,
+      "entry_price": 436.31499267578124,
+      "exit_price": 434.82632083104505,
+      "entry_time": "2025-10-16T10:20:00-04:00",
+      "exit_time": "2025-10-16T10:25:00-04:00",
+      "pnl": -297.7343689472377,
+      "pnl_percent": 0.0,
+      "net_pnl": -299.7343689472377,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 434.83632083104504,
+      "take_profit": 439.9766722876218,
+      "result": "loss",
+      "exit_reason": "sl",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 5.0,
+      "r_multiple": -100.67628257314759,
+      "notes": ""
+    },
+    {
+      "trade_id": "1e49cdcd-1512-4ee6-9140-3a3c8257e421",
+      "symbol": "TSLA",
+      "side": "long",
+      "quantity": 1.0,
+      "entry_price": 433.66008544921874,
+      "exit_price": 438.97474418703587,
+      "entry_time": "2025-10-17T10:05:00-04:00",
+      "exit_time": "2025-10-17T10:15:00-04:00",
+      "pnl": 531.4658737817126,
+      "pnl_percent": 0.0,
+      "net_pnl": 529.4658737817126,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 431.5162219540919,
+      "take_profit": 438.98474418703586,
+      "result": "win",
+      "exit_reason": "tp",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 10.0,
+      "r_multiple": 247.90098576228294,
+      "notes": ""
+    },
+    {
+      "trade_id": "b9ec808d-4e01-4a07-9f93-9a108a3dd76e",
+      "symbol": "TSLA",
+      "side": "long",
+      "quantity": 1.0,
+      "entry_price": 446.5899865722656,
+      "exit_price": 443.3561975400294,
+      "entry_time": "2025-10-20T09:45:00-04:00",
+      "exit_time": "2025-10-20T10:30:00-04:00",
+      "pnl": -323.37890322361886,
+      "pnl_percent": 0.0,
+      "net_pnl": -325.37890322361886,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 443.3661975400294,
+      "take_profit": 454.61445915285617,
+      "result": "loss",
+      "exit_reason": "sl",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 45.0,
+      "r_multiple": -100.3101939953265,
+      "notes": ""
+    },
+    {
+      "trade_id": "2d446e77-98bc-418b-b3d3-f34d715eb8a0",
+      "symbol": "TSLA",
+      "side": "short",
+      "quantity": 1.0,
+      "entry_price": 440.6880895996094,
+      "exit_price": 436.593828811011,
+      "entry_time": "2025-10-22T10:00:00-04:00",
+      "exit_time": "2025-10-22T10:20:00-04:00",
+      "pnl": 409.4260788598376,
+      "pnl_percent": 0.0,
+      "net_pnl": 407.4260788598376,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 442.3437939150487,
+      "take_profit": 436.583828811011,
+      "result": "win",
+      "exit_reason": "tp",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 20.0,
+      "r_multiple": 247.2821234093365,
+      "notes": ""
+    },
+    {
+      "trade_id": "86db6abf-3fa0-454a-a775-18b26182b893",
+      "symbol": "TSLA",
+      "side": "long",
+      "quantity": 5.0,
+      "entry_price": 444.1299951171875,
+      "exit_price": 443.59621829198255,
+      "entry_time": "2025-10-23T14:00:00-04:00",
+      "exit_time": "2025-10-23T14:05:00-04:00",
+      "pnl": -266.8884126024693,
+      "pnl_percent": 0.0,
+      "net_pnl": -268.8884126024693,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 443.60621829198254,
+      "take_profit": 445.4044371801999,
+      "result": "loss",
+      "exit_reason": "sl",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 5.0,
+      "r_multiple": -101.90921009078208,
+      "notes": ""
+    },
+    {
+      "trade_id": "1cb616d3-5ec2-4b7c-b402-28e3d63eb3dc",
+      "symbol": "TSLA",
+      "side": "short",
+      "quantity": 2.0,
+      "entry_price": 440.13129638671876,
+      "exit_price": 441.2637975771581,
+      "entry_time": "2025-10-24T10:45:00-04:00",
+      "exit_time": "2025-10-24T11:20:00-04:00",
+      "pnl": -226.50023808786273,
+      "pnl_percent": 0.0,
+      "net_pnl": -228.50023808786273,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 441.2537975771581,
+      "take_profit": 437.3600434106204,
+      "result": "loss",
+      "exit_reason": "sl",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 35.0,
+      "r_multiple": -100.89086765209372,
+      "notes": ""
+    },
+    {
+      "trade_id": "1b8299de-5cfb-4c51-b92a-cddc175f493b",
+      "symbol": "TSLA",
+      "side": "long",
+      "quantity": 1.0,
+      "entry_price": 445.999990234375,
+      "exit_price": 454.03941093508274,
+      "entry_time": "2025-10-27T09:55:00-04:00",
+      "exit_time": "2025-10-27T11:15:00-04:00",
+      "pnl": 803.9420700707751,
+      "pnl_percent": 0.0,
+      "net_pnl": 801.9420700707751,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 442.7662219540919,
+      "take_profit": 454.04941093508273,
+      "result": "win",
+      "exit_reason": "tp",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 80.0,
+      "r_multiple": 248.60843461560606,
+      "notes": ""
+    },
+    {
+      "trade_id": "2ac7531a-d6c4-4815-aa1a-4803f5c57153",
+      "symbol": "TSLA",
+      "side": "long",
+      "quantity": 1.0,
+      "entry_price": 457.7400109863281,
+      "exit_price": 460.3800048828125,
+      "entry_time": "2025-10-28T09:35:00-04:00",
+      "exit_time": "2025-10-28T15:50:00-04:00",
+      "pnl": 263.9993896484384,
+      "pnl_percent": 0.0,
+      "net_pnl": 261.9993896484384,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 451.38481326268567,
+      "take_profit": 473.5930052954343,
+      "result": "win",
+      "exit_reason": "session_end",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 375.0,
+      "r_multiple": 41.54070433816945,
+      "notes": ""
+    },
+    {
+      "trade_id": "68d6e2b7-5ee4-4f60-88ff-18edc7172e09",
+      "symbol": "TSLA",
+      "side": "long",
+      "quantity": 2.0,
+      "entry_price": 464.17000366210937,
+      "exit_price": 462.6361963193263,
+      "entry_time": "2025-10-29T10:15:00-04:00",
+      "exit_time": "2025-10-29T10:20:00-04:00",
+      "pnl": -306.7614685566127,
+      "pnl_percent": 0.0,
+      "net_pnl": -308.7614685566127,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 462.6461963193263,
+      "take_profit": 467.9445220190671,
+      "result": "loss",
+      "exit_reason": "sl",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 5.0,
+      "r_multiple": -100.65625093929046,
+      "notes": ""
+    },
+    {
+      "trade_id": "5c2e16a6-5875-4df6-bceb-88da2f2781c6",
+      "symbol": "TSLA",
+      "side": "short",
+      "quantity": 1.0,
+      "entry_price": 448.55008911132813,
+      "exit_price": 441.20330810546875,
+      "entry_time": "2025-10-30T10:00:00-04:00",
+      "exit_time": "2025-10-30T15:50:00-04:00",
+      "pnl": 734.6781005859384,
+      "pnl_percent": 0.0,
+      "net_pnl": 732.6781005859384,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 453.3538036806737,
+      "take_profit": 436.57580268796414,
+      "result": "win",
+      "exit_reason": "session_end",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 350.0,
+      "r_multiple": 152.93958247940327,
+      "notes": ""
+    },
+    {
+      "trade_id": "8c9feec0-c1a3-4b3c-a61a-ec802994b237",
+      "symbol": "TSLA",
+      "side": "long",
+      "quantity": 2.0,
+      "entry_price": 453.7350061035156,
+      "exit_price": 455.5799865722656,
+      "entry_time": "2025-10-31T15:20:00-04:00",
+      "exit_time": "2025-10-31T15:50:00-04:00",
+      "pnl": 368.9960937500018,
+      "pnl_percent": 0.0,
+      "net_pnl": 366.9960937500018,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 452.56630129979504,
+      "take_profit": 456.6217681128171,
+      "result": "win",
+      "exit_reason": "session_end",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 30.0,
+      "r_multiple": 157.86539619555873,
+      "notes": ""
+    },
+    {
+      "trade_id": "eac18af8-a5e4-4a20-9e6d-e848d29f8bab",
+      "symbol": "TSLA",
+      "side": "long",
+      "quantity": 1.0,
+      "entry_price": 463.30998779296874,
+      "exit_price": 469.0350036621094,
+      "entry_time": "2025-11-03T09:35:00-05:00",
+      "exit_time": "2025-11-03T15:50:00-05:00",
+      "pnl": 572.5015869140634,
+      "pnl_percent": 0.0,
+      "net_pnl": 570.5015869140634,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 455.3701953427638,
+      "take_profit": 483.12446891848117,
+      "result": "win",
+      "exit_reason": "session_end",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 375.0,
+      "r_multiple": 72.10535924012542,
+      "notes": ""
+    },
+    {
+      "trade_id": "e7850783-18e4-4eba-b024-055ee7ba35a3",
+      "symbol": "TSLA",
+      "side": "long",
+      "quantity": 1.0,
+      "entry_price": 456.76,
+      "exit_price": 452.4090234677638,
+      "entry_time": "2025-11-04T09:50:00-05:00",
+      "exit_time": "2025-11-04T11:05:00-05:00",
+      "pnl": -435.09765322361886,
+      "pnl_percent": 0.0,
+      "net_pnl": -437.09765322361886,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 452.4190234677638,
+      "take_profit": 467.57744133059055,
+      "result": "loss",
+      "exit_reason": "sl",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 75.0,
+      "r_multiple": -100.23036291317703,
+      "notes": ""
+    },
+    {
+      "trade_id": "0fa0dc7e-ba76-4286-9397-e37b8e7a3ebb",
+      "symbol": "TSLA",
+      "side": "short",
+      "quantity": 1.0,
+      "entry_price": 446.74491333007813,
+      "exit_price": 441.4679438012454,
+      "entry_time": "2025-11-05T09:35:00-05:00",
+      "exit_time": "2025-11-05T10:20:00-05:00",
+      "pnl": 527.6969528832751,
+      "pnl_percent": 0.0,
+      "net_pnl": 525.6969528832751,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 448.8737011416112,
+      "take_profit": 441.4579438012454,
+      "result": "win",
+      "exit_reason": "tp",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 45.0,
+      "r_multiple": 247.88612092966073,
+      "notes": ""
+    },
+    {
+      "trade_id": "b8913dfa-9260-4942-9350-9105e53d8067",
+      "symbol": "TSLA",
+      "side": "long",
+      "quantity": 1.0,
+      "entry_price": 463.9800012207031,
+      "exit_price": 459.21230715917005,
+      "entry_time": "2025-11-06T09:40:00-05:00",
+      "exit_time": "2025-11-06T09:55:00-05:00",
+      "pnl": -476.76940615330636,
+      "pnl_percent": 0.0,
+      "net_pnl": -478.76940615330636,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 459.22230715917004,
+      "take_profit": 475.83923637453586,
+      "result": "loss",
+      "exit_reason": "sl",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 15.0,
+      "r_multiple": -100.21018585622903,
+      "notes": ""
+    },
+    {
+      "trade_id": "a7ca34cf-78bf-4993-95df-a41d83cb78be",
+      "symbol": "TSLA",
+      "side": "short",
+      "quantity": 1.0,
+      "entry_price": 426.000009765625,
+      "exit_price": 432.0561864931737,
+      "entry_time": "2025-11-07T09:35:00-05:00",
+      "exit_time": "2025-11-07T09:55:00-05:00",
+      "pnl": -605.6176727548689,
+      "pnl_percent": 0.0,
+      "net_pnl": -607.6176727548689,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 432.0461864931737,
+      "take_profit": 410.9195679467532,
+      "result": "loss",
+      "exit_reason": "sl",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 20.0,
+      "r_multiple": -100.16539377611024,
+      "notes": ""
+    },
+    {
+      "trade_id": "59f80d62-7ce7-4a31-937a-1332411e0ac1",
+      "symbol": "TSLA",
+      "side": "long",
+      "quantity": 1.0,
+      "entry_price": 444.80998779296874,
+      "exit_price": 442.3561975400294,
+      "entry_time": "2025-11-10T10:25:00-05:00",
+      "exit_time": "2025-11-10T11:00:00-05:00",
+      "pnl": -245.37902529393136,
+      "pnl_percent": 0.0,
+      "net_pnl": -247.37902529393136,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 442.3661975400294,
+      "take_profit": 450.8844634253171,
+      "result": "loss",
+      "exit_reason": "sl",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 35.0,
+      "r_multiple": -100.40920042086113,
+      "notes": ""
+    },
+    {
+      "trade_id": "f22255f9-720b-4307-8181-0d9cad555a8d",
+      "symbol": "TSLA",
+      "side": "short",
+      "quantity": 1.0,
+      "entry_price": 436.0326940917969,
+      "exit_price": 437.8237951357518,
+      "entry_time": "2025-11-11T10:15:00-05:00",
+      "exit_time": "2025-11-11T14:30:00-05:00",
+      "pnl": -179.11010439549386,
+      "pnl_percent": 0.0,
+      "net_pnl": -181.11010439549386,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 437.81379513575183,
+      "take_profit": 431.61494148190945,
+      "result": "loss",
+      "exit_reason": "sl",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 255.0,
+      "r_multiple": -100.56145045975526,
+      "notes": ""
+    },
+    {
+      "trade_id": "d3dd9a51-ea35-44f3-a4cd-74b72f4d11bb",
+      "symbol": "TSLA",
+      "side": "short",
+      "quantity": 1.0,
+      "entry_price": 435.57999633789063,
+      "exit_price": 431.1300048828125,
+      "entry_time": "2025-11-12T09:45:00-05:00",
+      "exit_time": "2025-11-12T15:50:00-05:00",
+      "pnl": 444.9991455078134,
+      "pnl_percent": 0.0,
+      "net_pnl": 442.9991455078134,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 439.3337841494237,
+      "take_profit": 426.2305268090579,
+      "result": "win",
+      "exit_reason": "session_end",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 365.0,
+      "r_multiple": 118.54669679000122,
+      "notes": ""
+    },
+    {
+      "trade_id": "ff6cccff-9266-4ad0-a77f-95cd2d2c13af",
+      "symbol": "TSLA",
+      "side": "short",
+      "quantity": 1.0,
+      "entry_price": 420.1099951171875,
+      "exit_price": 410.5205103295657,
+      "entry_time": "2025-11-13T09:35:00-05:00",
+      "exit_time": "2025-11-13T10:20:00-05:00",
+      "pnl": 958.9484787621814,
+      "pnl_percent": 0.0,
+      "net_pnl": 956.9484787621814,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 423.9637890322362,
+      "take_profit": 410.5105103295657,
+      "result": "win",
+      "exit_reason": "tp",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 45.0,
+      "r_multiple": 248.83231950146038,
+      "notes": ""
+    },
+    {
+      "trade_id": "d86826cc-6d10-4798-b5b6-b052fd23933c",
+      "symbol": "TSLA",
+      "side": "long",
+      "quantity": 1.0,
+      "entry_price": 407.5014855957031,
+      "exit_price": 404.71621340917005,
+      "entry_time": "2025-11-14T11:20:00-05:00",
+      "exit_time": "2025-11-14T13:35:00-05:00",
+      "pnl": -278.52721865330636,
+      "pnl_percent": 0.0,
+      "net_pnl": -280.52721865330636,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 404.72621340917004,
+      "take_profit": 414.40466606203586,
+      "result": "loss",
+      "exit_reason": "sl",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 135.0,
+      "r_multiple": -100.36032501779522,
+      "notes": ""
+    },
+    {
+      "trade_id": "ac1069e6-0807-46d1-94bd-b164e0b2736b",
+      "symbol": "TSLA",
+      "side": "long",
+      "quantity": 1.0,
+      "entry_price": 406.83000732421874,
+      "exit_price": 412.45701347414524,
+      "entry_time": "2025-11-17T09:35:00-05:00",
+      "exit_time": "2025-11-17T09:45:00-05:00",
+      "pnl": 562.7006149926501,
+      "pnl_percent": 0.0,
+      "net_pnl": 560.7006149926501,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 404.56120486424817,
+      "take_profit": 412.46701347414523,
+      "result": "win",
+      "exit_reason": "tp",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 10.0,
+      "r_multiple": 248.0165747880706,
+      "notes": ""
+    },
+    {
+      "trade_id": "15991b06-9925-4e68-a9e1-61ed9208461b",
+      "symbol": "TSLA",
+      "side": "short",
+      "quantity": 1.0,
+      "entry_price": 400.47001098632813,
+      "exit_price": 405.5737951357518,
+      "entry_time": "2025-11-18T09:40:00-05:00",
+      "exit_time": "2025-11-18T12:00:00-05:00",
+      "pnl": -510.37841494236886,
+      "pnl_percent": 0.0,
+      "net_pnl": -512.3784149423689,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 405.56379513575183,
+      "take_profit": 387.77055061276883,
+      "result": "loss",
+      "exit_reason": "sl",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 140.0,
+      "r_multiple": -100.19631770225526,
+      "notes": ""
+    },
+    {
+      "trade_id": "cfb6a24e-131a-45b4-83a3-21b2e5aa19cf",
+      "symbol": "TSLA",
+      "side": "short",
+      "quantity": 1.0,
+      "entry_price": 401.44001220703126,
+      "exit_price": 405.65378170801745,
+      "entry_time": "2025-11-19T09:40:00-05:00",
+      "exit_time": "2025-11-19T09:50:00-05:00",
+      "pnl": -421.37695009861886,
+      "pnl_percent": 0.0,
+      "net_pnl": -423.37695009861886,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 405.64378170801746,
+      "take_profit": 390.9655884545657,
+      "result": "loss",
+      "exit_reason": "sl",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 10.0,
+      "r_multiple": -100.23788173917825,
+      "notes": ""
+    },
+    {
+      "trade_id": "f4e61b8c-80b6-497a-a5e9-461609f01643",
+      "symbol": "TSLA",
+      "side": "long",
+      "quantity": 1.0,
+      "entry_price": 420.8499963378906,
+      "exit_price": 417.4863244931544,
+      "entry_time": "2025-11-20T09:35:00-05:00",
+      "exit_time": "2025-11-20T11:20:00-05:00",
+      "pnl": -336.36718447361886,
+      "pnl_percent": 0.0,
+      "net_pnl": -338.36718447361886,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 417.4963244931544,
+      "take_profit": 429.19917594973117,
+      "result": "loss",
+      "exit_reason": "sl",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 105.0,
+      "r_multiple": -100.29818063492665,
+      "notes": ""
+    },
+    {
+      "trade_id": "829553f5-6e50-4af5-bf70-f52743faeff3",
+      "symbol": "TSLA",
+      "side": "short",
+      "quantity": 1.0,
+      "entry_price": 395.15009521484376,
+      "exit_price": 400.5637853701268,
+      "entry_time": "2025-11-21T09:55:00-05:00",
+      "exit_time": "2025-11-21T12:15:00-05:00",
+      "pnl": -541.3690155283064,
+      "pnl_percent": 0.0,
+      "net_pnl": -543.3690155283064,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 400.55378537012683,
+      "take_profit": 381.675869826636,
+      "result": "loss",
+      "exit_reason": "sl",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 140.0,
+      "r_multiple": -100.18505872306935,
+      "notes": ""
+    },
+    {
+      "trade_id": "0978f5b5-41d6-44e8-b464-6929de33360d",
+      "symbol": "TSLA",
+      "side": "long",
+      "quantity": 1.0,
+      "entry_price": 409.999990234375,
+      "exit_price": 421.3894780737546,
+      "entry_time": "2025-11-24T09:50:00-05:00",
+      "exit_time": "2025-11-24T14:10:00-05:00",
+      "pnl": 1138.9487839379626,
+      "pnl_percent": 0.0,
+      "net_pnl": 1136.9487839379626,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 405.42619509862317,
+      "take_profit": 421.3994780737546,
+      "result": "win",
+      "exit_reason": "tp",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 260.0,
+      "r_multiple": 249.01613433342956,
+      "notes": ""
+    },
+    {
+      "trade_id": "ca5119aa-3585-4738-b30a-fb06f75847e6",
+      "symbol": "TSLA",
+      "side": "long",
+      "quantity": 2.0,
+      "entry_price": 418.3399865722656,
+      "exit_price": 419.4599914550781,
+      "entry_time": "2025-11-25T15:30:00-05:00",
+      "exit_time": "2025-11-25T15:50:00-05:00",
+      "pnl": 224.00097656250182,
+      "pnl_percent": 0.0,
+      "net_pnl": 222.00097656250182,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 417.0362109677638,
+      "take_profit": 421.56442558352023,
+      "result": "win",
+      "exit_reason": "session_end",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 20.0,
+      "r_multiple": 85.90472769587271,
+      "notes": ""
+    },
+    {
+      "trade_id": "d14c0560-79e9-4bba-b6de-e06e80df02d9",
+      "symbol": "TSLA",
+      "side": "long",
+      "quantity": 1.0,
+      "entry_price": 430.5899865722656,
+      "exit_price": 427.4062158505763,
+      "entry_time": "2025-12-01T10:05:00-05:00",
+      "exit_time": "2025-12-01T10:30:00-05:00",
+      "pnl": -318.37707216893136,
+      "pnl_percent": 0.0,
+      "net_pnl": -320.37707216893136,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 427.4162158505763,
+      "take_profit": 438.489413376489,
+      "result": "loss",
+      "exit_reason": "sl",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 25.0,
+      "r_multiple": -100.3150826218054,
+      "notes": ""
+    },
+    {
+      "trade_id": "83747339-de78-49ca-bfda-9c8dc763206b",
+      "symbol": "TSLA",
+      "side": "long",
+      "quantity": 1.0,
+      "entry_price": 435.3799951171875,
+      "exit_price": 430.82619876073255,
+      "entry_time": "2025-12-02T10:05:00-05:00",
+      "exit_time": "2025-12-02T10:25:00-05:00",
+      "pnl": -455.37963564549386,
+      "pnl_percent": 0.0,
+      "net_pnl": -457.37963564549386,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 430.83619876073254,
+      "take_profit": 446.7044860083249,
+      "result": "loss",
+      "exit_reason": "sl",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 20.0,
+      "r_multiple": -100.2200802856357,
+      "notes": ""
+    },
+    {
+      "trade_id": "6fd1d448-db71-4dfb-8e45-7d97d36f92e5",
+      "symbol": "TSLA",
+      "side": "long",
+      "quantity": 1.0,
+      "entry_price": 438.2261865234375,
+      "exit_price": 443.40611015383274,
+      "entry_time": "2025-12-03T09:50:00-05:00",
+      "exit_time": "2025-12-03T10:35:00-05:00",
+      "pnl": 517.9923630395251,
+      "pnl_percent": 0.0,
+      "net_pnl": 515.9923630395251,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 436.1362170712794,
+      "take_profit": 443.41611015383273,
+      "result": "win",
+      "exit_reason": "tp",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 45.0,
+      "r_multiple": 247.84685848142593,
+      "notes": ""
+    },
+    {
+      "trade_id": "539b23ef-429b-47c7-82fd-597f17610771",
+      "symbol": "TSLA",
+      "side": "long",
+      "quantity": 1.0,
+      "entry_price": 452.02998901367187,
+      "exit_price": 449.2562219540919,
+      "entry_time": "2025-12-04T09:40:00-05:00",
+      "exit_time": "2025-12-04T10:05:00-05:00",
+      "pnl": -277.37670595799386,
+      "pnl_percent": 0.0,
+      "net_pnl": -279.37670595799386,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 449.2662219540919,
+      "take_profit": 458.9044066626218,
+      "result": "loss",
+      "exit_reason": "sl",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 25.0,
+      "r_multiple": -100.36182499409016,
+      "notes": ""
+    },
+    {
+      "trade_id": "ed394835-0aeb-4d9c-94fc-66c3dd052eb7",
+      "symbol": "TSLA",
+      "side": "long",
+      "quantity": 2.0,
+      "entry_price": 456.124990234375,
+      "exit_price": 454.6262170712794,
+      "entry_time": "2025-12-05T09:45:00-05:00",
+      "exit_time": "2025-12-05T09:50:00-05:00",
+      "pnl": -299.7546326191127,
+      "pnl_percent": 0.0,
+      "net_pnl": -301.7546326191127,
+      "commission": 2.0,
+      "swap": 0.0,
+      "stop_loss": 454.6362170712794,
+      "take_profit": 459.811923142114,
+      "result": "loss",
+      "exit_reason": "sl",
+      "strategy_name": "ORB",
+      "magic_number": 0,
+      "duration_minutes": 5.0,
+      "r_multiple": -100.67169399931942,
+      "notes": ""
+    }
+  ],
+  "equity_curve": [
+    {
+      "timestamp": "2025-10-13T09:30:00-04:00",
+      "equity": 25000.0
+    },
+    {
+      "timestamp": "2025-10-13T10:20:00-04:00",
+      "equity": 25000.0
+    },
+    {
+      "timestamp": "2025-10-13T11:10:00-04:00",
+      "equity": 24629.561892674817
+    },
+    {
+      "timestamp": "2025-10-13T12:00:00-04:00",
+      "equity": 24629.561892674817
+    },
+    {
+      "timestamp": "2025-10-13T12:50:00-04:00",
+      "equity": 24629.561892674817
+    },
+    {
+      "timestamp": "2025-10-13T13:40:00-04:00",
+      "equity": 24629.561892674817
+    },
+    {
+      "timestamp": "2025-10-13T14:30:00-04:00",
+      "equity": 24629.561892674817
+    },
+    {
+      "timestamp": "2025-10-13T15:20:00-04:00",
+      "equity": 24629.561892674817
+    },
+    {
+      "timestamp": "2025-10-14T09:40:00-04:00",
+      "equity": 24629.561892674817
+    },
+    {
+      "timestamp": "2025-10-14T10:30:00-04:00",
+      "equity": 24446.69092402151
+    },
+    {
+      "timestamp": "2025-10-14T11:20:00-04:00",
+      "equity": 24446.69092402151
+    },
+    {
+      "timestamp": "2025-10-14T12:10:00-04:00",
+      "equity": 24446.69092402151
+    },
+    {
+      "timestamp": "2025-10-14T13:00:00-04:00",
+      "equity": 24446.69092402151
+    },
+    {
+      "timestamp": "2025-10-14T13:50:00-04:00",
+      "equity": 24446.69092402151
+    },
+    {
+      "timestamp": "2025-10-14T14:40:00-04:00",
+      "equity": 24446.69092402151
+    },
+    {
+      "timestamp": "2025-10-14T15:30:00-04:00",
+      "equity": 24446.69092402151
+    },
+    {
+      "timestamp": "2025-10-15T09:50:00-04:00",
+      "equity": 24446.69092402151
+    },
+    {
+      "timestamp": "2025-10-15T10:40:00-04:00",
+      "equity": 24303.690557810572
+    },
+    {
+      "timestamp": "2025-10-15T11:30:00-04:00",
+      "equity": 24203.312753219765
+    },
+    {
+      "timestamp": "2025-10-15T12:20:00-04:00",
+      "equity": 24203.312753219765
+    },
+    {
+      "timestamp": "2025-10-15T13:10:00-04:00",
+      "equity": 24203.312753219765
+    },
+    {
+      "timestamp": "2025-10-15T14:00:00-04:00",
+      "equity": 24203.312753219765
+    },
+    {
+      "timestamp": "2025-10-15T14:50:00-04:00",
+      "equity": 24203.312753219765
+    },
+    {
+      "timestamp": "2025-10-15T15:40:00-04:00",
+      "equity": 24203.312753219765
+    },
+    {
+      "timestamp": "2025-10-16T10:00:00-04:00",
+      "equity": 24203.312753219765
+    },
+    {
+      "timestamp": "2025-10-16T10:50:00-04:00",
+      "equity": 23903.57838427253
+    },
+    {
+      "timestamp": "2025-10-16T11:40:00-04:00",
+      "equity": 23903.57838427253
+    },
+    {
+      "timestamp": "2025-10-16T12:30:00-04:00",
+      "equity": 23903.57838427253
+    },
+    {
+      "timestamp": "2025-10-16T13:20:00-04:00",
+      "equity": 23903.57838427253
+    },
+    {
+      "timestamp": "2025-10-16T14:10:00-04:00",
+      "equity": 23903.57838427253
+    },
+    {
+      "timestamp": "2025-10-16T15:00:00-04:00",
+      "equity": 23903.57838427253
+    },
+    {
+      "timestamp": "2025-10-16T15:50:00-04:00",
+      "equity": 23903.57838427253
+    },
+    {
+      "timestamp": "2025-10-17T10:10:00-04:00",
+      "equity": 24217.56959521003
+    },
+    {
+      "timestamp": "2025-10-17T11:00:00-04:00",
+      "equity": 24433.04425805424
+    },
+    {
+      "timestamp": "2025-10-17T11:50:00-04:00",
+      "equity": 24433.04425805424
+    },
+    {
+      "timestamp": "2025-10-17T12:40:00-04:00",
+      "equity": 24433.04425805424
+    },
+    {
+      "timestamp": "2025-10-17T13:30:00-04:00",
+      "equity": 24433.04425805424
+    },
+    {
+      "timestamp": "2025-10-17T14:20:00-04:00",
+      "equity": 24433.04425805424
+    },
+    {
+      "timestamp": "2025-10-17T15:10:00-04:00",
+      "equity": 24433.04425805424
+    },
+    {
+      "timestamp": "2025-10-20T09:30:00-04:00",
+      "equity": 24433.04425805424
+    },
+    {
+      "timestamp": "2025-10-20T10:20:00-04:00",
+      "equity": 24312.74591821049
+    },
+    {
+      "timestamp": "2025-10-20T11:10:00-04:00",
+      "equity": 24107.66535483062
+    },
+    {
+      "timestamp": "2025-10-20T12:00:00-04:00",
+      "equity": 24107.66535483062
+    },
+    {
+      "timestamp": "2025-10-20T12:50:00-04:00",
+      "equity": 24107.66535483062
+    },
+    {
+      "timestamp": "2025-10-20T13:40:00-04:00",
+      "equity": 24107.66535483062
+    },
+    {
+      "timestamp": "2025-10-20T14:30:00-04:00",
+      "equity": 24107.66535483062
+    },
+    {
+      "timestamp": "2025-10-20T15:20:00-04:00",
+      "equity": 24107.66535483062
+    },
+    {
+      "timestamp": "2025-10-21T09:40:00-04:00",
+      "equity": 24107.66535483062
+    },
+    {
+      "timestamp": "2025-10-21T10:30:00-04:00",
+      "equity": 24107.66535483062
+    },
+    {
+      "timestamp": "2025-10-21T11:20:00-04:00",
+      "equity": 24107.66535483062
+    },
+    {
+      "timestamp": "2025-10-21T12:10:00-04:00",
+      "equity": 24107.66535483062
+    },
+    {
+      "timestamp": "2025-10-21T13:00:00-04:00",
+      "equity": 24107.66535483062
+    },
+    {
+      "timestamp": "2025-10-21T13:50:00-04:00",
+      "equity": 24107.66535483062
+    },
+    {
+      "timestamp": "2025-10-21T14:40:00-04:00",
+      "equity": 24107.66535483062
+    },
+    {
+      "timestamp": "2025-10-21T15:30:00-04:00",
+      "equity": 24107.66535483062
+    },
+    {
+      "timestamp": "2025-10-22T09:50:00-04:00",
+      "equity": 24107.66535483062
+    },
+    {
+      "timestamp": "2025-10-22T10:40:00-04:00",
+      "equity": 24515.091433690457
+    },
+    {
+      "timestamp": "2025-10-22T11:30:00-04:00",
+      "equity": 24515.091433690457
+    },
+    {
+      "timestamp": "2025-10-22T12:20:00-04:00",
+      "equity": 24515.091433690457
+    },
+    {
+      "timestamp": "2025-10-22T13:10:00-04:00",
+      "equity": 24515.091433690457
+    },
+    {
+      "timestamp": "2025-10-22T14:00:00-04:00",
+      "equity": 24515.091433690457
+    },
+    {
+      "timestamp": "2025-10-22T14:50:00-04:00",
+      "equity": 24515.091433690457
+    },
+    {
+      "timestamp": "2025-10-22T15:40:00-04:00",
+      "equity": 24515.091433690457
+    },
+    {
+      "timestamp": "2025-10-23T10:00:00-04:00",
+      "equity": 24515.091433690457
+    },
+    {
+      "timestamp": "2025-10-23T10:50:00-04:00",
+      "equity": 24515.091433690457
+    },
+    {
+      "timestamp": "2025-10-23T11:40:00-04:00",
+      "equity": 24515.091433690457
+    },
+    {
+      "timestamp": "2025-10-23T12:30:00-04:00",
+      "equity": 24515.091433690457
+    },
+    {
+      "timestamp": "2025-10-23T13:20:00-04:00",
+      "equity": 24515.091433690457
+    },
+    {
+      "timestamp": "2025-10-23T14:10:00-04:00",
+      "equity": 24246.20302108799
+    },
+    {
+      "timestamp": "2025-10-23T15:00:00-04:00",
+      "equity": 24246.20302108799
+    },
+    {
+      "timestamp": "2025-10-23T15:50:00-04:00",
+      "equity": 24246.20302108799
+    },
+    {
+      "timestamp": "2025-10-24T10:10:00-04:00",
+      "equity": 24246.20302108799
+    },
+    {
+      "timestamp": "2025-10-24T11:00:00-04:00",
+      "equity": 24505.464983978614
+    },
+    {
+      "timestamp": "2025-10-24T11:50:00-04:00",
+      "equity": 24017.702783000128
+    },
+    {
+      "timestamp": "2025-10-24T12:40:00-04:00",
+      "equity": 24017.702783000128
+    },
+    {
+      "timestamp": "2025-10-24T13:30:00-04:00",
+      "equity": 24017.702783000128
+    },
+    {
+      "timestamp": "2025-10-24T14:20:00-04:00",
+      "equity": 24017.702783000128
+    },
+    {
+      "timestamp": "2025-10-24T15:10:00-04:00",
+      "equity": 24017.702783000128
+    },
+    {
+      "timestamp": "2025-10-27T09:30:00-04:00",
+      "equity": 24017.702783000128
+    },
+    {
+      "timestamp": "2025-10-27T10:20:00-04:00",
+      "equity": 24207.203637492315
+    },
+    {
+      "timestamp": "2025-10-27T11:10:00-04:00",
+      "equity": 24398.023949992315
+    },
+    {
+      "timestamp": "2025-10-27T12:00:00-04:00",
+      "equity": 24819.644853070902
+    },
+    {
+      "timestamp": "2025-10-27T12:50:00-04:00",
+      "equity": 24819.644853070902
+    },
+    {
+      "timestamp": "2025-10-27T13:40:00-04:00",
+      "equity": 24819.644853070902
+    },
+    {
+      "timestamp": "2025-10-27T14:30:00-04:00",
+      "equity": 24819.644853070902
+    },
+    {
+      "timestamp": "2025-10-27T15:20:00-04:00",
+      "equity": 24819.644853070902
+    },
+    {
+      "timestamp": "2025-10-28T09:40:00-04:00",
+      "equity": 25090.642899945902
+    },
+    {
+      "timestamp": "2025-10-28T10:30:00-04:00",
+      "equity": 25269.64375443809
+    },
+    {
+      "timestamp": "2025-10-28T11:20:00-04:00",
+      "equity": 25275.143022016215
+    },
+    {
+      "timestamp": "2025-10-28T12:10:00-04:00",
+      "equity": 25590.655106977152
+    },
+    {
+      "timestamp": "2025-10-28T13:00:00-04:00",
+      "equity": 25584.643144086527
+    },
+    {
+      "timestamp": "2025-10-28T13:50:00-04:00",
+      "equity": 25079.644364789652
+    },
+    {
+      "timestamp": "2025-10-28T14:40:00-04:00",
+      "equity": 25111.144608930277
+    },
+    {
+      "timestamp": "2025-10-28T15:30:00-04:00",
+      "equity": 25301.644486859965
+    },
+    {
+      "timestamp": "2025-10-29T09:50:00-04:00",
+      "equity": 25081.64424271934
+    },
+    {
+      "timestamp": "2025-10-29T10:40:00-04:00",
+      "equity": 24772.88277416273
+    },
+    {
+      "timestamp": "2025-10-29T11:30:00-04:00",
+      "equity": 24772.88277416273
+    },
+    {
+      "timestamp": "2025-10-29T12:20:00-04:00",
+      "equity": 24772.88277416273
+    },
+    {
+      "timestamp": "2025-10-29T13:10:00-04:00",
+      "equity": 24772.88277416273
+    },
+    {
+      "timestamp": "2025-10-29T14:00:00-04:00",
+      "equity": 24772.88277416273
+    },
+    {
+      "timestamp": "2025-10-29T14:50:00-04:00",
+      "equity": 24772.88277416273
+    },
+    {
+      "timestamp": "2025-10-29T15:40:00-04:00",
+      "equity": 24772.88277416273
+    },
+    {
+      "timestamp": "2025-10-30T10:00:00-04:00",
+      "equity": 24772.88277416273
+    },
+    {
+      "timestamp": "2025-10-30T10:50:00-04:00",
+      "equity": 25388.491416740853
+    },
+    {
+      "timestamp": "2025-10-30T11:40:00-04:00",
+      "equity": 25518.89302806898
+    },
+    {
+      "timestamp": "2025-10-30T12:30:00-04:00",
+      "equity": 25149.880576897103
+    },
+    {
+      "timestamp": "2025-10-30T13:20:00-04:00",
+      "equity": 25057.33296947523
+    },
+    {
+      "timestamp": "2025-10-30T14:10:00-04:00",
+      "equity": 25352.89266185804
+    },
+    {
+      "timestamp": "2025-10-30T15:00:00-04:00",
+      "equity": 25265.89315013929
+    },
+    {
+      "timestamp": "2025-10-30T15:50:00-04:00",
+      "equity": 25506.560874748666
+    },
+    {
+      "timestamp": "2025-10-31T10:10:00-04:00",
+      "equity": 25505.560874748666
+    },
+    {
+      "timestamp": "2025-10-31T11:00:00-04:00",
+      "equity": 25505.560874748666
+    },
+    {
+      "timestamp": "2025-10-31T11:50:00-04:00",
+      "equity": 25505.560874748666
+    },
+    {
+      "timestamp": "2025-10-31T12:40:00-04:00",
+      "equity": 25505.560874748666
+    },
+    {
+      "timestamp": "2025-10-31T13:30:00-04:00",
+      "equity": 25505.560874748666
+    },
+    {
+      "timestamp": "2025-10-31T14:20:00-04:00",
+      "equity": 25505.560874748666
+    },
+    {
+      "timestamp": "2025-10-31T15:10:00-04:00",
+      "equity": 25505.560874748666
+    },
+    {
+      "timestamp": "2025-11-03T09:30:00-05:00",
+      "equity": 25872.55696849867
+    },
+    {
+      "timestamp": "2025-11-03T10:20:00-05:00",
+      "equity": 26476.556724358044
+    },
+    {
+      "timestamp": "2025-11-03T11:10:00-05:00",
+      "equity": 26527.548545647107
+    },
+    {
+      "timestamp": "2025-11-03T12:00:00-05:00",
+      "equity": 26316.559165764294
+    },
+    {
+      "timestamp": "2025-11-03T12:50:00-05:00",
+      "equity": 26467.547935295544
+    },
+    {
+      "timestamp": "2025-11-03T13:40:00-05:00",
+      "equity": 26384.55843334242
+    },
+    {
+      "timestamp": "2025-11-03T14:30:00-05:00",
+      "equity": 26255.557578850232
+    },
+    {
+      "timestamp": "2025-11-03T15:20:00-05:00",
+      "equity": 26469.089072990857
+    },
+    {
+      "timestamp": "2025-11-04T09:40:00-05:00",
+      "equity": 26443.058555412732
+    },
+    {
+      "timestamp": "2025-11-04T10:30:00-05:00",
+      "equity": 26584.92757396742
+    },
+    {
+      "timestamp": "2025-11-04T11:20:00-05:00",
+      "equity": 26005.960902189112
+    },
+    {
+      "timestamp": "2025-11-04T12:10:00-05:00",
+      "equity": 26005.960902189112
+    },
+    {
+      "timestamp": "2025-11-04T13:00:00-05:00",
+      "equity": 26005.960902189112
+    },
+    {
+      "timestamp": "2025-11-04T13:50:00-05:00",
+      "equity": 26005.960902189112
+    },
+    {
+      "timestamp": "2025-11-04T14:40:00-05:00",
+      "equity": 26005.960902189112
+    },
+    {
+      "timestamp": "2025-11-04T15:30:00-05:00",
+      "equity": 26005.960902189112
+    },
+    {
+      "timestamp": "2025-11-05T09:50:00-05:00",
+      "equity": 26050.451380704737
+    },
+    {
+      "timestamp": "2025-11-05T10:40:00-05:00",
+      "equity": 26531.657855072386
+    },
+    {
+      "timestamp": "2025-11-05T11:30:00-05:00",
+      "equity": 26531.657855072386
+    },
+    {
+      "timestamp": "2025-11-05T12:20:00-05:00",
+      "equity": 26531.657855072386
+    },
+    {
+      "timestamp": "2025-11-05T13:10:00-05:00",
+      "equity": 26531.657855072386
+    },
+    {
+      "timestamp": "2025-11-05T14:00:00-05:00",
+      "equity": 26531.657855072386
+    },
+    {
+      "timestamp": "2025-11-05T14:50:00-05:00",
+      "equity": 26531.657855072386
+    },
+    {
+      "timestamp": "2025-11-05T15:40:00-05:00",
+      "equity": 26531.657855072386
+    },
+    {
+      "timestamp": "2025-11-06T10:00:00-05:00",
+      "equity": 26052.88844891908
+    },
+    {
+      "timestamp": "2025-11-06T10:50:00-05:00",
+      "equity": 26052.88844891908
+    },
+    {
+      "timestamp": "2025-11-06T11:40:00-05:00",
+      "equity": 26052.88844891908
+    },
+    {
+      "timestamp": "2025-11-06T12:30:00-05:00",
+      "equity": 26052.88844891908
+    },
+    {
+      "timestamp": "2025-11-06T13:20:00-05:00",
+      "equity": 26052.88844891908
+    },
+    {
+      "timestamp": "2025-11-06T14:10:00-05:00",
+      "equity": 26052.88844891908
+    },
+    {
+      "timestamp": "2025-11-06T15:00:00-05:00",
+      "equity": 26052.88844891908
+    },
+    {
+      "timestamp": "2025-11-06T15:50:00-05:00",
+      "equity": 26052.88844891908
+    },
+    {
+      "timestamp": "2025-11-07T10:10:00-05:00",
+      "equity": 25445.27077616421
+    },
+    {
+      "timestamp": "2025-11-07T11:00:00-05:00",
+      "equity": 25445.27077616421
+    },
+    {
+      "timestamp": "2025-11-07T11:50:00-05:00",
+      "equity": 25445.27077616421
+    },
+    {
+      "timestamp": "2025-11-07T12:40:00-05:00",
+      "equity": 25445.27077616421
+    },
+    {
+      "timestamp": "2025-11-07T13:30:00-05:00",
+      "equity": 25445.27077616421
+    },
+    {
+      "timestamp": "2025-11-07T14:20:00-05:00",
+      "equity": 25445.27077616421
+    },
+    {
+      "timestamp": "2025-11-07T15:10:00-05:00",
+      "equity": 25445.27077616421
+    },
+    {
+      "timestamp": "2025-11-10T09:30:00-05:00",
+      "equity": 25445.27077616421
+    },
+    {
+      "timestamp": "2025-11-10T10:20:00-05:00",
+      "equity": 25445.27077616421
+    },
+    {
+      "timestamp": "2025-11-10T11:10:00-05:00",
+      "equity": 25197.891750870276
+    },
+    {
+      "timestamp": "2025-11-10T12:00:00-05:00",
+      "equity": 25197.891750870276
+    },
+    {
+      "timestamp": "2025-11-10T12:50:00-05:00",
+      "equity": 25197.891750870276
+    },
+    {
+      "timestamp": "2025-11-10T13:40:00-05:00",
+      "equity": 25197.891750870276
+    },
+    {
+      "timestamp": "2025-11-10T14:30:00-05:00",
+      "equity": 25197.891750870276
+    },
+    {
+      "timestamp": "2025-11-10T15:20:00-05:00",
+      "equity": 25197.891750870276
+    },
+    {
+      "timestamp": "2025-11-11T09:40:00-05:00",
+      "equity": 25197.891750870276
+    },
+    {
+      "timestamp": "2025-11-11T10:30:00-05:00",
+      "equity": 25342.65993934684
+    },
+    {
+      "timestamp": "2025-11-11T11:20:00-05:00",
+      "equity": 25207.16189247184
+    },
+    {
+      "timestamp": "2025-11-11T12:10:00-05:00",
+      "equity": 25397.661770401526
+    },
+    {
+      "timestamp": "2025-11-11T13:00:00-05:00",
+      "equity": 25156.16091590934
+    },
+    {
+      "timestamp": "2025-11-11T13:50:00-05:00",
+      "equity": 25209.160793839026
+    },
+    {
+      "timestamp": "2025-11-11T14:40:00-05:00",
+      "equity": 25016.78164647478
+    },
+    {
+      "timestamp": "2025-11-11T15:30:00-05:00",
+      "equity": 25016.78164647478
+    },
+    {
+      "timestamp": "2025-11-12T09:50:00-05:00",
+      "equity": 25109.282378896656
+    },
+    {
+      "timestamp": "2025-11-12T10:40:00-05:00",
+      "equity": 25545.57998631853
+    },
+    {
+      "timestamp": "2025-11-12T11:30:00-05:00",
+      "equity": 25482.780914052906
+    },
+    {
+      "timestamp": "2025-11-12T12:20:00-05:00",
+      "equity": 25529.33242772478
+    },
+    {
+      "timestamp": "2025-11-12T13:10:00-05:00",
+      "equity": 25472.771148427906
+    },
+    {
+      "timestamp": "2025-11-12T14:00:00-05:00",
+      "equity": 25448.781280263844
+    },
+    {
+      "timestamp": "2025-11-12T14:50:00-05:00",
+      "equity": 25532.280425771656
+    },
+    {
+      "timestamp": "2025-11-12T15:40:00-05:00",
+      "equity": 25406.28250096697
+    },
+    {
+      "timestamp": "2025-11-13T10:00:00-05:00",
+      "equity": 26252.778960927906
+    },
+    {
+      "timestamp": "2025-11-13T10:50:00-05:00",
+      "equity": 26416.729270744774
+    },
+    {
+      "timestamp": "2025-11-13T11:40:00-05:00",
+      "equity": 26416.729270744774
+    },
+    {
+      "timestamp": "2025-11-13T12:30:00-05:00",
+      "equity": 26416.729270744774
+    },
+    {
+      "timestamp": "2025-11-13T13:20:00-05:00",
+      "equity": 26416.729270744774
+    },
+    {
+      "timestamp": "2025-11-13T14:10:00-05:00",
+      "equity": 26416.729270744774
+    },
+    {
+      "timestamp": "2025-11-13T15:00:00-05:00",
+      "equity": 26416.729270744774
+    },
+    {
+      "timestamp": "2025-11-13T15:50:00-05:00",
+      "equity": 26416.729270744774
+    },
+    {
+      "timestamp": "2025-11-14T10:10:00-05:00",
+      "equity": 26416.729270744774
+    },
+    {
+      "timestamp": "2025-11-14T11:00:00-05:00",
+      "equity": 26416.729270744774
+    },
+    {
+      "timestamp": "2025-11-14T11:50:00-05:00",
+      "equity": 26631.089744377587
+    },
+    {
+      "timestamp": "2025-11-14T12:40:00-05:00",
+      "equity": 26616.1513898854
+    },
+    {
+      "timestamp": "2025-11-14T13:30:00-05:00",
+      "equity": 26231.5810773854
+    },
+    {
+      "timestamp": "2025-11-14T14:20:00-05:00",
+      "equity": 26136.202052091467
+    },
+    {
+      "timestamp": "2025-11-14T15:10:00-05:00",
+      "equity": 26136.202052091467
+    },
+    {
+      "timestamp": "2025-11-17T09:30:00-05:00",
+      "equity": 26136.202052091467
+    },
+    {
+      "timestamp": "2025-11-17T10:20:00-05:00",
+      "equity": 26696.902667084116
+    },
+    {
+      "timestamp": "2025-11-17T11:10:00-05:00",
+      "equity": 26696.902667084116
+    },
+    {
+      "timestamp": "2025-11-17T12:00:00-05:00",
+      "equity": 26696.902667084116
+    },
+    {
+      "timestamp": "2025-11-17T12:50:00-05:00",
+      "equity": 26696.902667084116
+    },
+    {
+      "timestamp": "2025-11-17T13:40:00-05:00",
+      "equity": 26696.902667084116
+    },
+    {
+      "timestamp": "2025-11-17T14:30:00-05:00",
+      "equity": 26696.902667084116
+    },
+    {
+      "timestamp": "2025-11-17T15:20:00-05:00",
+      "equity": 26696.902667084116
+    },
+    {
+      "timestamp": "2025-11-18T09:40:00-05:00",
+      "equity": 26696.902667084116
+    },
+    {
+      "timestamp": "2025-11-18T10:30:00-05:00",
+      "equity": 27194.902667084116
+    },
+    {
+      "timestamp": "2025-11-18T11:20:00-05:00",
+      "equity": 26468.694170990366
+    },
+    {
+      "timestamp": "2025-11-18T12:10:00-05:00",
+      "equity": 26184.524252141746
+    },
+    {
+      "timestamp": "2025-11-18T13:00:00-05:00",
+      "equity": 26184.524252141746
+    },
+    {
+      "timestamp": "2025-11-18T13:50:00-05:00",
+      "equity": 26184.524252141746
+    },
+    {
+      "timestamp": "2025-11-18T14:40:00-05:00",
+      "equity": 26184.524252141746
+    },
+    {
+      "timestamp": "2025-11-18T15:30:00-05:00",
+      "equity": 26184.524252141746
+    },
+    {
+      "timestamp": "2025-11-19T09:50:00-05:00",
+      "equity": 25785.514974797996
+    },
+    {
+      "timestamp": "2025-11-19T10:40:00-05:00",
+      "equity": 25761.147302043126
+    },
+    {
+      "timestamp": "2025-11-19T11:30:00-05:00",
+      "equity": 25761.147302043126
+    },
+    {
+      "timestamp": "2025-11-19T12:20:00-05:00",
+      "equity": 25761.147302043126
+    },
+    {
+      "timestamp": "2025-11-19T13:10:00-05:00",
+      "equity": 25761.147302043126
+    },
+    {
+      "timestamp": "2025-11-19T14:00:00-05:00",
+      "equity": 25761.147302043126
+    },
+    {
+      "timestamp": "2025-11-19T14:50:00-05:00",
+      "equity": 25761.147302043126
+    },
+    {
+      "timestamp": "2025-11-19T15:40:00-05:00",
+      "equity": 25761.147302043126
+    },
+    {
+      "timestamp": "2025-11-20T10:00:00-05:00",
+      "equity": 26365.137902629063
+    },
+    {
+      "timestamp": "2025-11-20T10:50:00-05:00",
+      "equity": 26187.89791239469
+    },
+    {
+      "timestamp": "2025-11-20T11:40:00-05:00",
+      "equity": 25422.780117569506
+    },
+    {
+      "timestamp": "2025-11-20T12:30:00-05:00",
+      "equity": 25422.780117569506
+    },
+    {
+      "timestamp": "2025-11-20T13:20:00-05:00",
+      "equity": 25422.780117569506
+    },
+    {
+      "timestamp": "2025-11-20T14:10:00-05:00",
+      "equity": 25422.780117569506
+    },
+    {
+      "timestamp": "2025-11-20T15:00:00-05:00",
+      "equity": 25422.780117569506
+    },
+    {
+      "timestamp": "2025-11-20T15:50:00-05:00",
+      "equity": 25422.780117569506
+    },
+    {
+      "timestamp": "2025-11-21T10:10:00-05:00",
+      "equity": 25469.788296280443
+    },
+    {
+      "timestamp": "2025-11-21T11:00:00-05:00",
+      "equity": 26491.788418350756
+    },
+    {
+      "timestamp": "2025-11-21T11:50:00-05:00",
+      "equity": 25298.279507217943
+    },
+    {
+      "timestamp": "2025-11-21T12:40:00-05:00",
+      "equity": 24879.4111020412
+    },
+    {
+      "timestamp": "2025-11-21T13:30:00-05:00",
+      "equity": 24879.4111020412
+    },
+    {
+      "timestamp": "2025-11-21T14:20:00-05:00",
+      "equity": 24879.4111020412
+    },
+    {
+      "timestamp": "2025-11-21T15:10:00-05:00",
+      "equity": 24879.4111020412
+    },
+    {
+      "timestamp": "2025-11-24T09:30:00-05:00",
+      "equity": 24879.4111020412
+    },
+    {
+      "timestamp": "2025-11-24T10:20:00-05:00",
+      "equity": 25355.13327000995
+    },
+    {
+      "timestamp": "2025-11-24T11:10:00-05:00",
+      "equity": 25817.41354344745
+    },
+    {
+      "timestamp": "2025-11-24T12:00:00-05:00",
+      "equity": 25765.41159032245
+    },
+    {
+      "timestamp": "2025-11-24T12:50:00-05:00",
+      "equity": 25816.031097158386
+    },
+    {
+      "timestamp": "2025-11-24T13:40:00-05:00",
+      "equity": 25803.30221532245
+    },
+    {
+      "timestamp": "2025-11-24T14:30:00-05:00",
+      "equity": 26016.35988597916
+    },
+    {
+      "timestamp": "2025-11-24T15:20:00-05:00",
+      "equity": 26016.35988597916
+    },
+    {
+      "timestamp": "2025-11-25T09:40:00-05:00",
+      "equity": 26016.35988597916
+    },
+    {
+      "timestamp": "2025-11-25T10:30:00-05:00",
+      "equity": 26016.35988597916
+    },
+    {
+      "timestamp": "2025-11-25T11:20:00-05:00",
+      "equity": 26016.35988597916
+    },
+    {
+      "timestamp": "2025-11-25T12:10:00-05:00",
+      "equity": 26016.35988597916
+    },
+    {
+      "timestamp": "2025-11-25T13:00:00-05:00",
+      "equity": 26016.35988597916
+    },
+    {
+      "timestamp": "2025-11-25T13:50:00-05:00",
+      "equity": 26016.35988597916
+    },
+    {
+      "timestamp": "2025-11-25T14:40:00-05:00",
+      "equity": 26016.35988597916
+    },
+    {
+      "timestamp": "2025-11-25T15:30:00-05:00",
+      "equity": 26016.35988597916
+    },
+    {
+      "timestamp": "2025-11-26T09:50:00-05:00",
+      "equity": 26238.36086254166
+    },
+    {
+      "timestamp": "2025-11-26T10:40:00-05:00",
+      "equity": 26238.36086254166
+    },
+    {
+      "timestamp": "2025-11-26T11:30:00-05:00",
+      "equity": 26238.36086254166
+    },
+    {
+      "timestamp": "2025-11-26T12:20:00-05:00",
+      "equity": 26238.36086254166
+    },
+    {
+      "timestamp": "2025-11-26T13:10:00-05:00",
+      "equity": 26238.36086254166
+    },
+    {
+      "timestamp": "2025-11-26T14:00:00-05:00",
+      "equity": 26238.36086254166
+    },
+    {
+      "timestamp": "2025-11-26T14:50:00-05:00",
+      "equity": 26238.36086254166
+    },
+    {
+      "timestamp": "2025-11-26T15:40:00-05:00",
+      "equity": 26238.36086254166
+    },
+    {
+      "timestamp": "2025-11-28T10:00:00-05:00",
+      "equity": 26238.36086254166
+    },
+    {
+      "timestamp": "2025-11-28T10:50:00-05:00",
+      "equity": 26238.36086254166
+    },
+    {
+      "timestamp": "2025-11-28T11:40:00-05:00",
+      "equity": 26238.36086254166
+    },
+    {
+      "timestamp": "2025-11-28T12:30:00-05:00",
+      "equity": 26238.36086254166
+    },
+    {
+      "timestamp": "2025-12-01T09:50:00-05:00",
+      "equity": 26238.36086254166
+    },
+    {
+      "timestamp": "2025-12-01T10:40:00-05:00",
+      "equity": 25917.983790372728
+    },
+    {
+      "timestamp": "2025-12-01T11:30:00-05:00",
+      "equity": 25917.983790372728
+    },
+    {
+      "timestamp": "2025-12-01T12:20:00-05:00",
+      "equity": 25917.983790372728
+    },
+    {
+      "timestamp": "2025-12-01T13:10:00-05:00",
+      "equity": 25917.983790372728
+    },
+    {
+      "timestamp": "2025-12-01T14:00:00-05:00",
+      "equity": 25917.983790372728
+    },
+    {
+      "timestamp": "2025-12-01T14:50:00-05:00",
+      "equity": 25917.983790372728
+    },
+    {
+      "timestamp": "2025-12-01T15:40:00-05:00",
+      "equity": 25917.983790372728
+    },
+    {
+      "timestamp": "2025-12-02T10:00:00-05:00",
+      "equity": 25917.983790372728
+    },
+    {
+      "timestamp": "2025-12-02T10:50:00-05:00",
+      "equity": 25460.604154727233
+    },
+    {
+      "timestamp": "2025-12-02T11:40:00-05:00",
+      "equity": 25460.604154727233
+    },
+    {
+      "timestamp": "2025-12-02T12:30:00-05:00",
+      "equity": 25460.604154727233
+    },
+    {
+      "timestamp": "2025-12-02T13:20:00-05:00",
+      "equity": 25460.604154727233
+    },
+    {
+      "timestamp": "2025-12-02T14:10:00-05:00",
+      "equity": 25460.604154727233
+    },
+    {
+      "timestamp": "2025-12-02T15:00:00-05:00",
+      "equity": 25460.604154727233
+    },
+    {
+      "timestamp": "2025-12-02T15:50:00-05:00",
+      "equity": 25460.604154727233
+    },
+    {
+      "timestamp": "2025-12-03T10:10:00-05:00",
+      "equity": 25525.986967227233
+    },
+    {
+      "timestamp": "2025-12-03T11:00:00-05:00",
+      "equity": 25976.596517766757
+    },
+    {
+      "timestamp": "2025-12-03T11:50:00-05:00",
+      "equity": 25976.596517766757
+    },
+    {
+      "timestamp": "2025-12-03T12:40:00-05:00",
+      "equity": 25976.596517766757
+    },
+    {
+      "timestamp": "2025-12-03T13:30:00-05:00",
+      "equity": 25976.596517766757
+    },
+    {
+      "timestamp": "2025-12-03T14:20:00-05:00",
+      "equity": 25976.596517766757
+    },
+    {
+      "timestamp": "2025-12-03T15:10:00-05:00",
+      "equity": 25976.596517766757
+    },
+    {
+      "timestamp": "2025-12-04T09:30:00-05:00",
+      "equity": 25976.596517766757
+    },
+    {
+      "timestamp": "2025-12-04T10:20:00-05:00",
+      "equity": 25697.21981180876
+    },
+    {
+      "timestamp": "2025-12-04T11:10:00-05:00",
+      "equity": 25697.21981180876
+    },
+    {
+      "timestamp": "2025-12-04T12:00:00-05:00",
+      "equity": 25697.21981180876
+    },
+    {
+      "timestamp": "2025-12-04T12:50:00-05:00",
+      "equity": 25697.21981180876
+    },
+    {
+      "timestamp": "2025-12-04T13:40:00-05:00",
+      "equity": 25697.21981180876
+    },
+    {
+      "timestamp": "2025-12-04T14:30:00-05:00",
+      "equity": 25697.21981180876
+    },
+    {
+      "timestamp": "2025-12-04T15:20:00-05:00",
+      "equity": 25697.21981180876
+    },
+    {
+      "timestamp": "2025-12-05T09:40:00-05:00",
+      "equity": 25697.21981180876
+    },
+    {
+      "timestamp": "2025-12-05T10:30:00-05:00",
+      "equity": 25395.46517918965
+    },
+    {
+      "timestamp": "2025-12-05T11:20:00-05:00",
+      "equity": 25395.46517918965
+    },
+    {
+      "timestamp": "2025-12-05T12:10:00-05:00",
+      "equity": 25395.46517918965
+    },
+    {
+      "timestamp": "2025-12-05T13:00:00-05:00",
+      "equity": 25395.46517918965
+    },
+    {
+      "timestamp": "2025-12-05T13:50:00-05:00",
+      "equity": 25395.46517918965
+    },
+    {
+      "timestamp": "2025-12-05T14:40:00-05:00",
+      "equity": 25395.46517918965
+    },
+    {
+      "timestamp": "2025-12-05T15:30:00-05:00",
+      "equity": 25395.46517918965
+    }
+  ]
+}
