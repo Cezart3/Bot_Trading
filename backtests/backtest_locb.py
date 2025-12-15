@@ -236,8 +236,8 @@ def check_confirmation(candles: List[M1Candle], direction: str) -> Tuple[bool, s
 def run_locb_backtest(
     m5_rates,
     m1_rates,
-    london_open_hour: int = 10,  # MT5 server time (UTC+2), London 08:00 UTC = 10:00 server
-    session_end_hour: int = 14,  # Before NY (12:00 UTC = 14:00 server)
+    london_open_hour: int = 12,  # MT5 Teletrade server time, London 08:00 UTC = 12:00 server
+    session_end_hour: int = 15,  # Before NY (11:00 UTC = 15:00 server)
     risk_reward: float = 2.0,
     sl_buffer_pips: float = 2.0,
     max_retest_candles: int = 30,  # Max M1 candles to wait for retest
@@ -631,12 +631,12 @@ if __name__ == "__main__":
     print("="*70)
 
     # Run backtest with default parameters
-    # MT5 server is UTC+2, so London 08:00 UTC = 10:00 server time
-    print("\n>>> Test cu parametri default (R:R 2:1, London 08:00-12:00 UTC = 10:00-14:00 server)")
+    # MT5 Teletrade server time - London 08:00 UTC = 12:00 server time
+    print("\n>>> Test cu parametri default (R:R 2:1, London 08:00-11:00 UTC = 12:00-15:00 server)")
     trades = run_locb_backtest(
         m5_rates, m1_rates,
-        london_open_hour=10,  # 08:00 UTC = 10:00 server
-        session_end_hour=14,   # 12:00 UTC = 14:00 server
+        london_open_hour=12,  # 08:00 UTC = 12:00 server (Teletrade)
+        session_end_hour=15,   # 11:00 UTC = 15:00 server
         risk_reward=2.0,
         sl_buffer_pips=2.0,
     )
@@ -654,8 +654,8 @@ if __name__ == "__main__":
     for rr in [1.5, 2.0, 2.5, 3.0]:
         trades = run_locb_backtest(
             m5_rates, m1_rates,
-            london_open_hour=10,
-            session_end_hour=14,
+            london_open_hour=12,
+            session_end_hour=15,
             risk_reward=rr,
             sl_buffer_pips=2.0,
         )
@@ -666,18 +666,18 @@ if __name__ == "__main__":
 
     # Test different session end times
     print("\n" + "="*70)
-    print("  TEST DIFERITE ORE DE INCHIDERE SESIUNE (server time, -2h for UTC)")
+    print("  TEST DIFERITE ORE DE INCHIDERE SESIUNE (server time Teletrade)")
     print("="*70)
 
-    for end_hour in [13, 14, 15, 16]:  # 11-14 UTC = 13-16 server
+    for end_hour in [14, 15, 16, 17]:  # 10-13 UTC = 14-17 server (Teletrade)
         trades = run_locb_backtest(
             m5_rates, m1_rates,
-            london_open_hour=10,
+            london_open_hour=12,
             session_end_hour=end_hour,
             risk_reward=best_rr,
             sl_buffer_pips=2.0,
         )
-        print_results(trades, f"End Hour {end_hour}:00 server ({end_hour-2}:00 UTC)")
+        print_results(trades, f"End Hour {end_hour}:00 server ({end_hour-4}:00 UTC)")
 
     # Test different confirmation wait times
     print("\n" + "="*70)
@@ -688,9 +688,9 @@ if __name__ == "__main__":
         for max_retest in [20, 30, 45]:
             trades = run_locb_backtest(
                 m5_rates, m1_rates,
-                london_open_hour=10,
+                london_open_hour=12,
                 session_end_hour=15,
-                risk_reward=3.0,
+                risk_reward=2.0,
                 sl_buffer_pips=2.0,
                 max_retest_candles=max_retest,
                 max_confirm_candles=max_confirm,

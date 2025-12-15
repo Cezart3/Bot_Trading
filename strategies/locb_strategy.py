@@ -64,6 +64,7 @@ class LOCBState:
     retest_found: bool = False
     confirmation_found: bool = False
     confirmation_type: Optional[str] = None
+    confirmation_candle: Optional[M1CandleData] = None
 
     # Counters
     candles_since_breakout: int = 0
@@ -99,13 +100,14 @@ class LOCBStrategy(BaseStrategy):
         symbol: str,
         timeframe: str = "M1",  # Primary timeframe for entries
         magic_number: int = 12346,
-        # Session settings (server time = UTC+2)
-        london_open_hour: int = 10,  # 08:00 UTC = 10:00 server
-        session_end_hour: int = 13,  # 11:00 UTC = 13:00 server
-        timezone: str = "Etc/GMT-2",  # MT5 server timezone
+        # Session settings (server time - Teletrade uses UTC+4 equivalent)
+        # London opens at 08:00 UTC = 12:00 server time
+        london_open_hour: int = 12,  # 08:00 UTC = 12:00 server
+        session_end_hour: int = 15,  # 11:00 UTC = 15:00 server
+        timezone: str = "Etc/GMT-4",  # MT5 server timezone (Teletrade)
         # Strategy settings
-        risk_reward_ratio: float = 3.0,
-        sl_buffer_pips: float = 2.0,
+        risk_reward_ratio: float = 1.5,
+        sl_buffer_pips: float = 10.0,
         min_range_pips: float = 2.0,
         max_range_pips: float = 30.0,
         # Timing parameters (in M1 candles)
@@ -122,7 +124,7 @@ class LOCBStrategy(BaseStrategy):
         Args:
             symbol: Trading symbol (e.g., "EURUSD")
             timeframe: Primary timeframe for entries (M1 recommended)
-            magic_number: Unique identifier for orders
+            magic_number: Unique identifier for orders``
             london_open_hour: Hour of London open in server time
             session_end_hour: Hour to stop trading in server time
             timezone: Server timezone
@@ -168,7 +170,7 @@ class LOCBStrategy(BaseStrategy):
         self.pip_size = 0.0001  # Default for forex
 
         # State
-        self._state = LOCBState(max_trades_per_day=max_trades_per_day)
+        self._state = LOCBState(max_trades_per_day=self.max_trades_per_day)
 
     def initialize(self) -> bool:
         """Initialize strategy."""
@@ -186,46 +188,39 @@ class LOCBStrategy(BaseStrategy):
         logger.info("LOCB state reset for new session")
 
     def _check_new_session(self, timestamp: datetime) -> None:
-        """Check if it's a new trading session and reset if needed."""
-        if timestamp.tzinfo is None:
-            timestamp = self.tz.localize(timestamp)
-        else:
-            timestamp = timestamp.astimezone(self.tz)
+        """Check if it's a new trading session and reset if needed.
 
+        Uses timestamp directly as it comes from MT5 in server time.
+        """
         current_date = timestamp.date()
 
         if self._state.session_date != current_date:
             self._reset_daily_state(current_date)
 
     def _is_in_opening_range_period(self, candle: Candle) -> bool:
-        """Check if we're in the first 5 minutes (opening candle period)."""
-        ts = candle.timestamp
-        if ts.tzinfo is None:
-            ts = self.tz.localize(ts)
-        else:
-            ts = ts.astimezone(self.tz)
+        """Check if we're in the first 5 minutes (opening candle period).
 
+        Uses candle timestamp directly as it comes from MT5 in server time.
+        """
+        ts = candle.timestamp
+        # Candle timestamps from MT5 are already in server time
         return ts.hour == self.london_open_hour and ts.minute < 5
 
     def _is_in_breakout_check_period(self, candle: Candle) -> bool:
-        """Check if we're in the second 5-minute period (breakout check)."""
-        ts = candle.timestamp
-        if ts.tzinfo is None:
-            ts = self.tz.localize(ts)
-        else:
-            ts = ts.astimezone(self.tz)
+        """Check if we're in the second 5-minute period (breakout check).
 
+        Uses candle timestamp directly as it comes from MT5 in server time.
+        """
+        ts = candle.timestamp
         return ts.hour == self.london_open_hour and 5 <= ts.minute < 10
 
     def _is_past_breakout_period(self, candle: Candle) -> bool:
-        """Check if we're past the first 10 minutes (retest/confirm phase)."""
-        ts = candle.timestamp
-        if ts.tzinfo is None:
-            ts = self.tz.localize(ts)
-        else:
-            ts = ts.astimezone(self.tz)
+        """Check if we're past the first 10 minutes (retest/confirm phase).
 
-        return ts.hour == self.london_open_hour and ts.minute >= 10 or ts.hour > self.london_open_hour
+        Uses candle timestamp directly as it comes from MT5 in server time.
+        """
+        ts = candle.timestamp
+        return (ts.hour == self.london_open_hour and ts.minute >= 10) or ts.hour > self.london_open_hour
 
     def _detect_choch(self, direction: str, lookback: int = 8) -> bool:
         """
@@ -390,13 +385,8 @@ class LOCBStrategy(BaseStrategy):
         if self._state.entry_triggered:
             return None
 
+        # Check if within trading hours (using candle timestamp which is in MT5 server time)
         ts = candle.timestamp
-        if ts.tzinfo is None:
-            ts = self.tz.localize(ts)
-        else:
-            ts = ts.astimezone(self.tz)
-
-        # Check if within trading hours
         if ts.hour < self.london_open_hour or ts.hour >= self.session_end_hour:
             return None
 
@@ -411,7 +401,10 @@ class LOCBStrategy(BaseStrategy):
 
         # Phase 0: Accumulate opening period candles (first 5 minutes)
         if self._is_in_opening_range_period(candle):
+            if len(self._state.opening_period_candles) == 0:
+                logger.info(f"LOCB [{self.symbol}] Opening range period started at {ts.strftime('%H:%M:%S')}")
             self._state.opening_period_candles.append(m1_candle)
+            logger.debug(f"LOCB [{self.symbol}] Accumulated candle {len(self._state.opening_period_candles)}/5 in opening range")
             return None
 
         # Phase 0.5: Calculate opening range from accumulated candles
@@ -495,18 +488,19 @@ class LOCBStrategy(BaseStrategy):
             if confirmed:
                 self._state.confirmation_found = True
                 self._state.confirmation_type = confirm_type
+                self._state.confirmation_candle = m1_candle
                 self._state.entry_triggered = True
 
                 # Generate entry signal
                 entry_price = candle.close
 
                 if self._state.direction == "long":
-                    sl = self._state.opening_candle_low - (self.sl_buffer_pips * self.pip_size)
+                    sl = self._state.confirmation_candle.low - (self.sl_buffer_pips * self.pip_size)
                     risk = entry_price - sl
                     tp = entry_price + (risk * self.risk_reward_ratio)
                     signal_type = SignalType.LONG
                 else:  # short
-                    sl = self._state.opening_candle_high + (self.sl_buffer_pips * self.pip_size)
+                    sl = self._state.confirmation_candle.high + (self.sl_buffer_pips * self.pip_size)
                     risk = sl - entry_price
                     tp = entry_price - (risk * self.risk_reward_ratio)
                     signal_type = SignalType.SHORT
@@ -556,8 +550,15 @@ class LOCBStrategy(BaseStrategy):
         current_price: float,
         candles: Optional[list[Candle]] = None,
     ) -> Optional[StrategySignal]:
-        """Check if position should be exited."""
-        now = datetime.now(self.tz)
+        """Check if position should be exited.
+
+        Uses candle timestamps (MT5 server time) for accurate session timing.
+        """
+        # Use candle timestamp for server time, fallback to local time
+        if candles and len(candles) > 0:
+            now = candles[-1].timestamp
+        else:
+            now = datetime.now(self.tz)
 
         # Check time-based exit
         session_end = now.replace(
@@ -568,7 +569,7 @@ class LOCBStrategy(BaseStrategy):
         close_time = session_end - timedelta(minutes=self.close_before_session_end_minutes)
 
         if now >= close_time:
-            logger.info(f"Session ending soon, closing position")
+            logger.info(f"Session ending soon (server time: {now.strftime('%H:%M')}), closing position")
             exit_type = (
                 SignalType.EXIT_LONG if position.is_long else SignalType.EXIT_SHORT
             )
@@ -601,16 +602,16 @@ class LOCBStrategy(BaseStrategy):
         is_long: bool,
         candles: Optional[list[Candle]] = None,
     ) -> Optional[float]:
-        """Calculate stop loss based on opening candle."""
-        if self._state.opening_candle_high is None:
+        """Calculate stop loss based on confirmation candle."""
+        if self._state.confirmation_candle is None:
             return None
 
         buffer = self.sl_buffer_pips * self.pip_size
 
         if is_long:
-            return self._state.opening_candle_low - buffer
+            return self._state.confirmation_candle.low - buffer
         else:
-            return self._state.opening_candle_high + buffer
+            return self._state.confirmation_candle.high + buffer
 
     def calculate_take_profit(
         self,

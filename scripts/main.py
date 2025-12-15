@@ -116,17 +116,17 @@ class TradingBot:
                 symbol=symbol,
                 timeframe="M1",  # LOCB uses M1 for entries
                 magic_number=12346 + magic_offset,
-                # Server time settings (MT5 is UTC+2)
-                london_open_hour=10,  # 08:00 UTC = 10:00 server
-                session_end_hour=13,  # 11:00 UTC = 13:00 server
-                timezone="Etc/GMT-2",
-                # Optimized parameters from backtest
-                risk_reward_ratio=3.0,
+                # Server time settings (Teletrade MT5 uses UTC+4 equivalent)
+                london_open_hour=12,  # 08:00 UTC = 12:00 server
+                session_end_hour=15,  # 11:00 UTC = 15:00 server
+                timezone="Etc/GMT-4",
+                # Optimized parameters from backtest (best config)
+                risk_reward_ratio=1.5,
                 sl_buffer_pips=2.0,
                 min_range_pips=2.0,
                 max_range_pips=30.0,
-                max_retest_candles=30,
-                max_confirm_candles=20,
+                max_retest_candles=20,  # Optimized: was 30
+                max_confirm_candles=10,  # Optimized: was 20
                 retest_tolerance_pips=3.0,
                 max_trades_per_day=1,
             )
@@ -232,7 +232,7 @@ class TradingBot:
         if self._use_locb:
             first_strategy = list(self.strategies.values())[0]
             logger.info(f"  - R:R Ratio: {first_strategy.risk_reward_ratio}:1")
-            logger.info(f"  - Session: 08:00-11:00 UTC (10:00-13:00 Romania)")
+            logger.info(f"  - Session: 08:00-11:00 UTC (12:00-15:00 MT5 server time)")
             logger.info(f"  - Avg SL: ~6 pips")
         logger.info("=" * 60)
 
@@ -257,22 +257,37 @@ class TradingBot:
 
     def _trading_cycle(self) -> None:
         """Single trading cycle - processes all symbols."""
-        # Check if within trading hours
+        # Check if within trading hours using MT5 server time
         if self._use_locb:
-            # LOCB uses its own session times
-            session_start = "10:00"  # Server time (08:00 UTC)
-            session_end = "13:00"    # Server time (11:00 UTC)
-            tz = "Etc/GMT-2"
+            # LOCB uses MT5 server time directly (Teletrade server time)
+            # London opens at 08:00 UTC = 12:00 server time
+            session_start_hour = 12
+            session_end_hour = 15
+
+            # Get MT5 server time for accurate trading hours check
+            server_time = self.broker.get_server_time()
+            current_hour = server_time.hour
+
+            if current_hour < session_start_hour or current_hour >= session_end_hour:
+                # Calculate time until session starts
+                if current_hour >= session_end_hour:
+                    # Session ended, wait until tomorrow
+                    hours_until = 24 - current_hour + session_start_hour
+                else:
+                    hours_until = session_start_hour - current_hour
+                logger.debug(f"Outside trading hours. Server time: {server_time.strftime('%H:%M:%S')}. Session starts at {session_start_hour}:00")
+                time.sleep(60)
+                return
         else:
             session_start = self.settings.orb.session_start
             session_end = self.settings.orb.session_end
             tz = self.settings.orb.timezone
 
-        if not is_trading_hours(session_start, session_end, tz):
-            remaining = time_to_session_end(session_start, tz)
-            logger.debug(f"Outside trading hours. Next session in: {remaining}")
-            time.sleep(60)
-            return
+            if not is_trading_hours(session_start, session_end, tz):
+                remaining = time_to_session_end(session_start, tz)
+                logger.debug(f"Outside trading hours. Next session in: {remaining}")
+                time.sleep(60)
+                return
 
         # Update account balance
         balance = self.broker.get_account_balance()
@@ -470,8 +485,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--symbols",
         nargs="+",
-        default=["EURUSD", "GBPUSD", "USDJPY", "EURJPY"],
-        help="Trading symbols (default: EURUSD GBPUSD USDJPY EURJPY). Use --symbols EURUSD GBPUSD etc.",
+        default=["EURUSD"],  # ONLY EURUSD is profitable with LOCB strategy
+        help="Trading symbols (default: EURUSD). Use --symbols EURUSD GBPUSD etc.",
     )
     parser.add_argument(
         "--timeframe",
