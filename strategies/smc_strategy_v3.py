@@ -62,7 +62,6 @@ class ConfirmationType(Enum):
     LIQUIDITY_SWEEP = "liquidity_sweep"
     MULTI_CANDLE = "multi_candle"
     M5_BOS = "m5_bos"
-    IFVG = "ifvg"  # Inversed Fair Value Gap
 
 
 class MarketCondition(Enum):
@@ -199,7 +198,6 @@ class SMCStateV3:
 
     # POIs
     active_pois: List[POI] = field(default_factory=list)
-    m5_pois: List[POI] = field(default_factory=list)
     order_blocks: List[OrderBlock] = field(default_factory=list)
     fvgs: List[FairValueGap] = field(default_factory=list)
     liquidity_levels: List[LiquidityLevel] = field(default_factory=list)
@@ -220,7 +218,6 @@ class SMCStateV3:
     market_condition: MarketCondition = MarketCondition.TRENDING
     adx_value: float = 0.0
     session_quality: float = 1.0
-    last_m5_timestamp: Optional[datetime] = None
 
     # Premium/Discount
     swing_range_high: Optional[float] = None
@@ -374,6 +371,7 @@ class SMCConfigV3:
     swing_lookback: int = 3
     swing_lookback_h1: int = 4  # Reduced from 5
     bos_min_move_atr: float = 0.4  # Reduced from 0.5
+    ob_min_impulse_atr: float = 0.8  # Reduced from 1.0
     fvg_min_gap_atr: float = 0.25  # Reduced from 0.3
 
     # POI Scoring - RELAXED for more trades
@@ -384,7 +382,6 @@ class SMCConfigV3:
     poi_zone_score: float = 0.4
     poi_fresh_score: float = 0.4
     poi_sweep_score: float = 1.0  # Reduced from 1.5
-    ob_min_impulse_atr: float = 0.8  # Default value, now configurable
 
     # Entry Confirmations
     choch_lookback: int = 10  # Reduced from 12
@@ -452,7 +449,6 @@ class SMCStrategyV3(BaseStrategy):
         self.atr_h1: float = 0.0
         self.atr_m15: float = 0.0
         self.atr_m5: float = 0.0
-        self.atr_m1: float = 0.0 # NEW
         self.atr_daily: float = 0.0
 
         # EMA 200 value
@@ -473,7 +469,6 @@ class SMCStrategyV3(BaseStrategy):
         self.h1_candles: List[Candle] = []
         self.m15_candles: List[Candle] = []
         self.m5_candles: List[Candle] = []
-        self.m1_candles: List[Candle] = [] # NEW
 
         # Historical ATR for volatility
         self.atr_history: List[float] = []
@@ -549,7 +544,6 @@ class SMCStrategyV3(BaseStrategy):
         h4_candles: List[Candle],
         h1_candles: List[Candle],
         m5_candles: List[Candle],
-        m1_candles: List[Candle],
         m15_candles: Optional[List[Candle]] = None,
         daily_candles: Optional[List[Candle]] = None
     ) -> None:
@@ -557,7 +551,6 @@ class SMCStrategyV3(BaseStrategy):
         self.h4_candles = h4_candles
         self.h1_candles = h1_candles
         self.m5_candles = m5_candles
-        self.m1_candles = m1_candles # NEW
         self.m15_candles = m15_candles if m15_candles else []
         self.daily_candles = daily_candles if daily_candles else []
 
@@ -569,8 +562,6 @@ class SMCStrategyV3(BaseStrategy):
             self._state.current_atr_h1 = self.atr_h1
         if len(m5_candles) >= 14:
             self.atr_m5 = self._calculate_atr(m5_candles, 14)
-        if m1_candles and len(m1_candles) >= 14: # NEW
-            self.atr_m1 = self._calculate_atr(m1_candles, 14) # NEW
         if m15_candles and len(m15_candles) >= 14:
             self.atr_m15 = self._calculate_atr(m15_candles, 14)
         if daily_candles and len(daily_candles) >= 14:
@@ -1445,9 +1436,6 @@ class SMCStrategyV3(BaseStrategy):
         avg_body = sum(abs(c.close - c.open) for c in recent) / len(recent)
         current_body = abs(current.close - current.open)
 
-        # M1 ATR for confirmation logic (this was atr_m5 before)
-        atr_for_confirmation = self.atr_m1 if self.atr_m1 > 0 else self.atr_m5 # Fallback to M5 if M1 ATR not available
-
         if direction == "long":
             swing_high = max(c.high for c in recent)
             swing_low = min(c.low for c in recent)
@@ -1470,7 +1458,7 @@ class SMCStrategyV3(BaseStrategy):
                                 strength=0.85
                             )
 
-            # CHoCH (Change of Character)
+            # CHoCH
             if current.close > swing_high:
                 if current.close > current.open and current_body > avg_body * 0.8:
                     return Confirmation(
@@ -1480,19 +1468,7 @@ class SMCStrategyV3(BaseStrategy):
                         sl_price=swing_low,
                         strength=0.9
                     )
-            
-            # iFVG (Inversed Fair Value Gap) - NEW
-            recent_fvgs = self._find_fvgs(candles[-20:], atr_for_confirmation) # Use M1 ATR
-            for fvg in recent_fvgs:
-                if fvg.type == POIType.BEARISH_FVG and current.close > fvg.high:
-                     return Confirmation(
-                        type=ConfirmationType.IFVG,
-                        timestamp=current.timestamp,
-                        entry_price=current.close,
-                        sl_price=min(c.low for c in recent), # SL below recent structure
-                        strength=0.8
-                    )
-            
+
             # Bullish Engulfing
             if (current.close > current.open and
                 prev.close < prev.open and
@@ -1531,7 +1507,6 @@ class SMCStrategyV3(BaseStrategy):
 
             # Multi-Candle Confirmation
             if self.config.require_multi_candle:
-                # Check for 2 consecutive bearish candles
                 if (current.close < current.open and prev.close < prev.open):
                     prev_body = abs(prev.close - prev.open)
                     if current_body > avg_body * 0.7 and prev_body > avg_body * 0.7:
@@ -1555,19 +1530,7 @@ class SMCStrategyV3(BaseStrategy):
                         sl_price=swing_high,
                         strength=0.9
                     )
-            
-            # iFVG (Inversed Fair Value Gap) - NEW
-            recent_fvgs = self._find_fvgs(candles[-20:], atr_for_confirmation) # Use M1 ATR
-            for fvg in recent_fvgs:
-                if fvg.type == POIType.BULLISH_FVG and current.close < fvg.low:
-                    return Confirmation(
-                        type=ConfirmationType.IFVG,
-                        timestamp=current.timestamp,
-                        entry_price=current.close,
-                        sl_price=max(c.high for c in recent), # SL above recent structure
-                        strength=0.8
-                    )
-            
+
             # Bearish Engulfing
             if (current.close < current.open and
                 prev.close > prev.open and
@@ -1761,25 +1724,6 @@ class SMCStrategyV3(BaseStrategy):
         # NO FALLBACK - return None to reject the trade
         return None, 0, "no_valid_liquidity"
 
-    def _get_trading_bias(self) -> MarketBias:
-        """Determine final trading bias from HTF confluence."""
-        trading_bias = MarketBias.NEUTRAL
-
-        if self.config.use_ema_filter:
-            if self._state.ema_trend == MarketBias.BULLISH and self._state.h1_bias != MarketBias.BEARISH:
-                trading_bias = MarketBias.BULLISH
-            elif self._state.ema_trend == MarketBias.BEARISH and self._state.h1_bias != MarketBias.BULLISH:
-                trading_bias = MarketBias.BEARISH
-        else:
-            if self._state.h1_bias != MarketBias.NEUTRAL:
-                trading_bias = self._state.h1_bias
-
-        if trading_bias == MarketBias.NEUTRAL and self._state.h4_bias != MarketBias.NEUTRAL:
-            if not self.config.require_h4_agreement:
-                trading_bias = self._state.h4_bias
-        
-        return trading_bias
-
     def _update_equity_curve_risk(self) -> None:
         """Update risk based on equity curve trading."""
         if not self.config.use_equity_curve:
@@ -1798,185 +1742,297 @@ class SMCStrategyV3(BaseStrategy):
         candle: Candle,
         candles: list[Candle],
     ) -> Optional[StrategySignal]:
-        """
-        Process new M1 candle and generate signals based on M5 POIs.
-        """
+        """Process new candle and generate signals."""
         if not self._enabled:
             return None
 
-        # The 'candles' parameter is the M1 history
-        self.m1_candles_history = candles
-
         ts = candle.timestamp
-        current_price = candle.close
 
         # Check for new day
         current_date = ts.date()
         if self._state.current_date != current_date:
             self._reset_daily_state(current_date)
 
-        # === FILTERS (run on every M1 candle) ===
+        # === FILTERS ===
+
+        # Session check
         session = self._get_current_session(ts)
         if not session:
+            # Don't spam logs when outside session
             return None
 
+        # Session quality
+        self._state.session_quality = self._calculate_session_quality(ts, session)
+        if self._state.session_quality < self.config.session_min_quality:
+            return None
+
+        # Max trades check
         if self._state.trades_today >= self.config.max_trades_per_day:
             return None
-            
-        # Check if it's the start of a new M5 bar
-        is_new_m5_bar = (ts.minute % 5 == 0) and (self._state.last_m5_timestamp is None or ts > self._state.last_m5_timestamp)
-        
-        # ===============================================================
-        # === M5 ANALYSIS BLOCK (Runs only on new M5 candles)
-        # ===============================================================
-        if is_new_m5_bar:
-            self._state.last_m5_timestamp = ts
-            logger.debug(f"SMC [{self.symbol}] New M5 bar detected at {ts}. Running M5 analysis...")
 
-            # 1. --- Market Condition Filter (ADX on H1) ---
-            market_condition = self._check_market_condition()
-            self._state.market_condition = market_condition
-            if market_condition == MarketCondition.RANGING:
-                logger.debug(f"SMC [{self.symbol}] M5 Skip: Ranging market (ADX={self.adx:.1f} < {self.config.adx_weak_trend})")
-                self._state.m5_pois = [] # Clear POIs if market is ranging
-                return None
+        # Consecutive losses check
+        if self._state.consecutive_losses >= self.config.max_consecutive_losses:
+            logger.warning(f"SMC_V3 [{self.symbol}] Max consecutive losses reached")
+            return None
 
-            # 2. --- HTF Bias Analysis (H4/H1) ---
-            if len(self.h4_candles) >= 30:
-                self._state.h4_bias, _ = self._analyze_market_structure(self.h4_candles, self.atr_h4)
-            if len(self.h1_candles) >= 50:
-                self._state.h1_bias, _ = self._analyze_market_structure(self.h1_candles, self.atr_h1)
-            
-            if self.config.use_ema_filter and self.ema_200 > 0:
-                if self.m5_candles[-1].close > self.ema_200: self._state.ema_trend = MarketBias.BULLISH
-                else: self._state.ema_trend = MarketBias.BEARISH
+        # Spread check
+        spread_pips = self.current_spread / self.pip_size
+        if spread_pips > self.config.max_spread_pips:
+            return None
 
-            trading_bias = self._get_trading_bias()
-            if trading_bias == MarketBias.NEUTRAL:
-                logger.debug(f"SMC [{self.symbol}] M5 Skip: Neutral bias (H1={self._state.h1_bias.value}, EMA={self._state.ema_trend.value})")
-                self._state.m5_pois = []
-                return None
-            
-            # 3. --- M5 POI Identification ---
-            m5_order_blocks = self._find_order_blocks(self.m5_candles, self.atr_m5)
-            m5_fvgs = self._find_fvgs(self.m5_candles, self.atr_m5)
-            m5_liquidity = self._find_liquidity_levels(self.m5_candles)
-            
-            swing_highs, swing_lows = self._find_swing_points(self.m5_candles, lookback=5)
-            if not swing_highs or not swing_lows:
-                return None
+        # Market condition (ADX)
+        market_condition = self._check_market_condition()
+        self._state.market_condition = market_condition
 
-            swing_range = (max(h.price for h in swing_highs[-3:]), min(l.price for l in swing_lows[-3:]))
-            
-            self._state.m5_pois = self._identify_pois(
-                bias=trading_bias,
-                order_blocks=m5_order_blocks,
-                fvgs=m5_fvgs,
-                liquidity_levels=m5_liquidity,
-                current_price=current_price,
-                swing_range=swing_range,
-                recent_sweeps=[] # Sweeps are better detected on M1
+        if market_condition == MarketCondition.RANGING:
+            logger.debug(f"SMC [{self.symbol}] Skip: Ranging market (ADX={self.adx:.1f} < {self.config.adx_weak_trend})")
+            return None  # Don't trade in ranging market
+
+        # Volatility filter
+        should_trade, sl_multiplier = self._check_volatility_filter()
+        if not should_trade:
+            logger.debug(f"SMC [{self.symbol}] Skip: Low volatility (ATR ratio too low)")
+            return None
+
+        # === ANALYSIS ===
+
+        # Analyze H4
+        if len(self.h4_candles) >= 30:
+            self._state.h4_bias, _ = self._analyze_market_structure(self.h4_candles, self.atr_h4)
+
+        # Analyze H1
+        if len(self.h1_candles) < 50:
+            return None
+
+        h1_bias, h1_breaks = self._analyze_market_structure(self.h1_candles, self.atr_h1)
+        self._state.h1_bias = h1_bias
+
+        # EMA trend filter
+        if self.config.use_ema_filter and self.ema_200 > 0:
+            current_price = candle.close
+            if current_price > self.ema_200:
+                self._state.ema_trend = MarketBias.BULLISH
+            elif current_price < self.ema_200:
+                self._state.ema_trend = MarketBias.BEARISH
+            else:
+                self._state.ema_trend = MarketBias.NEUTRAL
+
+        # Determine trading bias
+        trading_bias = MarketBias.NEUTRAL
+
+        if self.config.use_ema_filter:
+            if self._state.ema_trend == MarketBias.BULLISH and h1_bias != MarketBias.BEARISH:
+                trading_bias = MarketBias.BULLISH
+            elif self._state.ema_trend == MarketBias.BEARISH and h1_bias != MarketBias.BULLISH:
+                trading_bias = MarketBias.BEARISH
+        else:
+            if h1_bias != MarketBias.NEUTRAL:
+                trading_bias = h1_bias
+
+        if trading_bias == MarketBias.NEUTRAL and self._state.h4_bias != MarketBias.NEUTRAL:
+            if not self.config.require_h4_agreement:
+                trading_bias = self._state.h4_bias
+
+        if trading_bias == MarketBias.NEUTRAL:
+            logger.debug(f"SMC [{self.symbol}] Skip: Neutral bias (H1={h1_bias.value}, EMA={self._state.ema_trend.value})")
+            return None
+
+        # Find structures
+        order_blocks = self._find_order_blocks(self.h1_candles, self.atr_h1)
+        fvgs = self._find_fvgs(self.h1_candles, self.atr_h1)
+        liquidity_levels = self._find_liquidity_levels(self.h1_candles)
+
+        # Detect liquidity sweeps
+        swing_highs, swing_lows = self._find_swing_points(self.h1_candles, lookback=3)
+        high_sweeps = self._detect_liquidity_sweep(self.h1_candles, swing_highs, is_high=True)
+        low_sweeps = self._detect_liquidity_sweep(self.h1_candles, swing_lows, is_high=False)
+        recent_sweeps = high_sweeps + low_sweeps
+        self._state.recent_sweeps = recent_sweeps
+
+        # Calculate swing range
+        if swing_highs and swing_lows:
+            swing_range = (
+                max(h.price for h in swing_highs[-3:]),
+                min(l.price for l in swing_lows[-3:])
             )
-            if self._state.m5_pois:
-                 logger.info(f"SMC [{self.symbol}] M5 Analysis found {len(self._state.m5_pois)} POIs. Now monitoring M1 for entry.")
+        else:
+            swing_range = (candle.high, candle.low)
 
+        # Identify POIs
+        current_price = candle.close
+        pois = self._identify_pois(
+            bias=trading_bias,
+            order_blocks=order_blocks,
+            fvgs=fvgs,
+            liquidity_levels=liquidity_levels,
+            current_price=current_price,
+            swing_range=swing_range,
+            recent_sweeps=recent_sweeps
+        )
 
-        # ===============================================================
-        # === M1 ENTRY LOGIC (Runs on every M1 candle)
-        # ===============================================================
-        if not self._state.m5_pois:
-            return None # No active M5 POIs to check against
-            
-        # Check if M1 price enters a valid M5 POI
-        for poi in self._state.m5_pois:
-            is_long = "Bullish" in poi.type
-            direction = "long" if is_long else "short"
+        self._state.active_pois = pois
 
-            if poi.price_low <= current_price <= poi.price_high:
-                
-                # We are inside a valid M5 POI, now look for M1 confirmation
-                confirmation = self._detect_confirmation(self.m1_candles_history, direction, poi)
+        if not pois:
+            logger.debug(f"SMC [{self.symbol}] Skip: No valid POIs found (OBs={len(order_blocks)}, bias={trading_bias.value})")
+            return None
 
-                if not confirmation:
-                    continue # No M1 confirmation yet, keep checking
+        # Check if price is in POI zone (refined)
+        active_poi = None
+        direction = "long" if trading_bias == MarketBias.BULLISH else "short"
 
-                logger.info(f"SMC [{self.symbol}] M1 Confirmation found: {confirmation.type.value} inside M5 POI.")
+        for poi in pois:
+            # Get refined entry zone
+            entry_low, entry_high = self._get_refined_entry_zone(poi, direction)
+            zone_expansion = 2 * self.pip_size
 
-                # --- ENTRY SIGNAL ---
-                entry_price = confirmation.entry_price
-                
-                # SL with volatility adjustment
-                if is_long:
-                    sl = confirmation.sl_price - (2 * self.pip_size)
-                else:
-                    sl = confirmation.sl_price + (2 * self.pip_size)
+            if entry_low - zone_expansion <= current_price <= entry_high + zone_expansion:
+                active_poi = poi
+                break
 
-                sl_pips = abs(entry_price - sl) / self.pip_size
-                if not (self.config.min_sl_pips <= sl_pips <= self.config.max_sl_pips):
-                    logger.debug(f"SMC [{self.symbol}] M1 Skip: SL too large/small ({sl_pips:.1f} pips)")
-                    continue # Continue to check other POIs
-                
-                # TP based on liquidity
-                m5_liquidity_levels = self._find_liquidity_levels(self.m5_candles)
-                tp, actual_rr, target_type = self._calculate_tp(entry_price, sl, is_long, m5_liquidity_levels)
+        if not active_poi:
+            logger.debug(f"SMC [{self.symbol}] Skip: Price not in POI zone (POIs={len(pois)}, price={current_price:.5f})")
+            return None
 
-                if tp is None or actual_rr < self.config.min_rr:
-                    logger.debug(f"SMC [{self.symbol}] M1 Skip: No valid TP/RR found (RR={actual_rr:.2f})")
-                    continue
+        # Momentum filter
+        m5_data = self.m5_candles if self.m5_candles else candles
+        if len(m5_data) >= 5:
+            recent_5 = m5_data[-5:]
+            momentum = (recent_5[-1].close - recent_5[0].open) / self.pip_size
 
-                # We have a valid trade, clear POIs to prevent re-entry
-                self._state.m5_pois = []
-                self._state.trades_today += 1
-                
-                signal_type = SignalType.LONG if is_long else SignalType.SHORT
-                confidence = 0.5 + (poi.score / 10) + (confirmation.strength * 0.2)
-                
-                # === GENERATE SIGNAL ===
-                # This is the actual return from the on_candle method
-                self._update_equity_curve_risk()
-                current_risk = self._state.current_risk_percent
+            if trading_bias == MarketBias.BULLISH and momentum > 20:
+                return None
+            if trading_bias == MarketBias.BEARISH and momentum < -20:
+                return None
 
-                # Reduce risk for weak trend
-                if self._state.market_condition == MarketCondition.WEAK_TREND and self.config.adx_reduce_risk:
-                    current_risk *= 0.5
+        self._state.active_poi = active_poi
 
-                tp_pips = abs(tp - entry_price) / self.pip_size
-                
-                logger.info(
-                    f"SMC_V3 [{self.symbol}] {direction.upper()} | "
-                    f"POI: {poi.type} (score {poi.score:.1f}) | Confirm: {confirmation.type.value} | "
-                    f"Entry: {entry_price:.5f}, SL: {sl:.5f} ({sl_pips:.1f}p), TP: {tp:.5f} ({tp_pips:.1f}p) | "
-                    f"Target: {target_type} | R:R: {actual_rr:.2f} | ADX: {self.adx:.1f} | Risk: {current_risk}%"
-                )
+        # Detect confirmation
+        entry_candles = self.m5_candles if self.m5_candles else candles
+        confirmation = self._detect_confirmation(entry_candles, direction, active_poi)
 
-                return StrategySignal(
-                    signal_type=signal_type,
-                    symbol=self.symbol,
-                    price=entry_price,
-                    stop_loss=sl,
-                    take_profit=tp,
-                    confidence=min(1.0, confidence),
-                    reason=f"M5 {poi.type} -> M1 {confirmation.type.value} (RR {actual_rr:.1f})",
-                    metadata={
-                        "session": session,
-                        "ema_trend": self._state.ema_trend.value,
-                        "h1_bias": self._state.h1_bias.value,
-                        "poi_score": poi.score,
-                        "confirmation_type": confirmation.type.value,
-                        "sl_pips": sl_pips,
-                        "tp_pips": tp_pips,
-                        "actual_rr": actual_rr,
-                        "has_sweep": poi.has_liquidity_sweep, # POI has sweep
-                        "target_type": target_type,
-                        "adx": self.adx,
-                        "market_condition": self._state.market_condition.value,
-                        "session_quality": self._state.session_quality,
-                        "risk_percent": current_risk,
-                        "partial_tps": [], # No partial TPs in this version for simplicity
-                    }
-                )
-        
-        return None
+        if not confirmation:
+            logger.debug(f"SMC [{self.symbol}] Skip: No confirmation pattern for {direction} at POI")
+            return None
+
+        # Verify displacement
+        if not self._verify_displacement(entry_candles, active_poi, direction):
+            logger.debug(f"SMC [{self.symbol}] Skip: Displacement not verified for {direction}")
+            return None
+
+        # === CALCULATE ENTRY ===
+
+        entry_price = confirmation.entry_price
+        is_long = direction == "long"
+
+        # Calculate SL with volatility adjustment
+        if is_long:
+            sl = confirmation.sl_price - (2 * self.pip_size)
+        else:
+            sl = confirmation.sl_price + (2 * self.pip_size)
+
+        # Apply volatility multiplier to SL
+        if sl_multiplier != 1.0:
+            sl_distance = abs(entry_price - sl)
+            adjusted_distance = sl_distance * sl_multiplier
+            if is_long:
+                sl = entry_price - adjusted_distance
+            else:
+                sl = entry_price + adjusted_distance
+
+        # Validate SL distance
+        sl_pips = abs(entry_price - sl) / self.pip_size
+
+        if sl_pips < self.config.min_sl_pips:
+            sl_pips = self.config.min_sl_pips
+            if is_long:
+                sl = entry_price - (sl_pips * self.pip_size)
+            else:
+                sl = entry_price + (sl_pips * self.pip_size)
+
+        if sl_pips > self.config.max_sl_pips:
+            logger.debug(f"SMC [{self.symbol}] Skip: SL too large ({sl_pips:.1f} > {self.config.max_sl_pips} pips)")
+            return None
+
+        # Calculate TP based on liquidity targets
+        tp, actual_rr, target_type = self._calculate_tp(
+            entry_price, sl, is_long, liquidity_levels
+        )
+
+        # CRITICAL: Reject if no valid liquidity target found
+        if tp is None:
+            logger.debug(f"SMC [{self.symbol}] Skip: No liquidity target with R:R >= {self.config.min_rr}")
+            return None
+
+        if actual_rr < self.config.min_rr:
+            logger.debug(f"SMC [{self.symbol}] Skip: R:R too low ({actual_rr:.2f} < {self.config.min_rr})")
+            return None
+
+        # Calculate partial TPs
+        partial_tps = self._calculate_partial_tps(entry_price, sl, is_long)
+        self._state.active_partial_tps = partial_tps
+        self._state.trade_entry_time = ts
+        self._state.original_sl = sl
+
+        # === GENERATE SIGNAL ===
+
+        self._state.trades_today += 1
+
+        # Update equity curve risk
+        self._update_equity_curve_risk()
+        current_risk = self._state.current_risk_percent
+
+        # Reduce risk for weak trend
+        if market_condition == MarketCondition.WEAK_TREND and self.config.adx_reduce_risk:
+            current_risk *= 0.5
+
+        tp_pips = abs(tp - entry_price) / self.pip_size
+        signal_type = SignalType.LONG if is_long else SignalType.SHORT
+
+        # Calculate confidence
+        confidence = 0.5
+        confidence += active_poi.score / 10
+        confidence += confirmation.strength * 0.2
+        if active_poi.has_liquidity_sweep:
+            confidence += 0.15
+        if self._state.session_quality >= 1.0:
+            confidence += 0.1
+        if market_condition == MarketCondition.TRENDING:
+            confidence += 0.1
+        confidence = min(1.0, confidence)
+
+        logger.info(
+            f"SMC_V3 [{self.symbol}] {direction.upper()} | "
+            f"POI: {active_poi.score:.1f} | Confirm: {confirmation.type.value} | "
+            f"Entry: {entry_price:.5f}, SL: {sl:.5f} ({sl_pips:.1f}p), TP: {tp:.5f} ({tp_pips:.1f}p) | "
+            f"Target: {target_type} | R:R: {actual_rr:.2f} | ADX: {self.adx:.1f} | Risk: {current_risk}%"
+        )
+
+        return StrategySignal(
+            signal_type=signal_type,
+            symbol=self.symbol,
+            price=entry_price,
+            stop_loss=sl,
+            take_profit=tp,
+            confidence=confidence,
+            reason=f"SMC_V3 {direction.upper()} - {active_poi.type} ({confirmation.type.value})",
+            metadata={
+                "session": session,
+                "ema_trend": self._state.ema_trend.value,
+                "h1_bias": h1_bias.value,
+                "poi_score": active_poi.score,
+                "confirmation_type": confirmation.type.value,
+                "sl_pips": sl_pips,
+                "tp_pips": tp_pips,
+                "actual_rr": actual_rr,
+                "has_sweep": active_poi.has_liquidity_sweep,
+                "target_type": target_type,
+                "adx": self.adx,
+                "market_condition": market_condition.value,
+                "session_quality": self._state.session_quality,
+                "risk_percent": current_risk,
+                "partial_tps": [(tp.level, tp.price) for tp in partial_tps],
+            }
+        )
 
     def on_tick(self, bid: float, ask: float, timestamp: datetime) -> Optional[StrategySignal]:
         return None
@@ -2010,61 +2066,119 @@ class SMCStrategyV3(BaseStrategy):
 
         # Check partial TPs
         if self.config.use_partial_tp and self._state.active_partial_tps:
-            # THIS SECTION NEEDS REVISITING FOR MTF LOGIC, AS IT DEPENDS ON M5 CANDLES
-            # For now, disabling partial TPs in strategy config for backtesting.
-            pass
+            for tp in self._state.active_partial_tps:
+                if tp.hit:
+                    continue
+
+                if is_long:
+                    if current_price >= tp.price:
+                        tp.hit = True
+                        logger.info(f"SMC_V3 [{self.symbol}] TP{tp.level} hit at {current_price:.5f}")
+
+                        # Move SL to BE after TP1
+                        if tp.level == 1 and self.config.tp1_move_sl_be:
+                            self._state.trailing_active = True
+                else:
+                    if current_price <= tp.price:
+                        tp.hit = True
+                        logger.info(f"SMC_V3 [{self.symbol}] TP{tp.level} hit at {current_price:.5f}")
+
+                        if tp.level == 1 and self.config.tp1_move_sl_be:
+                            self._state.trailing_active = True
+
+        # Session end exit
+        if session:
+            end_hour = self.config.london_kz_end if session == "london" else self.config.ny_kz_end
+            minutes_to_end = (end_hour * 60) - (ts.hour * 60 + ts.minute)
+
+            if 0 <= minutes_to_end <= 10:
+                return StrategySignal(
+                    signal_type=SignalType.EXIT_LONG if is_long else SignalType.EXIT_SHORT,
+                    symbol=self.symbol,
+                    price=current_price,
+                    reason="Session end exit"
+                )
 
         return None
 
-    def calculate_stop_loss(
+    def get_trailing_stop(
         self,
-        entry_price: float,
-        is_long: bool,
-        candles: Optional[list[Candle]] = None,
+        position: Position,
+        current_price: float,
+        candles: Optional[list[Candle]] = None
     ) -> Optional[float]:
-        """Calculate stop loss based on confirmation candle."""
-        # This method is not used in the current MTF on_candle logic directly
-        # SL is determined during signal generation
+        """Calculate trailing stop level."""
+        if not self.config.use_trailing_stop or not self._state.trailing_active:
+            return None
+
+        if not candles or len(candles) < 5:
+            return None
+
+        is_long = position.is_long
+        entry_price = position.entry_price
+        current_sl = position.stop_loss or self._state.original_sl
+
+        # Use ATR-based trailing
+        atr = self.atr_m5 if self.atr_m5 > 0 else self.atr_h1
+        if atr == 0:
+            return None
+
+        trail_distance = atr * self.config.trailing_distance_atr
+
+        if is_long:
+            # Trail below recent lows
+            recent_low = min(c.low for c in candles[-5:])
+            new_sl = max(recent_low - trail_distance, entry_price)  # At least BE
+
+            if new_sl > current_sl:
+                return new_sl
+        else:
+            recent_high = max(c.high for c in candles[-5:])
+            new_sl = min(recent_high + trail_distance, entry_price)
+
+            if new_sl < current_sl:
+                return new_sl
+
         return None
 
-    def calculate_take_profit(
-        self,
-        entry_price: float,
-        stop_loss: float,
-        is_long: bool,
-    ) -> Optional[float]:
-        """Calculate take profit based on fallback risk/reward ratio."""
-        # This method is not used in the current MTF on_candle logic directly
-        # TP is determined during signal generation
-        return None
+    def on_position_closed(self, position: Position, pnl: float) -> None:
+        """Track wins/losses for equity curve trading."""
+        if pnl < 0:
+            self._state.consecutive_losses += 1
+            self._state.consecutive_wins = 0
+        else:
+            self._state.consecutive_wins += 1
+            self._state.consecutive_losses = 0
+
+        # Reset trade state
+        self._state.active_partial_tps = []
+        self._state.trade_entry_time = None
+        self._state.trailing_active = False
+
+        # Update risk for next trade
+        self._update_equity_curve_risk()
 
     def get_status(self) -> dict:
-        """
-        Get strategy status and metrics.
-
-        Returns:
-            Dictionary with strategy status.
-        """
         base_status = super().get_status()
-
         base_status.update({
-            "current_date": str(self._state.current_date),
+            "ema_trend": self._state.ema_trend.value,
+            "h4_bias": self._state.h4_bias.value,
+            "h1_bias": self._state.h1_bias.value,
             "trades_today": self._state.trades_today,
             "consecutive_losses": self._state.consecutive_losses,
             "consecutive_wins": self._state.consecutive_wins,
+            "active_pois": len(self._state.active_pois),
+            "recent_sweeps": len(self._state.recent_sweeps),
+            "ema_200": self.ema_200,
+            "adx": self.adx,
             "market_condition": self._state.market_condition.value,
-            "adx_value": self._state.adx_value,
-            "h1_bias": self._state.h1_bias.value,
-            "ema_trend": self._state.ema_trend.value,
-            "m5_pois_count": len(self._state.m5_pois),
-            "last_m5_timestamp": str(self._state.last_m5_timestamp),
-            "current_spread": self.current_spread,
-            "avg_spread": self.avg_spread,
+            "session_quality": self._state.session_quality,
+            "current_risk": self._state.current_risk_percent,
+            "trailing_active": self._state.trailing_active,
         })
         return base_status
 
     def reset(self) -> None:
-        """Reset strategy for new session."""
         super().reset()
         self._reset_daily_state()
-
+        self.atr_history = []
