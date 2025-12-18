@@ -317,7 +317,7 @@ class NewsFilter:
             if check_date.weekday() >= 5:
                 continue
 
-            # NFP - First Friday of month
+            # NFP - First Friday of month (but can be on other days too)
             if check_date.weekday() == 4 and check_date.day <= 7:
                 new_events.append(EconomicEvent(
                     date=check_date,
@@ -334,6 +334,41 @@ class NewsFilter:
                     impact=NewsImpact.HIGH,
                     event="Unemployment Rate",
                 ))
+
+            # Flash PMI - Usually 3rd week of month (HIGH impact)
+            if 15 <= check_date.day <= 23:
+                # German Flash PMI (EUR) - usually Monday/Tuesday
+                if check_date.weekday() in [0, 1]:
+                    new_events.append(EconomicEvent(
+                        date=check_date,
+                        time="04:30",
+                        currency="EUR",
+                        impact=NewsImpact.HIGH,
+                        event="German Flash Manufacturing PMI",
+                    ))
+                    new_events.append(EconomicEvent(
+                        date=check_date,
+                        time="04:30",
+                        currency="EUR",
+                        impact=NewsImpact.HIGH,
+                        event="German Flash Services PMI",
+                    ))
+                # US Flash PMI - usually same day or day after
+                if check_date.weekday() in [0, 1]:
+                    new_events.append(EconomicEvent(
+                        date=check_date,
+                        time="09:45",
+                        currency="USD",
+                        impact=NewsImpact.HIGH,
+                        event="Flash Manufacturing PMI",
+                    ))
+                    new_events.append(EconomicEvent(
+                        date=check_date,
+                        time="09:45",
+                        currency="USD",
+                        impact=NewsImpact.HIGH,
+                        event="Flash Services PMI",
+                    ))
 
             # CPI - Usually around 10th-15th of month
             if check_date.day in [10, 11, 12, 13, 14] and check_date.weekday() < 5:
@@ -386,14 +421,21 @@ class NewsFilter:
                         event="FOMC Press Conference",
                     ))
 
-            # Retail Sales - Usually around 15th
+            # Retail Sales - Usually around 15th-17th (HIGH impact)
             if 14 <= check_date.day <= 17 and check_date.weekday() < 5:
                 new_events.append(EconomicEvent(
                     date=check_date,
                     time="08:30",
                     currency="USD",
-                    impact=NewsImpact.MEDIUM,
+                    impact=NewsImpact.HIGH,
                     event="Retail Sales m/m",
+                ))
+                new_events.append(EconomicEvent(
+                    date=check_date,
+                    time="08:30",
+                    currency="USD",
+                    impact=NewsImpact.HIGH,
+                    event="Core Retail Sales m/m",
                 ))
 
             # GDP - Usually last week of month/quarter end months
@@ -493,12 +535,19 @@ class NewsFilter:
         # Determine relevant currencies based on symbol
         relevant_currencies = self.config.currencies
         if symbol:
-            if any(x in symbol.upper() for x in ["US", "SPY", "QQQ", "NVDA", "AMD", "TSLA", "ES", "NQ"]):
-                relevant_currencies = ["USD"]
-            elif "EUR" in symbol.upper():
-                relevant_currencies = ["USD", "EUR"]
-            elif "GBP" in symbol.upper():
-                relevant_currencies = ["USD", "GBP"]
+            symbol_upper = symbol.upper().replace(".", "")
+            # Check for forex pairs (6 characters like EURUSD, GBPUSD)
+            if len(symbol_upper) >= 6:
+                base = symbol_upper[:3]
+                quote = symbol_upper[3:6]
+                # Common currency codes
+                valid_currencies = {"EUR", "USD", "GBP", "JPY", "CHF", "AUD", "CAD", "NZD"}
+                if base in valid_currencies and quote in valid_currencies:
+                    relevant_currencies = [base, quote]
+            # Fallback for US stocks/indices
+            if not relevant_currencies or relevant_currencies == self.config.currencies:
+                if any(x in symbol_upper for x in ["US", "SPY", "QQQ", "NVDA", "AMD", "TSLA", "ES", "NQ"]):
+                    relevant_currencies = ["USD"]
 
         if self.config.filter_entire_day:
             # Check if date has any high impact events

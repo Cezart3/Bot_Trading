@@ -297,6 +297,76 @@ class RiskManager:
 
         return shares
 
+    def calculate_forex_lot_size(
+        self,
+        account_balance: float,
+        stop_loss_pips: float,
+        pip_value_per_lot: float = 10.0,
+        min_lot: float = 0.01,
+        max_lot: float = 10.0,
+        lot_step: float = 0.01,
+        risk_percent_override: float = None,
+    ) -> tuple[float, float]:
+        """
+        Calculate lot size for FOREX based on EXACT risk percentage.
+
+        CRITICAL: This ensures loss at SL = exactly risk_percent of account.
+
+        Formula:
+        Risk Amount = Balance * Risk% / 100
+        Lot Size = Risk Amount / (SL_pips * Pip_Value_per_lot)
+
+        Example with 0.5% risk, $10,000 balance, 15 pip SL, $10 pip value:
+        Risk Amount = $10,000 * 0.5% = $50
+        Lot Size = $50 / (15 * $10) = 0.333 lots
+        Loss at SL = 15 pips * 0.333 * $10 = $50 (exactly 0.5%)
+
+        Args:
+            account_balance: Current account balance in USD.
+            stop_loss_pips: Stop loss distance in PIPS (not price!).
+            pip_value_per_lot: Value of 1 pip per 1.0 lot (usually $10 for major pairs).
+            min_lot: Minimum lot size (usually 0.01).
+            max_lot: Maximum lot size.
+            lot_step: Lot size increment (usually 0.01).
+            risk_percent_override: Override risk percentage (if None, uses current risk).
+
+        Returns:
+            Tuple of (lot_size, risk_amount_usd).
+        """
+        if stop_loss_pips <= 0:
+            logger.warning("Invalid stop loss pips, using minimum lot")
+            return (min_lot, 0)
+
+        # Get current risk percentage (may be reduced if near limits)
+        if risk_percent_override is not None:
+            risk_percent = risk_percent_override
+        else:
+            risk_percent = self.get_current_risk_percent()
+
+        # Calculate risk amount in dollars
+        risk_amount = account_balance * (risk_percent / 100)
+
+        # Calculate lot size
+        # Lot Size = Risk Amount / (SL_pips * Pip_Value)
+        lot_size = risk_amount / (stop_loss_pips * pip_value_per_lot)
+
+        # Round to lot step
+        lot_size = round(lot_size / lot_step) * lot_step
+
+        # Clamp to min/max
+        lot_size = max(min_lot, min(max_lot, lot_size))
+
+        # Recalculate actual risk based on clamped lot size
+        actual_risk = lot_size * stop_loss_pips * pip_value_per_lot
+
+        logger.info(
+            f"FOREX Lot Size: {lot_size:.2f} lots | "
+            f"SL: {stop_loss_pips:.1f} pips | "
+            f"Risk: ${actual_risk:.2f} ({risk_percent}% of ${account_balance:,.0f})"
+        )
+
+        return (lot_size, actual_risk)
+
     def calculate_stop_loss_price(
         self,
         entry_price: float,

@@ -196,6 +196,50 @@ class Order:
         )
 
     @classmethod
+    def limit_buy(
+        cls,
+        symbol: str,
+        quantity: float,
+        price: float,
+        stop_loss: Optional[float] = None,
+        take_profit: Optional[float] = None,
+        comment: str = "",
+    ) -> "Order":
+        """Create a limit buy order (buy at or below price)."""
+        return cls(
+            symbol=symbol,
+            side=OrderSide.BUY,
+            order_type=OrderType.LIMIT,
+            quantity=quantity,
+            price=price,
+            stop_loss=stop_loss,
+            take_profit=take_profit,
+            comment=comment,
+        )
+
+    @classmethod
+    def limit_sell(
+        cls,
+        symbol: str,
+        quantity: float,
+        price: float,
+        stop_loss: Optional[float] = None,
+        take_profit: Optional[float] = None,
+        comment: str = "",
+    ) -> "Order":
+        """Create a limit sell order (sell at or above price)."""
+        return cls(
+            symbol=symbol,
+            side=OrderSide.SELL,
+            order_type=OrderType.LIMIT,
+            quantity=quantity,
+            price=price,
+            stop_loss=stop_loss,
+            take_profit=take_profit,
+            comment=comment,
+        )
+
+    @classmethod
     def stop_buy(
         cls,
         symbol: str,

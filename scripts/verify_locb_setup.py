@@ -29,13 +29,16 @@ def print_error(text):
 def print_info(text):
     print(f"  -> {text}")
 
+def print_warn(text):
+    print(f"  [WARN] {text}")
+
 def main():
-    print_header("VERIFICARE SETUP LOCB BOT")
+    print_header("VERIFICARE SETUP LOCB BOT (DUAL SESSION)")
 
     errors = []
 
     # 1. Verifica importurile
-    print("\n[1/5] Verificare importuri...")
+    print("\n[1/6] Verificare importuri...")
     try:
         from config.settings import get_settings
         print_ok("config.settings importat")
@@ -51,8 +54,8 @@ def main():
         errors.append("mt5_broker")
 
     try:
-        from strategies.locb_strategy import LOCBStrategy
-        print_ok("strategies.locb_strategy importat")
+        from strategies.locb_strategy import LOCBStrategy, TradingSession, SessionState
+        print_ok("strategies.locb_strategy importat (cu TradingSession, SessionState)")
     except ImportError as e:
         print_error(f"strategies.locb_strategy: {e}")
         errors.append("locb_strategy")
@@ -70,7 +73,7 @@ def main():
         return False
 
     # 2. Verifica conexiunea MT5
-    print("\n[2/5] Verificare conexiune MT5...")
+    print("\n[2/6] Verificare conexiune MT5...")
     settings = get_settings()
 
     if not mt5.initialize(
@@ -93,10 +96,9 @@ def main():
         print_info(f"Balance: ${account.balance:,.2f}")
         print_info(f"Equity: ${account.equity:,.2f}")
 
-    # 3. Verifica ora serverului
-    print("\n[3/5] Verificare timezone server...")
+    # 3. Verifica ora serverului si sesiunile
+    print("\n[3/6] Verificare timezone si sesiuni...")
 
-    # Get server time from a tick
     tick = mt5.symbol_info_tick("EURUSD")
     if tick:
         server_time = datetime.fromtimestamp(tick.time)
@@ -108,59 +110,119 @@ def main():
         diff_hours = (server_time - local_time).total_seconds() / 3600
         print_info(f"Diferenta: {diff_hours:+.1f} ore")
 
-        # Calculate when London opens on server
-        london_server_hour = 12  # Expected for Teletrade
-        london_utc_hour = 8
+        # Session times
         print()
-        print_info(f"Londra deschide la 08:00 UTC = {london_server_hour}:00 ora serverului")
-        print_info(f"Sesiunea se termina la 11:00 UTC = 15:00 ora serverului")
+        print_info("SESIUNI CONFIGURATE:")
+        print_info("  LONDON: 12:00-15:00 server (08:00-11:00 UTC)")
+        print_info("  NY:     18:30-21:00 server (14:30-17:00 UTC)")
 
-        current_server_hour = server_time.hour
-        if london_server_hour <= current_server_hour < 15:
-            print_ok(f"ACUM ESTE IN SESIUNE! (ora server: {current_server_hour}:00)")
-        elif current_server_hour < london_server_hour:
-            hours_until = london_server_hour - current_server_hour
-            print_info(f"Sesiunea incepe in {hours_until} ore (la {london_server_hour}:00 server)")
+        current_minutes = server_time.hour * 60 + server_time.minute
+
+        # London: 12:00-15:00
+        london_start, london_end = 12 * 60, 15 * 60
+        # NY: 18:30-21:00
+        ny_start, ny_end = 18 * 60 + 30, 21 * 60
+
+        in_london = london_start <= current_minutes < london_end
+        in_ny = ny_start <= current_minutes < ny_end
+
+        print()
+        if in_london:
+            print_ok(f"ACUM IN SESIUNE LONDON! (server: {server_time.strftime('%H:%M')})")
+        elif in_ny:
+            print_ok(f"ACUM IN SESIUNE NY! (server: {server_time.strftime('%H:%M')})")
         else:
-            print_info(f"Sesiunea s-a terminat pentru azi (ora server: {current_server_hour}:00)")
+            # Calculate next session
+            if current_minutes < london_start:
+                mins_until = london_start - current_minutes
+                print_info(f"Urmatoarea sesiune: LONDON in {mins_until // 60}h {mins_until % 60}m")
+            elif current_minutes < ny_start:
+                mins_until = ny_start - current_minutes
+                print_info(f"Urmatoarea sesiune: NY in {mins_until // 60}h {mins_until % 60}m")
+            else:
+                mins_until = (24 * 60 - current_minutes) + london_start
+                print_info(f"Urmatoarea sesiune: LONDON (maine) in {mins_until // 60}h {mins_until % 60}m")
     else:
         print_error("Nu pot obtine ora serverului")
 
     # 4. Verifica strategia LOCB
-    print("\n[4/5] Verificare strategie LOCB...")
+    print("\n[4/6] Verificare strategie LOCB...")
 
     strategy = LOCBStrategy(
         symbol="EURUSD",
         timeframe="M1",
-        london_open_hour=12,  # Teletrade server time
-        session_end_hour=15,
-        risk_reward_ratio=1.5,
     )
     strategy.pip_size = 0.0001
 
     if strategy.initialize():
         print_ok("Strategia LOCB initializata")
-        print_info(f"London open: {strategy.london_open_hour}:00 server time")
-        print_info(f"Session end: {strategy.session_end_hour}:00 server time")
-        print_info(f"R:R ratio: {strategy.risk_reward_ratio}:1")
+
+        # Check sessions
+        london = strategy.sessions.get("london")
+        ny = strategy.sessions.get("ny")
+
+        if london and ny:
+            print_ok(f"Sesiune London: {london.open_hour}:{london.open_minute:02d} - {london.end_hour}:00")
+            print_ok(f"Sesiune NY: {ny.open_hour}:{ny.open_minute:02d} - {ny.end_hour}:00")
+        else:
+            print_error("Sesiunile nu sunt configurate corect")
+            errors.append("sessions")
+
+        print_info(f"R:R range: {strategy.min_rr_ratio}-{strategy.max_rr_ratio}:1 (dinamic)")
+        print_info(f"Max trades/zi: {strategy.max_trades_per_day}")
+        print_info(f"Min signal score: {strategy.min_signal_score}")
     else:
         print_error("Strategia LOCB nu s-a putut initializa")
         errors.append("strategy_init")
 
-    # 5. Verifica simbolurile
-    print("\n[5/5] Verificare simboluri...")
+    # 5. Verifica simbolurile si spread
+    print("\n[5/6] Verificare simboluri si spread...")
 
     symbols = ["EURUSD", "GBPUSD", "USDJPY", "EURJPY"]
     for symbol in symbols:
         if mt5.symbol_select(symbol, True):
             info = mt5.symbol_info(symbol)
-            if info:
-                spread = info.spread
-                print_ok(f"{symbol}: spread={spread} points, min_lot={info.volume_min}")
+            tick = mt5.symbol_info_tick(symbol)
+            if info and tick:
+                spread_points = info.spread
+                spread_price = tick.ask - tick.bid
+                spread_pips = spread_price / 0.0001 if "JPY" not in symbol else spread_price / 0.01
+                print_ok(f"{symbol}: spread={spread_pips:.1f} pips, min_lot={info.volume_min}")
             else:
                 print_error(f"{symbol}: nu pot obtine info")
         else:
             print_error(f"{symbol}: nu este disponibil")
+
+    # 6. Test scoring si liquidity detection
+    print("\n[6/6] Verificare functii avansate...")
+
+    try:
+        from strategies.locb_strategy import SignalScore, LiquidityLevel, M1CandleData
+
+        # Test SignalScore
+        score = SignalScore()
+        score.confirmation_score = 1.0
+        score.sl_distance_score = 0.85
+        score.breakout_strength_score = 0.75
+        score.retest_quality_score = 0.7
+        score.timing_score = 1.0
+        total = score.calculate_total()
+        print_ok(f"SignalScore functional (test score: {total:.2f})")
+
+        # Test LiquidityLevel
+        level = LiquidityLevel(
+            price=1.17500,
+            type="swing_high",
+            strength=0.8,
+            candle_time=datetime.now(),
+            touches=2
+        )
+        print_ok(f"LiquidityLevel functional (test: {level.type} @ {level.price})")
+
+        print_ok("Toate functiile avansate sunt functionale")
+    except Exception as e:
+        print_error(f"Eroare la testare functii avansate: {e}")
+        errors.append("advanced_functions")
 
     # Get some candles to verify data
     print("\n  Verificare date candele...")
@@ -193,8 +255,16 @@ def main():
         print()
         print("  python scripts/main.py --mode demo --strategy locb")
         print()
-        print("  IMPORTANT: Porneste botul INAINTE de ora 10:00 Romania (12:00 server)")
-        print("  pentru a prinde deschiderea Londrei!")
+        print("  CARACTERISTICI NOI:")
+        print("  - Dual session: LONDON (12:00-15:00) + NY (18:30-21:00)")
+        print("  - Dynamic R:R bazat pe lichiditate (1.5-4:1)")
+        print("  - Signal scoring pentru selectie calitativa")
+        print("  - SL ajustat pentru spread")
+        print("  - Max 2 trades/zi (1 per sesiune)")
+        print()
+        print("  IMPORTANT: Porneste botul inainte de ora 10:00 Romania (12:00 server)")
+        print("  pentru sesiunea de Londra sau inainte de 16:30 Romania (18:30 server)")
+        print("  pentru sesiunea de NY!")
         print()
         return True
 
