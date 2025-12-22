@@ -237,7 +237,7 @@ class MT5Broker(BaseBroker):
         candles = []
         for rate in rates:
             candle = Candle(
-                timestamp=datetime.fromtimestamp(rate["time"]),
+                timestamp=datetime.utcfromtimestamp(rate["time"]),
                 open=float(rate["open"]),
                 high=float(rate["high"]),
                 low=float(rate["low"]),
@@ -611,5 +611,5 @@ class MT5Broker(BaseBroker):
         mt5 = self._get_mt5()
         tick = mt5.symbol_info_tick(self.get_symbols()[0] if self.get_symbols() else "EURUSD")
         if tick:
-            return datetime.fromtimestamp(tick.time)
-        return datetime.now()
+            return datetime.utcfromtimestamp(tick.time)
+        return datetime.utcnow()
