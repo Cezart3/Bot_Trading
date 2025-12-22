@@ -29,6 +29,45 @@ class DataLoader:
         self.data_dir = Path(data_dir)
         self.data_dir.mkdir(parents=True, exist_ok=True)
 
+    def load_mt5_csv(
+        self,
+        filepath: str,
+        symbol: str = "",
+        timeframe: str = "M1",
+    ) -> list[Candle]:
+        """
+        Load candles from MT5 exported CSV file.
+        Format: 2022.01.02,17:03,1.136900,1.136900,1.136900,1.136900,0
+        """
+        logger.info(f"Loading MT5 data from {filepath}")
+
+        # Citim fără header
+        df = pd.read_csv(
+            filepath, 
+            header=None, 
+            names=["date", "time", "open", "high", "low", "close", "volume"]
+        )
+
+        # Combinăm data și ora într-un singur timestamp
+        df["timestamp"] = pd.to_datetime(df["date"] + " " + df["time"])
+
+        candles = []
+        for _, row in df.iterrows():
+            candle = Candle(
+                timestamp=row["timestamp"].to_pydatetime(),
+                open=float(row["open"]),
+                high=float(row["high"]),
+                low=float(row["low"]),
+                close=float(row["close"]),
+                volume=float(row["volume"]),
+                symbol=symbol,
+                timeframe=timeframe,
+            )
+            candles.append(candle)
+
+        logger.info(f"Loaded {len(candles)} candles from MT5 CSV")
+        return candles
+
     def load_from_csv(
         self,
         filepath: str,
@@ -81,33 +120,39 @@ class DataLoader:
     ) -> list[Candle]:
         """
         Download data from Yahoo Finance.
-
-        Note: Yahoo Finance has limitations:
-        - 5m data: max 60 days
-        - 1m data: max 7 days
-        - 1h+ data: longer history available
-
-        Args:
-            symbol: Yahoo Finance symbol (e.g., "^GSPC" for S&P 500, "ES=F" for ES futures)
-            start_date: Start date
-            end_date: End date
-            interval: Data interval (1m, 5m, 15m, 30m, 1h, 1d)
         """
-        logger.info(f"Downloading {symbol} from Yahoo Finance ({interval})")
+        # Format symbol for yfinance (e.g., EURUSD -> EURUSD=X)
+        if len(symbol) == 6 and symbol.isalpha():
+            y_symbol = f"{symbol}=X"
+        else:
+            y_symbol = symbol
+
+        logger.info(f"Downloading {y_symbol} from Yahoo Finance ({interval})")
 
         try:
             import yfinance as yf
 
-            ticker = yf.Ticker(symbol)
+            # Limit download period for intraday data as per yfinance constraints
+            if 'm' in interval or 'h' in interval:
+                actual_start = max(start_date, datetime.now() - timedelta(days=59))
+                if actual_start > start_date:
+                    logger.warning(f"yfinance 5m data is limited to 60 days. Fetching from {actual_start.date()}")
+            else:
+                actual_start = start_date
+
+            ticker = yf.Ticker(y_symbol)
             df = ticker.history(
-                start=start_date,
+                start=actual_start,
                 end=end_date,
                 interval=interval,
             )
 
             if df.empty:
-                logger.warning(f"No data received for {symbol}")
+                logger.warning(f"No data received for {y_symbol}")
                 return []
+
+            # Ensure timezone is UTC
+            df.index = df.index.tz_convert('UTC')
 
             candles = []
             for timestamp, row in df.iterrows():
@@ -133,6 +178,106 @@ class DataLoader:
             logger.error(f"Error downloading from Yahoo Finance: {e}")
             return []
 
+    def resample_data(self, candles: list[Candle], timeframe: str, fill_gaps: bool = False) -> list[Candle]:
+        """Resample candle data to a higher timeframe using pandas."""
+        if not candles:
+            return []
+        
+        df = pd.DataFrame([c.to_dict() for c in candles])
+        df['timestamp'] = pd.to_datetime(df['timestamp'])
+        df = df.set_index('timestamp')
+
+        resample_rule = {
+            'M1': '1min', # Added M1 for resampling
+            'M5': '5min',
+            'H1': '1h',
+            'H4': '4h',
+            'D1': '1d',
+        }.get(timeframe, '1h') # Default to 1h if not found
+
+        # If fill_gaps is True, forward fill missing values
+        if fill_gaps:
+            resampled_df = df.resample(resample_rule).agg({
+                'open': 'first',
+                'high': 'max',
+                'low': 'min',
+                'close': 'last',
+                'volume': 'sum'
+            }).ffill() # Forward fill missing data
+        else:
+            resampled_df = df.resample(resample_rule).agg({
+                'open': 'first',
+                'high': 'max',
+                'low': 'min',
+                'close': 'last',
+                'volume': 'sum'
+            }).dropna()
+
+        resampled_candles = []
+        for timestamp, row in resampled_df.iterrows():
+            resampled_candles.append(Candle(
+                timestamp=timestamp.to_pydatetime(),
+                open=row['open'],
+                high=row['high'],
+                low=row['low'],
+                close=row['close'],
+                volume=row['volume'],
+                symbol=candles[0].symbol,
+                timeframe=timeframe
+            ))
+        
+        logger.info(f"Resampled {len(candles)} M5 candles to {len(resampled_candles)} {timeframe} candles")
+        return resampled_candles
+
+    def fetch_and_resample_data(
+        self,
+        symbol: str,
+        start_date: datetime,
+        end_date: datetime
+    ) -> dict[str, list[Candle]]:
+        """
+        Fetches M5 data as primary, optionally fetches 1m data if period is short,
+        and resamples higher timeframes. Handles yfinance 1m data limitations.
+        """
+        
+        m1_candles: List[Candle] = []
+        
+        # Always fetch 5m data first as the reliable base
+        m5_base_candles = self.download_yahoo_finance(symbol, start_date, end_date, "5m")
+        if not m5_base_candles:
+            logger.error(f"[{symbol}] Failed to fetch 5m data. Cannot proceed.")
+            return {}
+        
+        m5_candles = m5_base_candles # M5 is always available if we get here
+
+        # Now, try to get 1m data if the period is within yfinance limits
+        if (end_date - start_date).days <= 60:
+            logger.info(f"[{symbol}] Attempting to fetch 1m data for the last 60 days.")
+            try:
+                m1_candles = self.download_yahoo_finance(symbol, start_date, end_date, "1m")
+            except Exception as e:
+                logger.warning(f"[{symbol}] Failed to fetch 1m data: {e}. Will use resampled 1m from 5m.")
+        else:
+            logger.warning(f"[{symbol}] 1m data not requested (period > 60 days). Will use resampled 1m from 5m.")
+        
+        # If 1m data was not successfully fetched for the full period, create sparse 1m from 5m
+        if not m1_candles or len(m1_candles) < len(m5_base_candles) * 4: # Heuristic: if 1m is very sparse, use resampled
+            logger.warning(f"[{symbol}] Using resampled 1m data from 5m candles.")
+            m1_candles = self.resample_data(m5_base_candles, "M1", fill_gaps=True) 
+
+        # Now resample higher timeframes from the primary M5 candles
+        h1_candles = self.resample_data(m5_candles, "H1")
+        h4_candles = self.resample_data(m5_candles, "H4")
+        daily_candles = self.resample_data(m5_candles, "D1")
+
+        return {
+            "m1": m1_candles,
+            "m5": m5_candles,
+            "h1": h1_candles,
+            "h4": h4_candles,
+            "d1": daily_candles,
+        }
+    
     def generate_sample_data(
         self,
         symbol: str = "US500",

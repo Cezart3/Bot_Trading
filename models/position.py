@@ -57,6 +57,7 @@ class Position:
     comment: str = ""
     strategy_name: str = ""
     magic_number: int = 0
+    metadata: dict = field(default_factory=dict)
 
     @property
     def is_long(self) -> bool:
@@ -156,6 +157,7 @@ class Position:
             "comment": self.comment,
             "strategy_name": self.strategy_name,
             "magic_number": self.magic_number,
+            "metadata": self.metadata,
         }
 
     @classmethod
@@ -182,4 +184,5 @@ class Position:
             comment=data.get("comment", ""),
             strategy_name=data.get("strategy_name", ""),
             magic_number=data.get("magic_number", 0),
+            metadata=data.get("metadata", {}),
         )

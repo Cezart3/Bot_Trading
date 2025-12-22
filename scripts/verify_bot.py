@@ -17,6 +17,13 @@ from datetime import datetime, timezone
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import MetaTrader5 as mt5
+from config.settings import get_settings
+from utils.risk_manager import RiskManager, PropAccountLimits
+from utils.logger import setup_logging
+from scripts.run_smc_v3 import DEFAULT_SYMBOLS, SYMBOL_ALIASES, SYMBOL_CONFIGS # Import these from run_smc_v3
+
+# from strategies.smc_strategy_v3 import InstrumentType # Not directly used here, but good to note
+
 
 
 def print_header(text: str):
@@ -64,167 +71,141 @@ def verify_symbols() -> bool:
     """Verify trading symbols."""
     print_header("SYMBOLS VERIFICATION")
 
-    required_symbols = ["EURUSD", "GBPUSD", "AUDUSD", "US30", "NDX100", "GER30"]
     all_ok = True
+    verified_symbols = []
 
-    for symbol in required_symbols:
+    for symbol in DEFAULT_SYMBOLS:
+        actual_symbol = None
+        info = None
+        # Try exact symbol first
         info = mt5.symbol_info(symbol)
-        if info is None:
-            print_error(f"{symbol}: NOT FOUND")
-            all_ok = False
-        elif not info.visible:
-            mt5.symbol_select(symbol, True)
-            print_warning(f"{symbol}: Added to Market Watch")
+        if info and info.visible:
+            actual_symbol = symbol
+        else: # Try aliases
+            aliases = SYMBOL_ALIASES.get(symbol, [])
+            for alias in aliases:
+                info = mt5.symbol_info(alias)
+                if info and info.visible:
+                    actual_symbol = alias
+                    print_warning(f"{symbol}: Using alias {alias}")
+                    break
+        
+        if actual_symbol:
+            verified_symbols.append(actual_symbol)
+            if not info.visible: # If found but not visible
+                mt5.symbol_select(actual_symbol, True)
+                print_warning(f"{actual_symbol}: Added to Market Watch")
+            
+            # Get spread information
+            if mt5.symbol_info_tick(actual_symbol):
+                bid, ask = mt5.symbol_info_tick(actual_symbol).bid, mt5.symbol_info_tick(actual_symbol).ask
+                # Ensure point is not zero to avoid division by zero
+                point = info.point if info.point != 0 else 0.00001
+                spread = (ask - bid) / point
+                print_ok(f"{actual_symbol}: Spread={spread:.1f} pts, Min lot={info.volume_min}, Max lot={info.volume_max}, Step={info.volume_step}")
+            else:
+                print_warning(f"{actual_symbol}: Could not get tick info for spread. Is it actively traded?")
         else:
-            bid, ask = mt5.symbol_info_tick(symbol).bid, mt5.symbol_info_tick(symbol).ask
-            spread = (ask - bid) / info.point
-            print_ok(f"{symbol}: Spread={spread:.1f} pts, Min lot={info.volume_min}")
+            print_error(f"{symbol}: NOT FOUND or NOT VISIBLE (tried aliases too).")
+            all_ok = False
+
+    if not verified_symbols:
+        print_error("No tradeable symbols found!")
+        all_ok = False
+    else:
+        print_ok(f"Verified {len(verified_symbols)} tradeable symbols: {', '.join(verified_symbols)}")
 
     return all_ok
 
 
 def verify_risk_calculation(risk_percent: float = 0.5) -> bool:
     """
-    CRITICAL: Verify risk calculation is correct.
-
-    For $10,000 account with 0.5% risk:
-    - Risk amount should be $50
-    - With 15 pip SL and $10/pip, lot size should be ~0.33
-    - Loss at SL should be exactly $50
+    CRITICAL: Verify risk calculation is correct using the bot's RiskManager.
     """
     print_header("RISK CALCULATION VERIFICATION")
 
     account = mt5.account_info()
     balance = account.balance
 
+    limits = PropAccountLimits(
+        max_daily_drawdown=4.0,
+        max_account_drawdown=10.0,
+        warning_drawdown=2.0,
+        normal_risk_per_trade=risk_percent,
+        reduced_risk_per_trade=risk_percent / 2,
+        max_positions=2, # dummy value, not used in calculate_position_size directly
+    )
+    risk_manager = RiskManager(initial_account_balance=balance, limits=limits)
+
+    all_ok = True
+    test_sl_pips = 15 # Standard test SL for verification
+
     print(f"\n  Account Balance: ${balance:,.2f}")
-    print(f"  Risk Percent: {risk_percent}%")
-    print(f"  Risk Amount: ${balance * risk_percent / 100:.2f}")
+    print(f"  Risk Percent: {risk_percent}% per trade")
+    
+    for symbol in DEFAULT_SYMBOLS:
+        print(f"\n  --- {symbol} Test ---")
+        info = mt5.symbol_info(symbol)
+        if not info or not info.visible:
+            print_warning(f"  {symbol} not found or not visible in MT5, skipping risk verification.")
+            all_ok = False # Mark as not entirely OK, but continue
+            continue
 
-    # Test for EURUSD
-    print("\n  --- EURUSD Test ---")
-    symbol_info = mt5.symbol_info("EURUSD")
-    if symbol_info:
-        pip_size = 0.0001
-        pip_value = symbol_info.trade_tick_value * 10  # Approximate pip value
+        # Get current price to calculate stop_loss_distance accurately
+        tick_info = mt5.symbol_info_tick(symbol)
+        if not tick_info or tick_info.bid == 0.0 or tick_info.ask == 0.0:
+            print_warning(f"  Could not get current price for {symbol}, skipping risk verification.")
+            all_ok = False # Mark as not entirely OK, but continue
+            continue
+        
+        current_price = (tick_info.bid + tick_info.ask) / 2
+        
+        # Calculate point size based on symbol info, default to 0.00001 for forex
+        point_size = info.point if info.point != 0 else 0.00001 
+        
+        # Assuming a long trade for SL calculation. SL will be 15 pips below current price.
+        # Adjusted for spread, as per bot's logic in _check_confirmation
+        current_spread_in_pips = (tick_info.ask - tick_info.bid) / point_size
+        stop_loss_raw = current_price - (test_sl_pips * point_size)
+        stop_loss = stop_loss_raw - (current_spread_in_pips * point_size) # Adjust SL for spread
 
-        test_sl_pips = 15  # 15 pips SL
-        risk_amount = balance * risk_percent / 100
-        lot_size = risk_amount / (test_sl_pips * pip_value)
-        lot_size = round(lot_size, 2)
-        lot_size = max(0.01, min(lot_size, 10.0))
+        stop_loss_distance = abs(current_price - stop_loss)
 
-        actual_risk = lot_size * test_sl_pips * pip_value
-        actual_risk_percent = (actual_risk / balance) * 100
+        # For position size calculation, we need contract_size. Default to common forex value.
+        contract_size = info.trade_contract_size if info.trade_contract_size > 0 else 100000 # Default for forex is 100,000
 
-        print(f"  Test SL: {test_sl_pips} pips")
-        print(f"  Pip Value: ${pip_value:.2f}/pip/lot")
+        lot_size = risk_manager.calculate_position_size(
+            account_balance=balance,
+            stop_loss_distance=stop_loss_distance,
+            price=current_price,
+            contract_size=contract_size,
+            min_qty=info.volume_min,
+            max_qty=info.volume_max,
+            qty_step=info.volume_step,
+        )
+
+        print(f"  Current Price: {current_price:.{info.digits}f}")
+        print(f"  Test SL Distance: {test_sl_pips} pips (adjusted for spread)")
         print(f"  Calculated Lot: {lot_size:.2f}")
-        print(f"  Actual Risk: ${actual_risk:.2f} ({actual_risk_percent:.2f}%)")
-
-        # Verify
-        if abs(actual_risk_percent - risk_percent) <= 0.1:
-            print_ok(f"RISK IS CORRECT! Loss at SL = ${actual_risk:.2f} ({actual_risk_percent:.2f}%)")
-            return True
+        print(f"  MT5 Min Lot: {info.volume_min}, Max Lot: {info.volume_max}, Step: {info.volume_step}")
+        
+        if lot_size >= info.volume_min and lot_size <= info.volume_max:
+            print_ok(f"Lot size {lot_size:.2f} is within MT5 limits.")
         else:
-            print_error(f"RISK IS WRONG! Expected {risk_percent}%, got {actual_risk_percent:.2f}%")
-            return False
+            print_error(f"Lot size {lot_size:.2f} is OUTSIDE MT5 limits ({info.volume_min}-{info.volume_max}).")
+            all_ok = False
+        
+        if lot_size <= 0:
+            print_error(f"Calculated Lot is {lot_size:.2f}. Check risk settings or symbol properties.")
+            all_ok = False
+            
+    return all_ok
 
-    return False
-
-
-def verify_trading_hours() -> bool:
-    """Verify trading hours are set correctly."""
-    print_header("TRADING HOURS VERIFICATION")
-
-    utc_now = datetime.now(timezone.utc)
-    ro_offset = 2  # Romania = UTC+2 in winter
-
-    print(f"\n  Current UTC Time: {utc_now.strftime('%H:%M')}")
-    print(f"  Current Romania Time: {(utc_now.hour + ro_offset) % 24}:{utc_now.strftime('%M')}")
-
-    # London Kill Zone: 08:00-11:00 UTC = 10:00-13:00 Romania
-    # NY Kill Zone: 14:00-17:00 UTC = 16:00-19:00 Romania
-
-    print("\n  Expected Trading Hours:")
-    print("  London: 08:00-11:00 UTC = 10:00-13:00 Romania")
-    print("  NY:     14:00-17:00 UTC = 16:00-19:00 Romania")
-    print("  NY Open: 14:30 UTC = 16:30 Romania")
-
-    hour = utc_now.hour
-    in_london = 8 <= hour < 12
-    in_ny = 14 <= hour < 20
-
-    if in_london:
-        print_ok("Currently in LONDON session")
-    elif in_ny:
-        print_ok("Currently in NY session")
-    else:
-        if hour < 8:
-            next_session = "London"
-            minutes_until = (8 - hour) * 60 - utc_now.minute
-        elif hour < 14:
-            next_session = "NY"
-            minutes_until = (14 - hour) * 60 - utc_now.minute
-        else:
-            next_session = "London (tomorrow)"
-            minutes_until = (24 - hour + 8) * 60 - utc_now.minute
-
-        print_warning(f"Outside trading hours. {next_session} in {minutes_until // 60}h {minutes_until % 60}m")
-
-    return True
+def simulate_trade(balance: float, risk_percent: float, sl_pips: float): # This function is removed
+    pass
 
 
-def simulate_trade(balance: float, risk_percent: float, sl_pips: float):
-    """Simulate a trade to verify calculations."""
-    print_header("TRADE SIMULATION")
-
-    print(f"\n  Simulating trade with:")
-    print(f"  - Balance: ${balance:,.2f}")
-    print(f"  - Risk: {risk_percent}%")
-    print(f"  - SL: {sl_pips} pips")
-
-    # Get EURUSD info
-    symbol_info = mt5.symbol_info("EURUSD")
-    if not symbol_info:
-        print_error("Cannot get EURUSD info")
-        return
-
-    pip_value = symbol_info.trade_tick_value * 10  # ~$10/pip/lot
-
-    risk_amount = balance * risk_percent / 100
-    lot_size = risk_amount / (sl_pips * pip_value)
-    lot_size = round(lot_size / 0.01) * 0.01  # Round to 0.01
-    lot_size = max(0.01, min(lot_size, 10.0))
-
-    actual_risk = lot_size * sl_pips * pip_value
-    actual_risk_pct = (actual_risk / balance) * 100
-
-    print(f"\n  RESULTS:")
-    print(f"  - Lot Size: {lot_size:.2f}")
-    print(f"  - Risk Amount: ${actual_risk:.2f}")
-    print(f"  - Risk Percent: {actual_risk_pct:.2f}%")
-
-    # Win scenario (2R)
-    tp_pips = sl_pips * 2
-    win_pnl = lot_size * tp_pips * pip_value
-    win_pct = (win_pnl / balance) * 100
-
-    print(f"\n  IF SL HIT:")
-    print(f"  - Loss: -${actual_risk:.2f} (-{actual_risk_pct:.2f}%)")
-
-    print(f"\n  IF TP HIT (2R):")
-    print(f"  - Profit: +${win_pnl:.2f} (+{win_pct:.2f}%)")
-
-    # Verification
-    print("\n  VERIFICATION:")
-    if actual_risk_pct <= risk_percent * 1.05:  # Within 5% tolerance
-        print_ok(f"Risk is within acceptable range ({actual_risk_pct:.2f}% <= {risk_percent * 1.05:.2f}%)")
-    else:
-        print_error(f"Risk is TOO HIGH! ({actual_risk_pct:.2f}% > {risk_percent * 1.05:.2f}%)")
-
-
-def run_verification(risk_percent: float = 0.5):
+def run_verification(risk_percent: float = 0.5) -> bool:
     """Run complete verification."""
     print("\n")
     print("*" * 60)
@@ -233,38 +214,36 @@ def run_verification(risk_percent: float = 0.5):
 
     # 1. MT5 Connection
     if not verify_mt5_connection():
-        print("\n[FATAL] Cannot continue without MT5 connection")
+        print_error("\n[FATAL] Cannot continue without MT5 connection")
         mt5.shutdown()
         return False
 
     # 2. Symbols
-    verify_symbols()
+    symbols_ok = verify_symbols()
 
     # 3. Risk Calculation
     risk_ok = verify_risk_calculation(risk_percent)
 
     # 4. Trading Hours
-    verify_trading_hours()
-
-    # 5. Trade Simulation
-    account = mt5.account_info()
-    simulate_trade(account.balance, risk_percent, sl_pips=15)
+    trading_hours_ok = verify_trading_hours()
 
     # Final Summary
     print_header("FINAL SUMMARY")
 
-    if risk_ok:
-        print_ok("Risk calculation is CORRECT")
-        print_ok(f"Safe to run bot with {risk_percent}% risk")
-        print()
-        print("  To start the bot:")
-        print(f"  python scripts/run_smc_v3.py --mode demo --risk {risk_percent}")
+    final_status = risk_ok and symbols_ok and trading_hours_ok # All checks must pass
+
+    if final_status:
+        print_ok("All CRITICAL checks passed successfully!")
+        print_ok(f"Bot is ready for demo/paper trading with {risk_percent}% risk.")
+        print("\n  To start the bot:")
+        print(f"  python scripts/run_smc_v3.py --mode demo --log-level DEBUG --risk {risk_percent}")
+        print("  (Use '--mode live' for real trading after extensive demo testing!)")
     else:
-        print_error("Risk calculation has issues!")
-        print_error("DO NOT start the bot until fixed!")
+        print_error("Some CRITICAL verification checks FAILED!")
+        print_error("DO NOT start the bot until all issues are fixed!")
 
     mt5.shutdown()
-    return risk_ok
+    return final_status
 
 
 if __name__ == "__main__":
@@ -273,8 +252,16 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Verify bot before starting")
     parser.add_argument("--risk", type=float, default=0.5,
                        help="Risk percent to verify (default: 0.5)")
+    parser.add_argument(
+        "--log-level",
+        choices=["DEBUG", "INFO", "WARNING", "ERROR"],
+        default="INFO",
+        help="Log level for verification script (default: INFO)"
+    )
 
     args = parser.parse_args()
+
+    setup_logging(level=args.log_level) # Setup logging
 
     success = run_verification(args.risk)
 

@@ -21,6 +21,7 @@ class SignalType(Enum):
     EXIT_LONG = "exit_long"
     EXIT_SHORT = "exit_short"
     EXIT_ALL = "exit_all"
+    CLOSE_POSITION = "close_position"  # Used by strategy to signal position close
 
 
 @dataclass

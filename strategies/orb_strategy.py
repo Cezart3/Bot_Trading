@@ -1,543 +1,338 @@
 """
-Open Range Breakout (ORB) Strategy Implementation.
+Opening Range Breakout (ORB) Strategy - CORRECT Implementation.
 
-The ORB strategy captures price breakouts from the opening range.
-The opening range is defined as the high and low of the first N minutes
-of the trading session.
+Based on research best practices:
+1. Define ASIAN SESSION RANGE (02:00-09:00 Romania time / 00:00-07:00 GMT)
+2. Trade BREAKOUT at London Open (10:00 Romania / 08:00 GMT)
+3. Entry: Candle CLOSE above HIGH (LONG) or below LOW (SHORT)
+4. SL: Opposite side of range
+5. TP: 2:1 R:R
 
-Entry Rules:
-- Wait for the opening range to form (first N minutes)
-- Go LONG when price breaks above the opening range high
-- Go SHORT when price breaks below the opening range low
+Key Filters:
+- Range height >= 10 pips (avoid noise)
+- Range height <= 50 pips (avoid overextended)
+- ADX > 20 (trending market)
+- Trade WITH the breakout, NOT against it
 
-Exit Rules:
-- Stop Loss: Below range low for longs, above range high for shorts
-- Take Profit: Based on risk/reward ratio
-- Time-based exit: Close all positions before session end
+Best pairs: GBPUSD, EURGBP, GBPJPY
+Best session: London (10:00-13:00 Romania)
 """
 
-from dataclasses import dataclass, field
-from datetime import datetime, time, timedelta
-from typing import Optional
-import pytz
+import pandas as pd
+import numpy as np
+from datetime import datetime, timedelta
+from typing import Optional, List
+from dataclasses import dataclass
+from enum import Enum
 
-from models.candle import Candle, OpeningRange
+from models.candle import Candle
 from models.position import Position
 from strategies.base_strategy import BaseStrategy, SignalType, StrategySignal
 from utils.logger import get_logger
-from utils.time_utils import (
-    is_trading_hours,
-    is_opening_range_complete,
-    get_opening_range_window,
-    time_to_session_end,
-)
 
 logger = get_logger(__name__)
 
 
-@dataclass
-class ORBState:
-    """State tracking for ORB strategy."""
+class ORBPhase(Enum):
+    """State machine phases."""
+    BUILDING_RANGE = "building_range"
+    WAITING_BREAKOUT = "waiting_breakout"
+    TRADE_TAKEN = "trade_taken"
 
-    opening_range: Optional[OpeningRange] = None
-    range_calculated: bool = False
-    breakout_triggered: bool = False
-    breakout_direction: Optional[str] = None  # "long" or "short"
-    entry_price: Optional[float] = None
-    session_date: Optional[datetime] = None
-    trades_today: int = 0
-    max_trades_per_day: int = 1
+
+@dataclass
+class ORBConfig:
+    """Configuration for ORB Strategy."""
+    # Asian Range times (Romania timezone - matches MT5 data)
+    range_start_hour: int = 2
+    range_end_hour: int = 10
+
+    # Trading window (London session)
+    trade_start_hour: int = 10
+    trade_end_hour: int = 13
+
+    # Range filters
+    min_range_pips: float = 10.0
+    max_range_pips: float = 50.0
+
+    # Entry confirmation
+    require_candle_close: bool = True
+
+    # Risk Management
+    rr_ratio: float = 2.0
+    min_sl_pips: float = 8.0
+    max_sl_pips: float = 40.0
+    spread_buffer_pips: float = 0.5
+
+    # Trade limits
+    max_trades_per_day: int = 2
+
+    # ADX Filter
+    use_adx_filter: bool = True
+    adx_period: int = 14
+    min_adx: float = 20.0
 
 
 class ORBStrategy(BaseStrategy):
     """
-    Open Range Breakout Strategy.
-
-    This strategy trades breakouts from the opening range of the trading session.
-    Configurable parameters include:
-    - Opening range duration (default: 5 minutes)
-    - Session start/end times
-    - Breakout buffer (pips above/below range)
-    - Risk/reward ratio
-    - ATR-based filtering
+    Opening Range Breakout Strategy.
+    Uses Asian session range and trades breakout at London open.
     """
 
-    def __init__(
-        self,
-        symbol: str,
-        timeframe: str = "M5",
-        magic_number: int = 12345,
-        # Session settings
-        session_start: str = "09:30",
-        session_end: str = "16:00",
-        timezone: str = "America/New_York",
-        # ORB settings
-        range_minutes: int = 5,
-        breakout_buffer_pips: float = 2.0,
-        # Risk settings
-        risk_reward_ratio: float = 2.0,
-        use_atr_filter: bool = True,
-        min_range_pips: float = 5.0,
-        max_range_pips: float = 50.0,
-        # Trade management
-        max_trades_per_day: int = 1,
-        close_before_session_end_minutes: int = 15,
-    ):
-        """
-        Initialize ORB strategy.
+    def __init__(self, symbol: str, timeframe: str = "M5", config: ORBConfig = None, **kwargs):
+        super().__init__(name="ORB-London", symbol=symbol, timeframe=timeframe)
 
-        Args:
-            symbol: Trading symbol.
-            timeframe: Candle timeframe.
-            magic_number: Unique identifier for orders.
-            session_start: Trading session start time (HH:MM).
-            session_end: Trading session end time (HH:MM).
-            timezone: Trading timezone.
-            range_minutes: Minutes to calculate opening range.
-            breakout_buffer_pips: Buffer above/below range for entry.
-            risk_reward_ratio: Take profit / stop loss ratio.
-            use_atr_filter: Filter trades based on ATR.
-            min_range_pips: Minimum range size in pips.
-            max_range_pips: Maximum range size in pips.
-            max_trades_per_day: Maximum trades per session.
-            close_before_session_end_minutes: Close positions X minutes before session end.
-        """
-        super().__init__(
-            name="ORB",
-            symbol=symbol,
-            timeframe=timeframe,
-            magic_number=magic_number,
-        )
-
-        # Session settings
-        self.session_start = session_start
-        self.session_end = session_end
-        self.timezone = timezone
-        self.tz = pytz.timezone(timezone)
-
-        # ORB settings
-        self.range_minutes = range_minutes
-        self.breakout_buffer_pips = breakout_buffer_pips
-
-        # Risk settings
-        self.risk_reward_ratio = risk_reward_ratio
-        self.use_atr_filter = use_atr_filter
-        self.min_range_pips = min_range_pips
-        self.max_range_pips = max_range_pips
-
-        # Trade management
-        self.max_trades_per_day = max_trades_per_day
-        self.close_before_session_end_minutes = close_before_session_end_minutes
-
-        # Pip size (will be set based on symbol)
-        self.pip_size = 0.0001  # Default for forex
+        self.pip_size = kwargs.get('pip_size', 0.0001)
+        self.config = config or ORBConfig()
 
         # State
-        self._state = ORBState(max_trades_per_day=max_trades_per_day)
-        self._current_atr: Optional[float] = None
+        self.current_date = None
+        self.phase = ORBPhase.BUILDING_RANGE
+        self.trades_today = 0
+
+        # Asian Range
+        self.range_high: Optional[float] = None
+        self.range_low: Optional[float] = None
+        self.range_candles: List[Candle] = []
+
+        # For ADX calculation
+        self.candle_history: List[Candle] = []
 
     def initialize(self) -> bool:
-        """Initialize strategy."""
-        logger.info(f"Initializing ORB strategy for {self.symbol}")
-        logger.info(f"Session: {self.session_start} - {self.session_end} ({self.timezone})")
-        logger.info(f"Opening range: {self.range_minutes} minutes")
-        self._reset_daily_state()
         return True
 
-    def _reset_daily_state(self, session_date=None) -> None:
-        """Reset state for a new trading day."""
-        self._state = ORBState(max_trades_per_day=self.max_trades_per_day)
-        self._state.session_date = session_date or datetime.now(self.tz).date()
-        logger.info("ORB state reset for new session")
-
-    def _is_same_session_day(self, timestamp: datetime, reference_date: datetime) -> bool:
-        """Check if timestamp is in the same trading session as reference date."""
-        if timestamp.tzinfo is None:
-            ts = self.tz.localize(timestamp)
-        else:
-            ts = timestamp.astimezone(self.tz)
-        return ts.date() == reference_date.date()
-
-    def _check_new_session(self, timestamp: datetime) -> None:
-        """Check if it's a new trading session and reset if needed."""
-        if timestamp.tzinfo is None:
-            timestamp = self.tz.localize(timestamp)
-        else:
-            timestamp = timestamp.astimezone(self.tz)
-
-        current_date = timestamp.date()
-
-        if self._state.session_date != current_date:
-            self._reset_daily_state(current_date)
-
-    def _calculate_opening_range(self, candles: list[Candle]) -> Optional[OpeningRange]:
-        """
-        Calculate the opening range from candles.
-
-        Args:
-            candles: List of candles.
-
-        Returns:
-            OpeningRange object or None if not enough data.
-        """
-        if not candles:
-            return None
-
-        # Use the date of the last candle (for backtesting compatibility)
-        last_candle = candles[-1]
-        candle_date = last_candle.timestamp
-        if candle_date.tzinfo is None:
-            candle_date = self.tz.localize(candle_date)
-        else:
-            candle_date = candle_date.astimezone(self.tz)
-
-        # Get session start datetime for the candle's date
-        start_parts = self.session_start.split(":")
-        session_start_dt = candle_date.replace(
-            hour=int(start_parts[0]),
-            minute=int(start_parts[1]),
-            second=0,
-            microsecond=0,
-        )
-        range_end_dt = session_start_dt + timedelta(minutes=self.range_minutes)
-
-        # Filter candles within opening range
-        range_candles = []
-        for candle in candles:
-            candle_time = candle.timestamp
-            if candle_time.tzinfo is None:
-                candle_time = self.tz.localize(candle_time)
-            else:
-                candle_time = candle_time.astimezone(self.tz)
-
-            if session_start_dt <= candle_time < range_end_dt:
-                range_candles.append(candle)
-
-        if not range_candles:
-            # Fallback: use first candle of the session as opening range
-            session_candles = [
-                c for c in candles
-                if self._is_same_session_day(c.timestamp, candle_date)
-            ]
-            if session_candles:
-                # Use first candle as opening range
-                first_candle = session_candles[0]
-                range_candles = [first_candle]
-                logger.debug(f"Using first candle as opening range: {first_candle.timestamp}")
-            else:
-                logger.debug("No candles found in opening range window")
-                return None
-
-        # Calculate range high and low
-        range_high = max(c.high for c in range_candles)
-        range_low = min(c.low for c in range_candles)
-
-        opening_range = OpeningRange(
-            high=range_high,
-            low=range_low,
-            start_time=session_start_dt,
-            end_time=range_end_dt,
-            symbol=self.symbol,
-            is_valid=True,
-            candles=range_candles,
-        )
-
-        # Validate range size
-        range_size_pips = opening_range.range_size / self.pip_size
-
-        if range_size_pips < self.min_range_pips:
-            logger.warning(
-                f"Opening range too small: {range_size_pips:.1f} pips < {self.min_range_pips} min"
-            )
-            opening_range.is_valid = False
-        elif range_size_pips > self.max_range_pips:
-            logger.warning(
-                f"Opening range too large: {range_size_pips:.1f} pips > {self.max_range_pips} max"
-            )
-            opening_range.is_valid = False
-
-        logger.info(
-            f"Opening range calculated: High={range_high}, Low={range_low}, "
-            f"Size={range_size_pips:.1f} pips, Valid={opening_range.is_valid}"
-        )
-
-        return opening_range
-
-    def _calculate_atr(self, candles: list[Candle], period: int = 14) -> float:
-        """
-        Calculate Average True Range.
-
-        Args:
-            candles: List of candles.
-            period: ATR period.
-
-        Returns:
-            ATR value.
-        """
-        if len(candles) < period + 1:
-            return 0.0
-
-        true_ranges = []
-        for i in range(1, len(candles)):
-            high = candles[i].high
-            low = candles[i].low
-            prev_close = candles[i - 1].close
-
-            tr = max(
-                high - low,
-                abs(high - prev_close),
-                abs(low - prev_close),
-            )
-            true_ranges.append(tr)
-
-        # Simple moving average of TR
-        if len(true_ranges) >= period:
-            atr = sum(true_ranges[-period:]) / period
-            return atr
-
-        return sum(true_ranges) / len(true_ranges) if true_ranges else 0.0
-
-    def on_candle(
-        self,
-        candle: Candle,
-        candles: list[Candle],
-    ) -> Optional[StrategySignal]:
-        """Process new candle and check for signals."""
-        if not self._enabled:
-            return None
-
-        # Check for new session
-        self._check_new_session(candle.timestamp)
-
-        # Check if within trading hours
-        if not is_trading_hours(
-            self.session_start, self.session_end, self.timezone, candle.timestamp
-        ):
-            logger.debug("Outside trading hours")
-            return None
-
-        # Check if max trades reached
-        if self._state.trades_today >= self._state.max_trades_per_day:
-            logger.debug(f"Max trades per day reached ({self._state.max_trades_per_day})")
-            return None
-
-        # Check if breakout already triggered today
-        if self._state.breakout_triggered:
-            logger.debug("Breakout already triggered today")
-            return None
-
-        # Calculate ATR
-        self._current_atr = self._calculate_atr(candles)
-
-        # Check if opening range is complete
-        if not is_opening_range_complete(
-            self.session_start, self.range_minutes, self.timezone, candle.timestamp
-        ):
-            logger.debug("Opening range not yet complete")
-            return None
-
-        # Calculate opening range if not done
-        if not self._state.range_calculated:
-            self._state.opening_range = self._calculate_opening_range(candles)
-            self._state.range_calculated = True
-
-            if self._state.opening_range is None or not self._state.opening_range.is_valid:
-                logger.warning("Invalid opening range, skipping session")
-                return None
-
-        # Check for breakout
-        return self._check_breakout(candle)
-
-    def _check_breakout(self, candle: Candle) -> Optional[StrategySignal]:
-        """
-        Check if price has broken out of the opening range.
-
-        Args:
-            candle: Current candle.
-
-        Returns:
-            Signal if breakout detected, None otherwise.
-        """
-        if self._state.opening_range is None:
-            return None
-
-        or_range = self._state.opening_range
-        buffer = self.breakout_buffer_pips * self.pip_size
-
-        # Check for long breakout (close above range high)
-        if candle.close > or_range.high + buffer:
-            logger.info(f"LONG breakout detected! Price {candle.close} > {or_range.high + buffer}")
-
-            stop_loss = or_range.low - buffer
-            risk = candle.close - stop_loss
-            take_profit = candle.close + (risk * self.risk_reward_ratio)
-
-            self._state.breakout_triggered = True
-            self._state.breakout_direction = "long"
-
-            signal = StrategySignal(
-                signal_type=SignalType.LONG,
-                symbol=self.symbol,
-                price=candle.close,
-                stop_loss=stop_loss,
-                take_profit=take_profit,
-                confidence=0.8,
-                reason=f"ORB Long Breakout - Range High: {or_range.high:.5f}",
-                metadata={
-                    "range_high": or_range.high,
-                    "range_low": or_range.low,
-                    "range_size": or_range.range_size,
-                    "atr": self._current_atr,
-                },
-            )
-            self._last_signal = signal
-            return signal
-
-        # Check for short breakout (close below range low)
-        if candle.close < or_range.low - buffer:
-            logger.info(f"SHORT breakout detected! Price {candle.close} < {or_range.low - buffer}")
-
-            stop_loss = or_range.high + buffer
-            risk = stop_loss - candle.close
-            take_profit = candle.close - (risk * self.risk_reward_ratio)
-
-            self._state.breakout_triggered = True
-            self._state.breakout_direction = "short"
-
-            signal = StrategySignal(
-                signal_type=SignalType.SHORT,
-                symbol=self.symbol,
-                price=candle.close,
-                stop_loss=stop_loss,
-                take_profit=take_profit,
-                confidence=0.8,
-                reason=f"ORB Short Breakout - Range Low: {or_range.low:.5f}",
-                metadata={
-                    "range_high": or_range.high,
-                    "range_low": or_range.low,
-                    "range_size": or_range.range_size,
-                    "atr": self._current_atr,
-                },
-            )
-            self._last_signal = signal
-            return signal
-
+    def on_tick(self, bid: float, ask: float, timestamp: datetime) -> Optional[StrategySignal]:
         return None
-
-    def on_tick(
-        self,
-        bid: float,
-        ask: float,
-        timestamp: datetime,
-    ) -> Optional[StrategySignal]:
-        """Process tick update - can be used for real-time breakout detection."""
-        # For now, we only use candle-based signals
-        # This could be enhanced for immediate breakout detection
-        return None
-
-    def should_exit(
-        self,
-        position: Position,
-        current_price: float,
-        candles: Optional[list[Candle]] = None,
-    ) -> Optional[StrategySignal]:
-        """
-        Check if position should be exited.
-
-        Args:
-            position: Current position.
-            current_price: Current price.
-            candles: Recent candles.
-
-        Returns:
-            Exit signal if should exit, None otherwise.
-        """
-        now = datetime.now(self.tz)
-
-        # Check time-based exit
-        time_remaining = time_to_session_end(self.session_end, self.timezone, now)
-        if time_remaining.total_seconds() <= self.close_before_session_end_minutes * 60:
-            logger.info(f"Session ending soon ({time_remaining}), closing position")
-            exit_type = (
-                SignalType.EXIT_LONG if position.is_long else SignalType.EXIT_SHORT
-            )
-            return StrategySignal(
-                signal_type=exit_type,
-                symbol=self.symbol,
-                price=current_price,
-                reason="Session end - time-based exit",
-            )
-
-        return None
-
-    def on_position_opened(self, position: Position) -> None:
-        """Called when position is opened."""
-        self._state.trades_today += 1
-        self._state.entry_price = position.entry_price
-        logger.info(
-            f"ORB position opened: {position.side} {position.quantity} @ {position.entry_price}"
-        )
-
-    def on_position_closed(self, position: Position, pnl: float) -> None:
-        """Called when position is closed."""
-        logger.info(
-            f"ORB position closed: {position.side} @ {position.exit_price}, PnL: {pnl:.2f}"
-        )
-
-    def calculate_stop_loss(
-        self,
-        entry_price: float,
-        is_long: bool,
-        candles: Optional[list[Candle]] = None,
-    ) -> Optional[float]:
-        """Calculate stop loss based on opening range."""
-        if self._state.opening_range is None:
-            return None
-
-        buffer = self.breakout_buffer_pips * self.pip_size
-
-        if is_long:
-            return self._state.opening_range.low - buffer
-        else:
-            return self._state.opening_range.high + buffer
-
-    def calculate_take_profit(
-        self,
-        entry_price: float,
-        stop_loss: float,
-        is_long: bool,
-    ) -> Optional[float]:
-        """Calculate take profit based on risk/reward ratio."""
-        risk = abs(entry_price - stop_loss)
-        reward = risk * self.risk_reward_ratio
-
-        if is_long:
-            return entry_price + reward
-        else:
-            return entry_price - reward
-
-    def get_status(self) -> dict:
-        """Get strategy status."""
-        base_status = super().get_status()
-        base_status.update({
-            "opening_range": (
-                self._state.opening_range.to_dict()
-                if self._state.opening_range
-                else None
-            ),
-            "range_calculated": self._state.range_calculated,
-            "breakout_triggered": self._state.breakout_triggered,
-            "breakout_direction": self._state.breakout_direction,
-            "trades_today": self._state.trades_today,
-            "max_trades_per_day": self._state.max_trades_per_day,
-            "current_atr": self._current_atr,
-            "session_start": self.session_start,
-            "session_end": self.session_end,
-            "timezone": self.timezone,
-        })
-        return base_status
 
     def reset(self) -> None:
-        """Reset strategy for new session."""
-        super().reset()
-        self._reset_daily_state()
+        """Reset for new day."""
+        self.current_date = None
+        self.phase = ORBPhase.BUILDING_RANGE
+        self.trades_today = 0
+        self.range_high = None
+        self.range_low = None
+        self.range_candles = []
+
+    def _calculate_adx(self, candles: List[Candle]) -> float:
+        """Calculate ADX indicator."""
+        if len(candles) < self.config.adx_period + 10:
+            return 0.0
+
+        highs = [c.high for c in candles]
+        lows = [c.low for c in candles]
+        closes = [c.close for c in candles]
+
+        # True Range
+        tr_list = []
+        for i in range(1, len(candles)):
+            tr = max(
+                highs[i] - lows[i],
+                abs(highs[i] - closes[i-1]),
+                abs(lows[i] - closes[i-1])
+            )
+            tr_list.append(tr)
+
+        # +DM and -DM
+        plus_dm = []
+        minus_dm = []
+        for i in range(1, len(candles)):
+            up_move = highs[i] - highs[i-1]
+            down_move = lows[i-1] - lows[i]
+
+            if up_move > down_move and up_move > 0:
+                plus_dm.append(up_move)
+            else:
+                plus_dm.append(0)
+
+            if down_move > up_move and down_move > 0:
+                minus_dm.append(down_move)
+            else:
+                minus_dm.append(0)
+
+        # Smoothed averages
+        period = self.config.adx_period
+
+        def smooth_average(data, period):
+            if len(data) < period:
+                return [0] * len(data)
+            result = [sum(data[:period]) / period]
+            for i in range(period, len(data)):
+                result.append((result[-1] * (period - 1) + data[i]) / period)
+            return result
+
+        atr = smooth_average(tr_list, period)
+        plus_di_raw = smooth_average(plus_dm, period)
+        minus_di_raw = smooth_average(minus_dm, period)
+
+        if not atr or atr[-1] == 0:
+            return 0.0
+
+        plus_di = [(p / a * 100) if a > 0 else 0 for p, a in zip(plus_di_raw, atr)]
+        minus_di = [(m / a * 100) if a > 0 else 0 for m, a in zip(minus_di_raw, atr)]
+
+        dx = []
+        for p, m in zip(plus_di, minus_di):
+            if p + m > 0:
+                dx.append(abs(p - m) / (p + m) * 100)
+            else:
+                dx.append(0)
+
+        adx_values = smooth_average(dx, period)
+        return adx_values[-1] if adx_values else 0.0
+
+    def _is_in_range_building_period(self, ts: datetime) -> bool:
+        """Check if we're in Asian range building period."""
+        hour = ts.hour
+        return self.config.range_start_hour <= hour < self.config.range_end_hour
+
+    def _is_in_trading_period(self, ts: datetime) -> bool:
+        """Check if we're in London trading period."""
+        hour = ts.hour
+        return self.config.trade_start_hour <= hour < self.config.trade_end_hour
+
+    def on_candle(self, candle: Candle, candles: list[Candle]) -> Optional[StrategySignal]:
+        """Main candle processing."""
+        ts = candle.timestamp
+
+        self.candle_history = candles[-100:] if len(candles) >= 100 else candles
+
+        # New day reset
+        if self.current_date != ts.date():
+            self.current_date = ts.date()
+            self.phase = ORBPhase.BUILDING_RANGE
+            self.trades_today = 0
+            self.range_high = None
+            self.range_low = None
+            self.range_candles = []
+
+        if self.trades_today >= self.config.max_trades_per_day:
+            return None
+
+        if self.phase == ORBPhase.TRADE_TAKEN:
+            return None
+
+        # PHASE 1: BUILD ASIAN RANGE
+        if self._is_in_range_building_period(ts):
+            self.phase = ORBPhase.BUILDING_RANGE
+            self.range_candles.append(candle)
+
+            if self.range_high is None:
+                self.range_high = candle.high
+                self.range_low = candle.low
+            else:
+                self.range_high = max(self.range_high, candle.high)
+                self.range_low = min(self.range_low, candle.low)
+
+            return None
+
+        # PHASE 2: WAIT FOR BREAKOUT
+        if self._is_in_trading_period(ts):
+            if self.phase == ORBPhase.BUILDING_RANGE:
+                self.phase = ORBPhase.WAITING_BREAKOUT
+
+                if self.range_high is None or self.range_low is None:
+                    self.phase = ORBPhase.TRADE_TAKEN
+                    return None
+
+                range_pips = (self.range_high - self.range_low) / self.pip_size
+
+                if range_pips < self.config.min_range_pips:
+                    self.phase = ORBPhase.TRADE_TAKEN
+                    return None
+
+                if range_pips > self.config.max_range_pips:
+                    self.phase = ORBPhase.TRADE_TAKEN
+                    return None
+
+                logger.debug(f"[{self.symbol}] Asian Range: {self.range_low:.5f} - {self.range_high:.5f} ({range_pips:.1f}p)")
+
+            if self.phase != ORBPhase.WAITING_BREAKOUT:
+                return None
+
+            # Check ADX filter
+            if self.config.use_adx_filter:
+                adx = self._calculate_adx(self.candle_history)
+                if adx < self.config.min_adx:
+                    return None
+
+            # Check for breakout
+            signal = None
+
+            # LONG: Candle closes above range HIGH
+            if candle.close > self.range_high:
+                signal = self._create_signal(candle, "long")
+
+            # SHORT: Candle closes below range LOW
+            elif candle.close < self.range_low:
+                signal = self._create_signal(candle, "short")
+
+            if signal:
+                self.phase = ORBPhase.TRADE_TAKEN
+                self.trades_today += 1
+                return signal
+
+        return None
+
+    def _create_signal(self, candle: Candle, direction: str) -> Optional[StrategySignal]:
+        """Create trade signal with proper SL/TP."""
+        is_long = direction == "long"
+        side = SignalType.LONG if is_long else SignalType.SHORT
+
+        entry = candle.close
+        spread_buffer = self.config.spread_buffer_pips * self.pip_size
+
+        if is_long:
+            sl = self.range_low - spread_buffer
+        else:
+            sl = self.range_high + spread_buffer
+
+        sl_distance = abs(entry - sl)
+        sl_pips = sl_distance / self.pip_size
+
+        if sl_pips < self.config.min_sl_pips:
+            return None
+
+        if sl_pips > self.config.max_sl_pips:
+            return None
+
+        tp_distance = sl_distance * self.config.rr_ratio
+        tp = entry + tp_distance if is_long else entry - tp_distance
+
+        range_pips = (self.range_high - self.range_low) / self.pip_size
+
+        logger.info(
+            f"[{self.symbol}] ORB SIGNAL: {side.value} @ {entry:.5f} | "
+            f"Range: {range_pips:.1f}p | SL: {sl:.5f} ({sl_pips:.1f}p) | "
+            f"TP: {tp:.5f} | R:R: {self.config.rr_ratio}"
+        )
+
+        return StrategySignal(
+            signal_type=side,
+            symbol=self.symbol,
+            price=entry,
+            stop_loss=sl,
+            take_profit=tp,
+            reason=f"ORB-Breakout-{side.value}",
+            metadata={
+                "range_high": self.range_high,
+                "range_low": self.range_low,
+                "range_pips": range_pips,
+                "sl_pips": sl_pips,
+            }
+        )
+
+    def should_exit(self, position: Position, current_price: float, candles: Optional[list[Candle]] = None) -> Optional[StrategySignal]:
+        """No early exit - let SL/TP handle it."""
+        return None
+
+    def get_config_dict(self) -> dict:
+        """Return config as dictionary."""
+        return {
+            "strategy": "ORB-London",
+            "range_period": f"{self.config.range_start_hour:02d}:00-{self.config.range_end_hour:02d}:00",
+            "trade_period": f"{self.config.trade_start_hour:02d}:00-{self.config.trade_end_hour:02d}:00",
+            "min_range_pips": self.config.min_range_pips,
+            "max_range_pips": self.config.max_range_pips,
+            "rr_ratio": self.config.rr_ratio,
+            "min_adx": self.config.min_adx,
+        }

@@ -36,6 +36,7 @@ from strategies.smc_strategy_v3 import SMCStrategyV3, SMCConfigV3, InstrumentTyp
 from models.order import Order
 from utils.logger import setup_logging, get_logger
 from utils.risk_manager import RiskManager, PropAccountLimits
+from utils.news_filter import NewsFilter
 
 logger = get_logger(__name__)
 
@@ -59,7 +60,7 @@ SYMBOL_CONFIGS = {
         "poi_min_score": 1.8,
         "require_sweep": False,
         "adx_trending": 18.0,
-        "min_rr": 1.5,
+        "min_rr": 1.8,
         "ob_min_impulse_atr": 0.7,
     },
     # AUDUSD - DECENT PERFORMER - Priority 2
@@ -113,7 +114,7 @@ SYMBOL_CONFIGS = {
         # VERY STRICT settings
         "poi_min_score": 2.5,  # Very high threshold
         "require_sweep": True,  # MUST have sweep
-        "adx_trending": 18.0,  # RELAXED from 22.0
+        "adx_trending": 25.0,
         "min_rr": 2.5,  # High R:R
     },
     # USTech100/USTEC - alternative names for NASDAQ
@@ -219,12 +220,14 @@ class SMCV3TradingBot:
         self.broker: Optional[MT5Broker] = None
         self.strategies: Dict[str, SMCStrategyV3] = {}
         self.risk_manager: Optional[RiskManager] = None
+        self.news_filter: Optional[NewsFilter] = None
 
         self._running = False
         self._last_candle_times: Dict[str, datetime] = {}
         self._trades_today = 0
         self._current_date = None
         self._last_heartbeat = None
+        self._last_outside_session_log_time = None # New attribute
         self._scan_count = 0
         self._signals_found = 0
 
@@ -379,6 +382,11 @@ class SMCV3TradingBot:
         logger.info("=" * 60)
         logger.info("SMC V3 TRADING BOT")
         logger.info("=" * 60)
+        
+        # Initialize News Filter
+        logger.info("Initializing News Filter...")
+        self.news_filter = NewsFilter()
+        self.news_filter.update_calendar()
 
         # Create MT5 broker
         settings = get_settings()
@@ -513,10 +521,14 @@ class SMCV3TradingBot:
                     hours_until = minutes_until // 60
                     minutes_rem = minutes_until % 60
             
-                    # Only log once per minute
-                    if self._scan_count % 60 == 0:
-                        logger.info(f"Outside trading hours. {next_session_name} in {hours_until}h {minutes_rem}m")
-                    time.sleep(30) # Sleep longer when outside sessions
+                    # Log outside trading hours message at the start of every 5-minute block
+                    # e.g., at :00, :05, :10, :15 etc.
+                    if utc_now.minute % 5 == 0 and \
+                       (self._last_outside_session_log_time is None or (utc_now - self._last_outside_session_log_time).total_seconds() >= 290): # Allow for slight time drift
+                        logger.info(f"Outside trading hours. {next_session_name} in {hours_until}h {minutes_rem}m. Checking again in 1 minute.")
+                        self._last_outside_session_log_time = utc_now.replace(second=0, microsecond=0) # Reset to start of minute for precision
+
+                    time.sleep(60) # Check every minute when outside sessions
                     return
         # Check for new day
         if self._current_date != utc_now.date():
@@ -526,6 +538,10 @@ class SMCV3TradingBot:
             self._signals_found = 0
             balance = self.broker.get_account_balance()
             self.risk_manager.initialize_daily_stats(balance)
+            # Update news calendar daily
+            if self.news_filter:
+                logger.info("Updating news calendar for the new day...")
+                self.news_filter.update_calendar()
             logger.info(f"============ NEW TRADING DAY: {self._current_date} ============")
             logger.info(f"Starting balance: ${balance:,.2f}")
             logger.info(f"Symbols active: {', '.join(self.symbols)}")
@@ -588,7 +604,11 @@ class SMCV3TradingBot:
             logger.info(f">>> SIGNAL SELECTED: {best_symbol} (priority {priority}, confidence {best_signal.confidence:.2f})")
             logger.info(f">>> Type: {best_signal.signal_type.value} | Entry: {best_signal.price:.5f} | SL: {best_signal.stop_loss:.5f} | TP: {best_signal.take_profit:.5f}")
 
-            self._execute_entry(best_symbol, best_signal)
+            # News Filter Check
+            if self.news_filter and not self.news_filter.is_safe_to_trade(symbol=best_symbol):
+                logger.warning(f"[{best_symbol}] Trade SKIPPED due to upcoming high-impact news.")
+            else:
+                self._execute_entry(best_symbol, best_signal)
 
         time.sleep(10)
 

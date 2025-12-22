@@ -59,11 +59,11 @@ class NewsFilterConfig:
     currencies: list[str] = field(default_factory=lambda: ["USD", "EUR", "GBP", "JPY"])
 
     # Time buffer around news (minutes)
-    buffer_before_minutes: int = 30
-    buffer_after_minutes: int = 30
+    buffer_before_minutes: int = 90
+    buffer_after_minutes: int = 15
 
     # Filter entire day or just around news time
-    filter_entire_day: bool = True
+    filter_entire_day: bool = False
 
     # Cache settings
     cache_days: int = 7

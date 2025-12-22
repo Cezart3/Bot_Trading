@@ -5,7 +5,11 @@
       "Bash(python run_backtest.py:*)",
       "Bash(python run_backtest_stocks.py:*)",
       "Bash(python:*)",
-      "Bash(dir /b)"
+      "Bash(dir /b)",
+      "Bash(dir /b \"D:\\Proiecte\\BOT_TRADING\\Bot_Trading\\data\\historical\\eurusd\")",
+      "Bash(more:*)",
+      "Bash(findstr:*)",
+      "WebSearch"
     ],
     "deny": [],
     "ask": []

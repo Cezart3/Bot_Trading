@@ -42,6 +42,7 @@ class BacktestPosition:
     stop_loss: Optional[float] = None
     take_profit: Optional[float] = None
     position_id: int = 0
+    metadata: dict = field(default_factory=dict)
 
 
 @dataclass
@@ -222,6 +223,7 @@ class BacktestEngine:
             stop_loss=signal.stop_loss,
             take_profit=signal.take_profit,
             position_id=self.position_counter,
+            metadata=signal.metadata.copy() if signal.metadata else {},
         )
 
         self.positions.append(position)
